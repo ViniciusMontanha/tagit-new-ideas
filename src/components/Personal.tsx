@@ -94,7 +94,7 @@ export const Personal = () => {
                 alt="Tag It - Dispositivo de rastreamento inteligente" 
                 className="relative w-full max-w-lg mx-auto drop-shadow-2xl"
                 whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
               />
             </div>
             <div className="relative">
@@ -103,7 +103,7 @@ export const Personal = () => {
                 alt="Família feliz com seu pet protegido pela Tag It" 
                 className="relative w-full rounded-2xl shadow-strong"
                 whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
               />
             </div>
           </motion.div>
