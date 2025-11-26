@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Building2, TrendingUp, Users, Lock } from "lucide-react";
-import enterpriseMachine from "@/assets/enterprise-machine.jpg";
+import tagPossibilities from "@/assets/tag-possibilities.png";
 import professionalTool from "@/assets/professional-tool.jpg";
 
 const benefits = [
@@ -71,8 +71,8 @@ export const Enterprise = () => {
             </div>
             <div className="relative">
               <motion.img
-                src={enterpriseMachine}
-                alt="Equipamento industrial de alto valor monitorado com Tag It"
+                src={tagPossibilities}
+                alt="Possibilidades de rastreamento Tag It - pets, veículos, equipamentos e mais"
                 className="relative w-full rounded-2xl shadow-strong"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
