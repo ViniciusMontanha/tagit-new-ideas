@@ -18,11 +18,11 @@ export const Header = () => {
             <a href="#recursos" className="text-sm font-medium hover:text-primary transition-colors">
               Recursos
             </a>
-            <a href="#para-voce" className="text-sm font-medium hover:text-secondary transition-colors">
-              Para Você
-            </a>
             <a href="#empresas" className="text-sm font-medium hover:text-primary transition-colors">
               Para Sua Empresa
+            </a>
+            <a href="#para-voce" className="text-sm font-medium hover:text-secondary transition-colors">
+              Para Você
             </a>
             <a href="#solucoes" className="text-sm font-medium hover:text-primary transition-colors">
               Soluções
