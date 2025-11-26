@@ -53,8 +53,8 @@ export const Features = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="p-6 h-full hover:shadow-strong transition-all duration-300 border-2 hover:border-primary/30 bg-card group">
-                <div className="mb-4 inline-block p-3 bg-primary/10 rounded-xl group-hover:bg-gradient-hero transition-all duration-300">
+              <Card className="p-6 h-full hover:shadow-blue transition-all duration-300 border-2 hover:border-primary/30 bg-card group">
+                <div className="mb-4 inline-block p-3 bg-gradient-to-br from-primary/20 to-secondary/10 rounded-xl group-hover:bg-gradient-hero transition-all duration-300">
                   <feature.icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">{feature.title}</h3>

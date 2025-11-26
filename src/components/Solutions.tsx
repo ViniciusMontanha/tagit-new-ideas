@@ -61,8 +61,8 @@ export const Solutions = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="p-6 h-full hover:shadow-strong transition-all duration-300 border-2 hover:border-primary/30 bg-card group">
-                <div className="mb-4 inline-block p-4 bg-gradient-hero rounded-xl shadow-blue group-hover:scale-110 transition-transform duration-300">
+              <Card className="p-6 h-full hover:shadow-blue transition-all duration-300 border-2 hover:border-secondary/30 bg-card group">
+                <div className="mb-4 inline-block p-4 bg-gradient-purple rounded-xl shadow-blue group-hover:scale-110 transition-transform duration-300">
                   <solution.icon className="w-7 h-7 text-primary-foreground" />
                 </div>
                 <h3 className="text-xl font-bold mb-3">{solution.title}</h3>

@@ -64,9 +64,9 @@ export const Enterprise = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="p-8 h-full hover:shadow-blue transition-all duration-300 border-2 hover:border-primary/30 bg-card group">
+              <Card className="p-8 h-full hover:shadow-blue transition-all duration-300 border-2 hover:border-accent/30 bg-card group">
                 <div className="flex items-start gap-4">
-                  <div className="p-3 bg-gradient-hero rounded-xl shadow-blue group-hover:scale-110 transition-transform duration-300">
+                  <div className="p-3 bg-gradient-accent rounded-xl shadow-blue group-hover:scale-110 transition-transform duration-300">
                     <benefit.icon className="w-6 h-6 text-primary-foreground" />
                   </div>
                   <div className="flex-1">
