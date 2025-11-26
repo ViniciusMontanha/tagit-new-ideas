@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { User, Bell, Heart, PawPrint } from "lucide-react";
+import tagProduct from "@/assets/tag-product.png";
 
 const benefits = [
   {
@@ -53,28 +54,55 @@ export const Personal = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-          {benefits.map((benefit, index) => (
-            <motion.div
-              key={benefit.title}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <Card className="p-8 h-full hover:shadow-blue transition-all duration-300 border-2 hover:border-secondary/30 bg-card group">
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-gradient-purple rounded-xl shadow-blue group-hover:scale-110 transition-transform duration-300">
-                    <benefit.icon className="w-6 h-6 text-primary-foreground" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold mb-2">{benefit.title}</h3>
-                    <p className="text-muted-foreground">{benefit.description}</p>
-                  </div>
-                </div>
-              </Card>
-            </motion.div>
-          ))}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="order-2 lg:order-1"
+          >
+            <div className="grid grid-cols-1 gap-6">
+              {benefits.map((benefit, index) => (
+                <motion.div
+                  key={benefit.title}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <Card className="p-6 hover:shadow-blue transition-all duration-300 border-2 hover:border-secondary/30 bg-card group">
+                    <div className="flex items-start gap-4">
+                      <div className="p-3 bg-gradient-purple rounded-xl shadow-blue group-hover:scale-110 transition-transform duration-300">
+                        <benefit.icon className="w-6 h-6 text-primary-foreground" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-xl font-bold mb-2">{benefit.title}</h3>
+                        <p className="text-muted-foreground">{benefit.description}</p>
+                      </div>
+                    </div>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="order-1 lg:order-2"
+          >
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-purple opacity-20 blur-3xl rounded-full"></div>
+              <img 
+                src={tagProduct} 
+                alt="Tag It - Dispositivo de rastreamento inteligente" 
+                className="relative w-full max-w-md mx-auto drop-shadow-2xl hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+          </motion.div>
         </div>
 
         <motion.div
