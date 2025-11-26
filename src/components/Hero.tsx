@@ -59,9 +59,9 @@ export const Hero = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-lg md:text-xl text-muted-foreground mb-6 max-w-4xl mx-auto leading-relaxed"
           >
-            Tecnologia de localização avançada para gestão de ativos empresariais e pessoais. 
-            Rastreamento em tempo real com precisão de centímetros, bateria que dura meses e 
-            privacidade garantida por criptografia de ponta a ponta.
+            Tecnologia de localização avançada para gestão de ativos empresariais e pessoais. Rastreamento em tempo real
+            com precisão de centímetros, bateria que dura meses e privacidade garantida por criptografia de ponta a
+            ponta.
           </motion.p>
 
           {/* Stats Section */}
@@ -73,7 +73,7 @@ export const Hero = () => {
           >
             {[
               { value: "99.9%", label: "Precisão" },
-              { value: "12 meses", label: "Bateria" },
+              { value: "12 e 24 meses ", label: "Bateria" },
               { value: "10.000+", label: "Empresas" },
               { value: "24/7", label: "Suporte" },
             ].map((stat, i) => (
