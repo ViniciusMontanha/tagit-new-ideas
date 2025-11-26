@@ -1,33 +1,33 @@
 import { motion } from "framer-motion";
-import { Zap, Shield, Palette, Code } from "lucide-react";
+import { Target, Shield, Zap, BarChart } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 const features = [
   {
-    icon: Zap,
-    title: "Extremamente Rápido",
-    description: "Encontre qualquer coisa em milissegundos com busca inteligente e filtragem instantânea.",
+    icon: Target,
+    title: "Precisão Avançada",
+    description: "Tecnologia de localização de alta precisão que ajuda a encontrar ativos com facilidade e velocidade.",
   },
   {
     icon: Shield,
-    title: "Seguro & Privado",
-    description: "Seus dados são seus. Criptografia de ponta a ponta mantém tudo seguro.",
+    title: "Privacidade Integrada",
+    description: "Conexões seguras e dados protegidos por design — somente você terá acesso às informações.",
   },
   {
-    icon: Palette,
-    title: "Design Bonito",
-    description: "Interface limpa e moderna que torna a organização um prazer, não uma tarefa.",
+    icon: Zap,
+    title: "Bateria Duradoura",
+    description: "Energia para meses com uso diário. Fácil substituição quando necessário.",
   },
   {
-    icon: Code,
-    title: "Amigável para Devs",
-    description: "Acesso à API e integrações para conectar com suas ferramentas favoritas.",
+    icon: BarChart,
+    title: "Gestão Centralizada",
+    description: "Plataforma única para toda equipe gerenciar e monitorar ativos empresariais em tempo real.",
   },
 ];
 
 export const Features = () => {
   return (
-    <section className="py-24 bg-muted/30">
+    <section id="recursos" className="py-24 bg-muted/30">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -37,10 +37,10 @@ export const Features = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Por Que Escolher <span className="bg-gradient-hero bg-clip-text text-transparent">Tagit</span>
+            Tecnologia de <span className="bg-gradient-hero bg-clip-text text-transparent">Ponta</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Feito para todos que precisam se manter organizados sem complicação.
+            Recursos avançados que garantem total controle sobre seus ativos empresariais.
           </p>
         </motion.div>
 
@@ -53,9 +53,9 @@ export const Features = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="p-6 h-full hover:shadow-strong transition-all duration-300 border-2 hover:border-primary/20 bg-card">
-                <div className="mb-4 inline-block p-3 bg-gradient-hero rounded-xl shadow-glow">
-                  <feature.icon className="w-6 h-6 text-primary-foreground" />
+              <Card className="p-6 h-full hover:shadow-strong transition-all duration-300 border-2 hover:border-primary/30 bg-card group">
+                <div className="mb-4 inline-block p-3 bg-primary/10 rounded-xl group-hover:bg-gradient-hero transition-all duration-300">
+                  <feature.icon className="w-6 h-6 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
                 <p className="text-muted-foreground">{feature.description}</p>
