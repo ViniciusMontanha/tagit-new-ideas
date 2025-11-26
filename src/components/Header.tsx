@@ -29,7 +29,7 @@ export const Header = () => {
             </a>
           </div>
 
-          <Button className="shadow-blue">
+          <Button className="rounded-full px-6 shadow-soft hover:shadow-blue transition-all">
             Fale Conosco
           </Button>
         </nav>

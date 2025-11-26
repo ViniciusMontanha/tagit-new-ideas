@@ -42,9 +42,9 @@ All colors MUST be HSL.
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 40% 98%));
     --gradient-accent: linear-gradient(135deg, hsl(199 100% 50%), hsl(251 87% 63%));
     --gradient-purple: linear-gradient(135deg, hsl(252 73% 62%), hsl(251 87% 63%));
-    --shadow-soft: 0 4px 20px -2px hsl(217 36% 13% / 0.08);
-    --shadow-strong: 0 10px 40px -8px hsl(217 36% 13% / 0.12);
-    --shadow-blue: 0 0 40px hsl(199 100% 50% / 0.3);
+    --shadow-soft: 0 2px 16px -4px hsl(217 36% 13% / 0.06);
+    --shadow-strong: 0 8px 32px -8px hsl(217 36% 13% / 0.12);
+    --shadow-blue: 0 0 24px hsl(199 100% 50% / 0.15);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -89,9 +89,9 @@ All colors MUST be HSL.
     --gradient-card: linear-gradient(145deg, hsl(217 30% 16%), hsl(217 25% 20%));
     --gradient-accent: linear-gradient(135deg, hsl(199 100% 50%), hsl(251 87% 63%));
     --gradient-purple: linear-gradient(135deg, hsl(252 73% 62%), hsl(251 87% 63%));
-    --shadow-soft: 0 4px 20px -2px hsl(0 0% 0% / 0.3);
-    --shadow-strong: 0 10px 40px -8px hsl(0 0% 0% / 0.5);
-    --shadow-blue: 0 0 40px hsl(199 100% 50% / 0.4);
+    --shadow-soft: 0 2px 16px -4px hsl(0 0% 0% / 0.2);
+    --shadow-strong: 0 8px 32px -8px hsl(0 0% 0% / 0.4);
+    --shadow-blue: 0 0 24px hsl(199 100% 50% / 0.2);
 
     --sidebar-background: 215 30% 10%;
     --sidebar-foreground: 210 40% 98%;
