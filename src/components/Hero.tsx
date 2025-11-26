@@ -59,7 +59,7 @@ export const Hero = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-4xl mx-auto font-light"
           >
-            Tecnologia de localização avançada para gestão de ativos empresariais.
+            Tecnologia de localização avançada para gestão de ativos empresariais e pessoais.
           </motion.p>
 
           <motion.div
@@ -68,7 +68,10 @@ export const Hero = () => {
             transition={{ duration: 0.8, delay: 0.45 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
           >
-            <Button size="lg" className="text-base px-10 py-7 rounded-full shadow-blue hover:shadow-strong transition-all">
+            <Button
+              size="lg"
+              className="text-base px-10 py-7 rounded-full shadow-blue hover:shadow-strong transition-all"
+            >
               Solicitar Demo
             </Button>
             <Button
