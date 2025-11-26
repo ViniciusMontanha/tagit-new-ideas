@@ -72,7 +72,7 @@ export const Hero = () => {
             className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-8"
           >
             {[
-              { value: "99.9%", label: "Precisão" },
+              { value: "Super", label: "Precisão" },
               { value: "12/24 meses", label: "Bateria" },
               { value: "10.000+", label: "Empresas" },
               { value: "24/7", label: "Suporte" },
