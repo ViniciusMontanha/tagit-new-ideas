@@ -99,7 +99,7 @@ export const Hero = () => {
           >
             <div className="relative">
               {/* Main circle */}
-              <div className="w-full aspect-square rounded-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center relative">
+              <div className="w-full aspect-square rounded-full bg-gradient-to-br from-primary/20 via-secondary/15 to-accent/10 flex items-center justify-center relative">
                 <div className="absolute inset-0 rounded-full bg-gradient-hero opacity-10 blur-2xl" />
                 
                 {/* Center pin */}
@@ -123,10 +123,11 @@ export const Hero = () => {
                 {[...Array(3)].map((_, i) => (
                   <motion.div
                     key={i}
-                    className="absolute w-4 h-4 bg-primary rounded-full"
+                    className="absolute w-4 h-4 rounded-full"
                     style={{
                       top: `${30 + i * 20}%`,
                       left: `${20 + i * 25}%`,
+                      background: i === 0 ? 'hsl(199 100% 50%)' : i === 1 ? 'hsl(252 73% 62%)' : 'hsl(251 87% 63%)',
                     }}
                     animate={{
                       scale: [1, 1.5, 1],
