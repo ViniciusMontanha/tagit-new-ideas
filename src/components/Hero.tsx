@@ -44,7 +44,7 @@ export const Hero = () => {
               className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6"
             >
               <Target className="w-4 h-4" />
-              Rastreamento Empresarial
+              Rastreamento Empresarial de ativos
             </motion.div>
 
             <motion.h1
@@ -54,9 +54,7 @@ export const Hero = () => {
               className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight"
             >
               Rastreie o que importa —{" "}
-              <span className="bg-gradient-hero bg-clip-text text-transparent">
-                fácil e seguro
-              </span>
+              <span className="bg-gradient-hero bg-clip-text text-transparent">fácil e seguro</span>
             </motion.h1>
 
             <motion.p
@@ -65,8 +63,8 @@ export const Hero = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-xl text-muted-foreground mb-8 max-w-xl"
             >
-              Tecnologia de localização avançada para gestão de ativos empresariais. 
-              Monitore equipamentos, ferramentas e inventário em tempo real com precisão e segurança.
+              Tecnologia de localização avançada para gestão de ativos empresariais. Monitore equipamentos, ferramentas
+              e inventário em tempo real com precisão e segurança.
             </motion.p>
 
             <motion.div
@@ -101,7 +99,7 @@ export const Hero = () => {
               {/* Main circle */}
               <div className="w-full aspect-square rounded-full bg-gradient-to-br from-primary/20 via-secondary/15 to-accent/10 flex items-center justify-center relative">
                 <div className="absolute inset-0 rounded-full bg-gradient-hero opacity-10 blur-2xl" />
-                
+
                 {/* Center pin */}
                 <motion.div
                   animate={{
@@ -127,7 +125,7 @@ export const Hero = () => {
                     style={{
                       top: `${30 + i * 20}%`,
                       left: `${20 + i * 25}%`,
-                      background: i === 0 ? 'hsl(199 100% 50%)' : i === 1 ? 'hsl(252 73% 62%)' : 'hsl(251 87% 63%)',
+                      background: i === 0 ? "hsl(199 100% 50%)" : i === 1 ? "hsl(252 73% 62%)" : "hsl(251 87% 63%)",
                     }}
                     animate={{
                       scale: [1, 1.5, 1],
