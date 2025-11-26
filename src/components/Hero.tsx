@@ -60,8 +60,8 @@ export const Hero = () => {
             className="text-lg md:text-xl text-muted-foreground mb-6 max-w-4xl mx-auto leading-relaxed"
           >
             Tecnologia de localização avançada para gestão de ativos empresariais e pessoais. Rastreamento em tempo real
-            com precisão de centímetros, bateria que dura meses e privacidade garantida por criptografia de ponta a
-            ponta.
+            com precisão avançada, bateria de longa duração 12 e 24 meses e privacidade garantida por criptografia de
+            ponta a ponta.
           </motion.p>
 
           {/* Stats Section */}
