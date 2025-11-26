@@ -16,7 +16,7 @@ const benefits = [
   },
   {
     icon: Heart,
-    title: "Monitore seu Pet ",
+    title: "Monitore seu Pet com conforto e tecnologia",
     description: "Saiba exatamente onde esta seu pet.",
   },
   {
