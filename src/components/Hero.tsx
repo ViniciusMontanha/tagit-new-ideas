@@ -64,32 +64,11 @@ export const Hero = () => {
             privacidade garantida por criptografia de ponta a ponta.
           </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.45 }}
-            className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-8"
-          >
-            <Button
-              size="lg"
-              className="text-base px-8 py-6 rounded-full shadow-blue hover:shadow-strong transition-all"
-            >
-              Solicitar Demo
-            </Button>
-            <Button
-              size="lg"
-              variant="ghost"
-              className="text-base px-8 py-6 rounded-full hover:bg-accent/10 transition-all text-primary font-semibold"
-            >
-              Saiba Mais <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-          </motion.div>
-
           {/* Stats Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.8, delay: 0.45 }}
             className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-8"
           >
             {[
@@ -111,6 +90,27 @@ export const Hero = () => {
                 <div className="text-sm text-muted-foreground">{stat.label}</div>
               </motion.div>
             ))}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="flex flex-col sm:flex-row gap-3 justify-center items-center"
+          >
+            <Button
+              size="lg"
+              className="text-base px-8 py-6 rounded-full shadow-blue hover:shadow-strong transition-all"
+            >
+              Solicitar Demo
+            </Button>
+            <Button
+              size="lg"
+              variant="ghost"
+              className="text-base px-8 py-6 rounded-full hover:bg-accent/10 transition-all text-primary font-semibold"
+            >
+              Saiba Mais <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
           </motion.div>
         </div>
       </div>
