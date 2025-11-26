@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { User, Bell, Heart, Smartphone } from "lucide-react";
+import { User, Bell, Heart, PawPrint } from "lucide-react";
 
 const benefits = [
   {
@@ -20,7 +20,7 @@ const benefits = [
     description: "Saiba exatamente onde esta seu pet.",
   },
   {
-    icon: Smartphone,
+    icon: PawPrint,
     title: "Fácil de usar",
     description: "Interface intuitiva que qualquer pessoa pode usar, sem complicações.",
   },
