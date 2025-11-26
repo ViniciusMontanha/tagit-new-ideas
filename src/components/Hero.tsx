@@ -64,34 +64,6 @@ export const Hero = () => {
             ponta a ponta.
           </motion.p>
 
-          {/* Stats Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.45 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-8"
-          >
-            {[
-              { value: "Super", label: "Precisão" },
-              { value: "12/24 meses", label: "Bateria" },
-              { value: "10.000+", label: "Empresas" },
-              { value: "24/7", label: "Suporte" },
-            ].map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.7 + i * 0.1 }}
-                className="text-center"
-              >
-                <div className="text-2xl md:text-3xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
-              </motion.div>
-            ))}
-          </motion.div>
-
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
