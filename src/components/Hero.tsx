@@ -57,11 +57,20 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-lg md:text-xl text-muted-foreground mb-6 max-w-4xl mx-auto leading-relaxed"
+            className="text-lg md:text-xl text-muted-foreground mb-4 max-w-4xl mx-auto leading-relaxed"
           >
             Tecnologia de localização avançada para gestão de ativos empresariais e pessoais. Rastreamento em tempo real
             com precisão avançada, bateria de longa duração 12 e 24 meses e privacidade garantida por criptografia de
             ponta a ponta.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.45 }}
+            className="text-base md:text-lg text-muted-foreground/90 mb-6 max-w-4xl mx-auto leading-relaxed"
+          >
+            A etiqueta de localização será fornecida em formato discreto, de fácil fixação e adequada para aplicação em ativos, máquinas, ferramentas e demais patrimônios operacionais, assegurando rápida identificação e rastreabilidade sem comprometer a estética ou o uso do equipamento.
           </motion.p>
 
           <motion.div
