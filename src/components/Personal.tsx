@@ -16,8 +16,8 @@ const benefits = [
   },
   {
     icon: Heart,
-    title: "Tranquilidade diária",
-    description: "Viva sem preocupações sabendo que seus itens estão sempre ao alcance.",
+    title: "Monitore seu Pet ",
+    description: "Saiba exatamente onde esta seu pet.",
   },
   {
     icon: Smartphone,
@@ -31,7 +31,7 @@ export const Personal = () => {
     <section id="para-voce" className="py-24 bg-background relative overflow-hidden">
       {/* Background accent */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-primary/5" />
-      
+
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -46,9 +46,7 @@ export const Personal = () => {
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Simplifique sua vida com{" "}
-            <span className="bg-gradient-purple bg-clip-text text-transparent">
-              tecnologia inteligente
-            </span>
+            <span className="bg-gradient-purple bg-clip-text text-transparent">tecnologia inteligente</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Cuide dos seus pertences pessoais e nunca mais perca tempo procurando o que importa.
@@ -86,7 +84,11 @@ export const Personal = () => {
           viewport={{ once: true }}
           className="text-center"
         >
-          <Button size="lg" variant="outline" className="text-lg px-8 py-6 border-2 border-secondary hover:bg-secondary hover:text-secondary-foreground">
+          <Button
+            size="lg"
+            variant="outline"
+            className="text-lg px-8 py-6 border-2 border-secondary hover:bg-secondary hover:text-secondary-foreground"
+          >
             <User className="w-5 h-5 mr-2" />
             Comprar Agora
           </Button>
