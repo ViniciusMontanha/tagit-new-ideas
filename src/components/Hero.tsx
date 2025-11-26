@@ -73,7 +73,7 @@ export const Hero = () => {
           >
             {[
               { value: "99.9%", label: "Precisão" },
-              { value: "12 e 24 meses ", label: "Bateria" },
+              { value: "12/24" meses ", label: "Bateria" },
               { value: "10.000+", label: "Empresas" },
               { value: "24/7", label: "Suporte" },
             ].map((stat, i) => (
