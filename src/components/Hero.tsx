@@ -4,7 +4,7 @@ import { MapPin, ArrowRight, Target } from "lucide-react";
 
 export const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-20">
+    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-background pt-20 pb-12">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
@@ -39,7 +39,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight leading-[1.05]"
+            className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 tracking-tight leading-tight"
           >
             Rastreie o que importa
           </motion.h1>
@@ -48,7 +48,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="text-2xl md:text-3xl font-semibold mb-8 bg-gradient-hero bg-clip-text text-transparent"
+            className="text-xl md:text-2xl font-semibold mb-3 bg-gradient-hero bg-clip-text text-transparent"
           >
             Fácil e seguro
           </motion.p>
@@ -57,84 +57,60 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-4xl mx-auto font-light"
+            className="text-lg md:text-xl text-muted-foreground mb-6 max-w-4xl mx-auto leading-relaxed"
           >
-            Tecnologia de localização avançada para gestão de ativos empresariais e pessoais.
+            Tecnologia de localização avançada para gestão de ativos empresariais e pessoais. 
+            Rastreamento em tempo real com precisão de centímetros, bateria que dura meses e 
+            privacidade garantida por criptografia de ponta a ponta.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.45 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
+            className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-8"
           >
             <Button
               size="lg"
-              className="text-base px-10 py-7 rounded-full shadow-blue hover:shadow-strong transition-all"
+              className="text-base px-8 py-6 rounded-full shadow-blue hover:shadow-strong transition-all"
             >
               Solicitar Demo
             </Button>
             <Button
               size="lg"
               variant="ghost"
-              className="text-base px-10 py-7 rounded-full hover:bg-accent/10 transition-all text-primary font-semibold"
+              className="text-base px-8 py-6 rounded-full hover:bg-accent/10 transition-all text-primary font-semibold"
             >
               Saiba Mais <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </motion.div>
 
-          {/* Visual Element */}
+          {/* Stats Section */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.6 }}
-            className="relative max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-8"
           >
-            <div className="relative">
-              {/* Main circle */}
-              <div className="w-full aspect-square rounded-full bg-gradient-to-br from-primary/10 via-secondary/5 to-transparent flex items-center justify-center relative">
-                <div className="absolute inset-0 rounded-full bg-gradient-hero opacity-5 blur-3xl" />
-
-                {/* Center element */}
-                <motion.div
-                  animate={{
-                    y: [0, -15, 0],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="relative z-10"
-                >
-                  <div className="w-32 h-32 bg-gradient-hero rounded-3xl shadow-blue flex items-center justify-center">
-                    <MapPin className="w-16 h-16 text-primary-foreground" />
-                  </div>
-                </motion.div>
-
-                {/* Floating elements */}
-                {[...Array(6)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute w-3 h-3 rounded-full bg-primary/40"
-                    style={{
-                      top: `${20 + (i % 3) * 30}%`,
-                      left: `${15 + (i % 2) * 70}%`,
-                    }}
-                    animate={{
-                      scale: [1, 1.5, 1],
-                      opacity: [0.3, 0.7, 0.3],
-                    }}
-                    transition={{
-                      duration: 3,
-                      delay: i * 0.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
+            {[
+              { value: "99.9%", label: "Precisão" },
+              { value: "12 meses", label: "Bateria" },
+              { value: "10.000+", label: "Empresas" },
+              { value: "24/7", label: "Suporte" },
+            ].map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.7 + i * 0.1 }}
+                className="text-center"
+              >
+                <div className="text-2xl md:text-3xl font-bold bg-gradient-hero bg-clip-text text-transparent mb-1">
+                  {stat.value}
+                </div>
+                <div className="text-sm text-muted-foreground">{stat.label}</div>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </div>
