@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { User, Bell, Heart, PawPrint } from "lucide-react";
 import tagProduct from "@/assets/tag-product.png";
+import personalEquipment from "@/assets/personal-equipment.jpg";
 
 const benefits = [
   {
@@ -84,7 +85,7 @@ export const Personal = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="order-1 lg:order-2"
+            className="order-1 lg:order-2 space-y-8"
           >
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-purple opacity-10 blur-[100px] rounded-full"></div>
@@ -93,6 +94,15 @@ export const Personal = () => {
                 alt="Tag It - Dispositivo de rastreamento inteligente" 
                 className="relative w-full max-w-lg mx-auto drop-shadow-2xl"
                 whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.5 }}
+              />
+            </div>
+            <div className="relative">
+              <motion.img 
+                src={personalEquipment} 
+                alt="Equipamentos de alto valor protegidos com Tag It" 
+                className="relative w-full rounded-2xl shadow-strong"
+                whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.5 }}
               />
             </div>
