@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Tag, Plus, Sparkles } from "lucide-react";
 
 export const Hero = () => {
-  const tags = ["Design", "Code", "Marketing", "Ideas", "Projects"];
+  const tags = ["Design", "Código", "Marketing", "Ideias", "Projetos"];
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
@@ -59,9 +59,9 @@ export const Hero = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight"
           >
-            Tag Everything
+            Etiquete Tudo
             <span className="block bg-gradient-hero bg-clip-text text-transparent">
-              Organize Anything
+              Organize Qualquer Coisa
             </span>
           </motion.h1>
 
@@ -72,8 +72,8 @@ export const Hero = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl mx-auto"
           >
-            The modern way to categorize, organize, and find anything in seconds.
-            Simple, powerful, and beautiful.
+            A forma moderna de categorizar, organizar e encontrar qualquer coisa em segundos.
+            Simples, poderoso e bonito.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -85,7 +85,7 @@ export const Hero = () => {
           >
             <Button size="lg" className="text-lg px-8 py-6 shadow-glow hover:shadow-strong transition-all">
               <Plus className="w-5 h-5 mr-2" />
-              Get Started Free
+              Começar Grátis
             </Button>
             <Button
               size="lg"
@@ -93,7 +93,7 @@ export const Hero = () => {
               className="text-lg px-8 py-6 border-2 hover:bg-accent hover:text-accent-foreground transition-all"
             >
               <Sparkles className="w-5 h-5 mr-2" />
-              See How It Works
+              Ver Como Funciona
             </Button>
           </motion.div>
 
