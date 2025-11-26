@@ -32,27 +32,27 @@ const solutions = [
 
 export const Solutions = () => {
   return (
-    <section id="solucoes" className="py-24 bg-muted/30">
-      <div className="container mx-auto px-4">
+    <section id="solucoes" className="py-32 bg-background">
+      <div className="container mx-auto px-6 md:px-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight">
             Soluções para{" "}
             <span className="bg-gradient-hero bg-clip-text text-transparent">
               Cada Segmento
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto font-light">
             Tecnologia adaptável para diferentes necessidades empresariais.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
           {solutions.map((solution, index) => (
             <motion.div
               key={solution.title}
@@ -61,18 +61,18 @@ export const Solutions = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="p-6 h-full hover:shadow-blue transition-all duration-300 border-2 hover:border-secondary/30 bg-card group">
-                <div className="mb-4 inline-block p-4 bg-gradient-purple rounded-xl shadow-blue group-hover:scale-110 transition-transform duration-300">
-                  <solution.icon className="w-7 h-7 text-primary-foreground" />
+              <Card className="p-8 h-full hover:shadow-soft transition-all duration-500 border hover:border-secondary/20 bg-card/50 backdrop-blur-sm group">
+                <div className="mb-6 inline-block p-4 bg-gradient-purple rounded-2xl shadow-soft group-hover:scale-105 transition-transform duration-500">
+                  <solution.icon className="w-9 h-9 text-primary-foreground" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">{solution.title}</h3>
-                <p className="text-muted-foreground mb-4 text-sm">{solution.description}</p>
+                <h3 className="text-2xl font-semibold mb-4">{solution.title}</h3>
+                <p className="text-muted-foreground mb-6 text-base font-light leading-relaxed">{solution.description}</p>
                 <div className="flex flex-wrap gap-2">
                   {solution.tags.map((tag) => (
                     <Badge
                       key={tag}
                       variant="secondary"
-                      className="text-xs px-2 py-1 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+                      className="text-xs px-3 py-1 bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors rounded-full"
                     >
                       {tag}
                     </Badge>
