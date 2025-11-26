@@ -8,7 +8,8 @@ const benefits = [
   {
     icon: Lock,
     title: "Proteja seus ativos",
-    description: "Gerencie e rastreie equipamentos, ferramentas e inventário da empresa com segurança total.",
+    description:
+      "Gerencie e rastreie qualquer equipamentos de alto valor , ferramentas e inventário da empresa com segurança total.",
   },
   {
     icon: TrendingUp,
@@ -32,7 +33,7 @@ export const Enterprise = () => {
     <section id="empresas" className="py-32 bg-background relative overflow-hidden">
       {/* Background accent */}
       <div className="absolute inset-0 bg-gradient-to-b from-primary/3 to-transparent" />
-      
+
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -59,9 +60,9 @@ export const Enterprise = () => {
           >
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-accent opacity-10 blur-[100px] rounded-full"></div>
-              <motion.img 
-                src={enterpriseMachine} 
-                alt="Equipamento industrial de alto valor monitorado com Tag It" 
+              <motion.img
+                src={enterpriseMachine}
+                alt="Equipamento industrial de alto valor monitorado com Tag It"
                 className="relative w-full rounded-2xl shadow-strong"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.5 }}
@@ -92,7 +93,9 @@ export const Enterprise = () => {
                       </div>
                       <div className="flex-1">
                         <h3 className="text-2xl font-semibold mb-3">{benefit.title}</h3>
-                        <p className="text-muted-foreground text-lg font-light leading-relaxed">{benefit.description}</p>
+                        <p className="text-muted-foreground text-lg font-light leading-relaxed">
+                          {benefit.description}
+                        </p>
                       </div>
                     </div>
                   </Card>
@@ -109,7 +112,10 @@ export const Enterprise = () => {
           viewport={{ once: true }}
           className="text-center"
         >
-          <Button size="lg" className="text-base px-10 py-7 rounded-full shadow-blue hover:shadow-strong transition-all">
+          <Button
+            size="lg"
+            className="text-base px-10 py-7 rounded-full shadow-blue hover:shadow-strong transition-all"
+          >
             Solicitar Proposta Comercial
           </Button>
         </motion.div>
