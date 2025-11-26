@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Building2, TrendingUp, Users, Lock } from "lucide-react";
 import enterpriseMachine from "@/assets/enterprise-machine.jpg";
+import professionalTool from "@/assets/professional-tool.jpg";
 
 const benefits = [
   {
@@ -56,16 +57,25 @@ export const Enterprise = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="order-2 lg:order-1"
+            className="order-2 lg:order-1 space-y-8"
           >
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-accent opacity-10 blur-[100px] rounded-full"></div>
+              <motion.img
+                src={professionalTool}
+                alt="Ferramenta profissional de alto valor protegida com Tag It"
+                className="relative w-full max-w-lg mx-auto drop-shadow-2xl"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+              />
+            </div>
+            <div className="relative">
               <motion.img
                 src={enterpriseMachine}
                 alt="Equipamento industrial de alto valor monitorado com Tag It"
                 className="relative w-full rounded-2xl shadow-strong"
                 whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
               />
             </div>
           </motion.div>
