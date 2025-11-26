@@ -5,23 +5,23 @@ import { Card } from "@/components/ui/card";
 const features = [
   {
     icon: Zap,
-    title: "Lightning Fast",
-    description: "Find anything in milliseconds with intelligent search and instant filtering.",
+    title: "Extremamente Rápido",
+    description: "Encontre qualquer coisa em milissegundos com busca inteligente e filtragem instantânea.",
   },
   {
     icon: Shield,
-    title: "Secure & Private",
-    description: "Your data stays yours. End-to-end encryption keeps everything safe.",
+    title: "Seguro & Privado",
+    description: "Seus dados são seus. Criptografia de ponta a ponta mantém tudo seguro.",
   },
   {
     icon: Palette,
-    title: "Beautiful Design",
-    description: "Clean, modern interface that makes organizing a joy, not a chore.",
+    title: "Design Bonito",
+    description: "Interface limpa e moderna que torna a organização um prazer, não uma tarefa.",
   },
   {
     icon: Code,
-    title: "Developer Friendly",
-    description: "API access and integrations to connect with your favorite tools.",
+    title: "Amigável para Devs",
+    description: "Acesso à API e integrações para conectar com suas ferramentas favoritas.",
   },
 ];
 
@@ -37,10 +37,10 @@ export const Features = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Why Choose <span className="bg-gradient-hero bg-clip-text text-transparent">Tagit</span>
+            Por Que Escolher <span className="bg-gradient-hero bg-clip-text text-transparent">Tagit</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Built for everyone who needs to stay organized without the complexity.
+            Feito para todos que precisam se manter organizados sem complicação.
           </p>
         </motion.div>
 
