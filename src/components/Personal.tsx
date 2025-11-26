@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { User, Bell, Heart, PawPrint } from "lucide-react";
 import tagProduct from "@/assets/tag-product.png";
-import personalEquipment from "@/assets/personal-equipment.jpg";
+import familyWithPet from "@/assets/family-with-pet.jpg";
 
 const benefits = [
   {
@@ -99,8 +99,8 @@ export const Personal = () => {
             </div>
             <div className="relative">
               <motion.img 
-                src={personalEquipment} 
-                alt="Equipamentos de alto valor protegidos com Tag It" 
+                src={familyWithPet} 
+                alt="Família feliz com seu pet protegido pela Tag It" 
                 className="relative w-full rounded-2xl shadow-strong"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.5 }}
