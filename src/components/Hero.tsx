@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import tagProduct from "@/assets/tag-product.png";
-import tagDeviceSide from "@/assets/tag-device-side.png";
+import tagDeviceSide from "@/assets/tag-device-side-blue.png";
 
 export const Hero = () => {
   return (
@@ -46,18 +46,18 @@ export const Hero = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
+            className="relative max-w-lg mx-auto"
           >
-            <div className="grid grid-cols-2 gap-8 max-w-2xl mx-auto">
+            <div className="relative">
               <img 
                 src={tagProduct} 
                 alt="Tag It Product" 
-                className="w-full h-auto drop-shadow-2xl"
+                className="w-full h-auto drop-shadow-2xl relative z-10"
               />
               <img 
                 src={tagDeviceSide} 
                 alt="Tag It Device" 
-                className="w-full h-auto drop-shadow-2xl"
+                className="w-full h-auto drop-shadow-2xl absolute top-0 left-0"
               />
             </div>
           </motion.div>
