@@ -48,11 +48,13 @@ export const Hero = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative flex flex-col gap-8 items-center"
           >
-            <img 
-              src={tagDeviceHero} 
-              alt="Tag It Device" 
-              className="w-full h-auto max-w-xs mx-auto drop-shadow-2xl"
-            />
+            <div style={{ backgroundColor: '#0099CC' }} className="inline-block">
+              <img 
+                src={tagDeviceHero} 
+                alt="Tag It Device" 
+                className="w-full h-auto max-w-xs mx-auto drop-shadow-2xl"
+              />
+            </div>
             <img 
               src={tagProduct} 
               alt="Tag It Product" 
