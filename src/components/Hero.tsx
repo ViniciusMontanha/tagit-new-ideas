@@ -1,101 +1,80 @@
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { MapPin, ArrowRight, Target } from "lucide-react";
+import { motion } from "framer-motion";
+import tagProduct from "@/assets/tag-product.png";
 
 export const Hero = () => {
   return (
-    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-background pt-20 pb-12">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          className="absolute top-20 left-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.15, 0.3, 0.15],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-10 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-3xl"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.15, 0.3, 0.15],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </div>
-
-      <div className="container mx-auto px-6 md:px-12 relative z-10">
-        <div className="max-w-7xl mx-auto text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden" style={{ backgroundColor: '#0099CC' }}>
+      <div className="container mx-auto px-4 py-20">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 tracking-tight leading-tight"
+            className="text-white"
           >
-            Rastreie o que importa
-          </motion.h1>
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+              A MELHOR TECNOLOGIA DE LOCALIZAÇÃO PARA SEUS ATIVOS
+            </h1>
+            
+            <p className="text-xl md:text-2xl mb-8 font-light leading-relaxed">
+              A <span className="font-bold">Tag It</span> usa <span className="font-bold">Tecnologia Avançada</span> para proteger 
+              seus ativos empresariais e pessoais com rastreamento em tempo real, 
+              tudo de forma <span className="font-bold">simples e segura</span>.
+            </p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="text-xl md:text-2xl font-semibold mb-3 bg-gradient-hero bg-clip-text text-transparent"
-          >
-            Fácil e seguro
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-lg md:text-xl text-muted-foreground mb-4 max-w-4xl mx-auto leading-relaxed"
-          >
-            Tecnologia de localização avançada para gestão de ativos empresariais e pessoais. Rastreamento em tempo real
-            com precisão avançada, bateria de longa duração 12 e 24 meses e privacidade garantida por criptografia de
-            ponta a ponta.
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.45 }}
-            className="text-base md:text-lg text-muted-foreground/90 mb-6 max-w-4xl mx-auto leading-relaxed"
-          >
-            Super anatomica, formato discreto, de fácil fixação e adequada para aplicação em ativos, máquinas,
-            equipamentos eletronicos e demais patrimônios operacionais, assegurando rápida identificação e
-            rastreabilidade sem comprometer a estética ou o uso do equipamento.
-          </motion.p>
+            <div className="flex flex-wrap gap-4">
+              <Button 
+                size="lg"
+                className="text-lg px-8 py-6 rounded-full font-bold shadow-lg hover:scale-105 transition-transform"
+                style={{ backgroundColor: '#00FFD9', color: '#0099CC' }}
+              >
+                PARA EMPRESAS
+              </Button>
+              <Button 
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 rounded-full font-bold border-2 border-white text-white hover:bg-white hover:text-[#0099CC] transition-all"
+              >
+                PESSOA FÍSICA
+              </Button>
+            </div>
+          </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-24"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="relative"
           >
-            <Button
-              size="lg"
-              className="text-base px-8 py-6 rounded-full shadow-blue hover:shadow-strong transition-all"
-            >
-              Solicitar Demo
-            </Button>
-            <Button
-              size="lg"
-              variant="ghost"
-              className="text-base px-8 py-6 rounded-full hover:bg-accent/10 transition-all text-primary font-semibold"
-            >
-              Saiba Mais <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
+            <img 
+              src={tagProduct} 
+              alt="Tag It Product" 
+              className="w-full h-auto max-w-lg mx-auto drop-shadow-2xl"
+            />
           </motion.div>
         </div>
+      </div>
+
+      {/* Animated diagonal bands */}
+      <div className="absolute bottom-0 left-0 right-0 overflow-hidden">
+        <motion.div
+          animate={{ x: [0, -1000] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="flex gap-8 py-6 bg-black/30 transform -skew-y-3"
+          style={{ width: '200%' }}
+        >
+          {[...Array(12)].map((_, i) => (
+            <div key={i} className="flex items-center gap-2 whitespace-nowrap text-white font-bold text-sm">
+              <span>RASTREAMENTO EM TEMPO REAL</span>
+              <span className="mx-4">•</span>
+              <span>BATERIA DE LONGA DURAÇÃO</span>
+              <span className="mx-4">•</span>
+              <span>CRIPTOGRAFIA PONTA A PONTA</span>
+              <span className="mx-4">•</span>
+            </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

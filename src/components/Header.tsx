@@ -3,35 +3,28 @@ import logo from "@/assets/logo.png";
 
 export const Header = () => {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
       <div className="container mx-auto px-4">
-        <nav className="flex items-center justify-between h-16">
-          <div className="flex items-center gap-3">
-            <img src={logo} alt="Tag It" className="h-16 w-16" />
-            <div className="flex flex-col">
-              <span className="text-xl font-bold leading-tight">Tag It</span>
-              <span className="text-xs text-muted-foreground uppercase tracking-wide leading-tight">Localização Inteligente</span>
-            </div>
+        <nav className="flex items-center justify-between h-20">
+          <div className="flex items-center gap-2">
+            <img src={logo} alt="Tag It" className="h-12 w-12" />
+            <span className="text-2xl font-bold text-gray-900">Tag It</span>
           </div>
 
           <div className="hidden md:flex items-center gap-8">
-            <a href="#recursos" className="text-sm font-medium hover:text-primary transition-colors">
-              Recursos
+            <a href="#empresas" className="text-sm font-semibold text-gray-700 hover:text-primary transition-colors">
+              Para Empresas
             </a>
-            <a href="#empresas" className="text-sm font-medium hover:text-primary transition-colors">
-              Para Sua Empresa
-            </a>
-            <a href="#para-voce" className="text-sm font-medium hover:text-secondary transition-colors">
+            <a href="#para-voce" className="text-sm font-semibold text-gray-700 hover:text-primary transition-colors">
               Para Você
             </a>
-            <a href="#solucoes" className="text-sm font-medium hover:text-primary transition-colors">
-              Soluções
+            <a href="#solucoes" className="text-sm font-semibold text-gray-700 hover:text-primary transition-colors">
+              Solicitar Demo
             </a>
+            <Button variant="ghost" className="text-sm font-semibold text-primary hover:text-primary/80">
+              Login
+            </Button>
           </div>
-
-          <Button className="rounded-full px-6 shadow-soft hover:shadow-blue transition-all">
-            Fale Conosco
-          </Button>
         </nav>
       </div>
     </header>
