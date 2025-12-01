@@ -5,7 +5,7 @@ import tagDeviceHero from "@/assets/tag-device-hero.png";
 
 export const Hero = () => {
   return (
-    <section className="relative flex items-center pt-20 pb-32 overflow-hidden" style={{ backgroundColor: '#0099CC' }}>
+    <section className="relative flex items-center pt-20 pb-32 overflow-hidden" style={{ backgroundColor: '#5F8CA5' }}>
       <div className="container mx-auto px-4 py-20">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div
@@ -51,7 +51,7 @@ export const Hero = () => {
             <img 
               src={tagDeviceHero} 
               alt="Tag It Device" 
-              className="w-full h-auto max-w-xs mx-auto drop-shadow-2xl mix-blend-multiply"
+              className="w-full h-auto max-w-xs mx-auto drop-shadow-2xl"
             />
             <img 
               src={tagProduct} 
