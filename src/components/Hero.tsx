@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import tagProduct from "@/assets/tag-product.png";
+import tagNova from "@/assets/tag-nova.png";
 
 export const Hero = () => {
   return (
@@ -48,7 +48,7 @@ export const Hero = () => {
             className="relative"
           >
             <img 
-              src={tagProduct} 
+              src={tagNova} 
               alt="Tag It Product" 
               className="w-full h-auto max-w-lg mx-auto drop-shadow-2xl"
             />
