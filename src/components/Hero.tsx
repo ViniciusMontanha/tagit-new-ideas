@@ -34,7 +34,7 @@ export const Hero = () => {
               <Button 
                 size="lg"
                 variant="outline"
-                className="text-lg px-8 py-6 rounded-full font-bold border-2 border-white text-white hover:bg-white hover:text-[#0099CC] transition-all"
+                className="text-lg px-8 py-6 rounded-full font-bold border-2 border-white text-white !bg-transparent hover:!bg-white hover:!text-[#0099CC] transition-all"
               >
                 PESSOA FÍSICA
               </Button>
