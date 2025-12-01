@@ -51,12 +51,12 @@ export const Hero = () => {
             <img 
               src={tagDeviceHero} 
               alt="Tag It Device" 
-              className="w-full h-auto max-w-md mx-auto drop-shadow-2xl"
+              className="w-full h-auto max-w-xs mx-auto drop-shadow-2xl"
             />
             <img 
               src={tagProduct} 
               alt="Tag It Product" 
-              className="w-full h-auto max-w-lg mx-auto drop-shadow-2xl"
+              className="w-full h-auto max-w-sm mx-auto drop-shadow-2xl"
             />
           </motion.div>
         </div>
