@@ -51,8 +51,7 @@ export const Hero = () => {
             <img 
               src={tagDeviceHero} 
               alt="Tag It Device" 
-              className="w-full h-auto max-w-xs mx-auto drop-shadow-2xl"
-              style={{ backgroundColor: '#0099CC' }}
+              className="w-full h-auto max-w-xs mx-auto drop-shadow-2xl mix-blend-multiply"
             />
             <img 
               src={tagProduct} 
