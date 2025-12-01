@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import tagProduct from "@/assets/tag-product-new.png";
 
 export const Hero = () => {
   return (
@@ -44,9 +45,13 @@ export const Hero = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative flex items-center justify-center"
+            className="relative"
           >
-            {/* Image removed */}
+            <img 
+              src={tagProduct} 
+              alt="Tag It Product" 
+              className="w-full h-auto max-w-lg mx-auto drop-shadow-2xl"
+            />
           </motion.div>
         </div>
       </div>
