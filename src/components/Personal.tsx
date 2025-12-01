@@ -30,7 +30,7 @@ const benefits = [
 
 export const Personal = () => {
   return (
-    <section id="para-voce" className="py-32 bg-muted/20 relative overflow-hidden">
+    <section id="para-voce" className="py-32 relative overflow-hidden" style={{ backgroundColor: '#E6F7FB' }}>
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
