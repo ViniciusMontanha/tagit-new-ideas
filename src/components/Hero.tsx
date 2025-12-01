@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import tagProduct from "@/assets/tag-product.png";
-import tagDeviceTransparent from "@/assets/tag-device-clean.png";
+import tagDeviceTransparent from "@/assets/tag-product-new.png";
 
 export const Hero = () => {
   return (
@@ -57,6 +57,7 @@ export const Hero = () => {
               src={tagDeviceTransparent} 
               alt="Tag It Device" 
               className="w-full h-auto max-w-[280px] drop-shadow-2xl"
+              style={{ mixBlendMode: 'multiply' }}
             />
           </motion.div>
         </div>
