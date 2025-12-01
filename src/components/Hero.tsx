@@ -4,7 +4,7 @@ import tagProduct from "@/assets/tag-product.png";
 
 export const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden" style={{ backgroundColor: '#0099CC' }}>
+    <section className="relative flex items-center pt-20 pb-32 overflow-hidden" style={{ backgroundColor: '#0099CC' }}>
       <div className="container mx-auto px-4 py-20">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div
@@ -57,14 +57,14 @@ export const Hero = () => {
       </div>
 
       {/* Animated diagonal bands */}
-      <div className="absolute bottom-0 left-0 right-0 overflow-hidden">
+      <div className="absolute bottom-0 left-0 right-0 overflow-hidden h-16">
         <motion.div
           animate={{ x: [0, -1000] }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="flex gap-8 py-6 bg-black/30 transform -skew-y-3"
-          style={{ width: '200%' }}
+          className="flex gap-8 py-4 bg-black/30 transform -skew-y-2 h-full items-center"
+          style={{ width: '300%' }}
         >
-          {[...Array(12)].map((_, i) => (
+          {[...Array(20)].map((_, i) => (
             <div key={i} className="flex items-center gap-2 whitespace-nowrap text-white font-bold text-sm">
               <span>RASTREAMENTO EM TEMPO REAL</span>
               <span className="mx-4">•</span>
