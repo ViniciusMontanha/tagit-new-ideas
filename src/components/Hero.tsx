@@ -5,7 +5,7 @@ import tagDeviceHero from "@/assets/tag-device-hero.png";
 
 export const Hero = () => {
   return (
-    <section className="relative flex items-center pt-20 pb-32 overflow-hidden">
+    <section className="relative flex items-center pt-20 pb-32 overflow-hidden" style={{ backgroundColor: '#0099CC' }}>
       <div className="container mx-auto px-4 py-20">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div
