@@ -50,11 +50,18 @@ export const Hero = () => {
           duration: 0.8,
           delay: 0.2
         }} className="relative flex flex-col gap-8 items-center">
-            <img src={tagDeviceHero} alt="Tag It Device" className="w-full h-auto max-w-xs mx-auto" style={{
-            filter: 'brightness(0.95) saturate(1.1)',
-            mixBlendMode: 'darken'
-          }} />
-            <img src={tagProduct} alt="Tag It Product" className="w-full h-auto max-w-sm mx-auto drop-shadow-2xl" />
+            <img 
+              src={tagDeviceHero} 
+              alt="Tag It Device" 
+              className="w-full h-auto max-w-[280px] mx-auto drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
+              loading="eager"
+            />
+            <img 
+              src={tagProduct} 
+              alt="Tag It Product" 
+              className="w-full h-auto max-w-[320px] mx-auto drop-shadow-[0_25px_60px_rgba(0,0,0,0.25)]"
+              loading="eager"
+            />
           </motion.div>
         </div>
       </div>
