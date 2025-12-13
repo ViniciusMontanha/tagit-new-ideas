@@ -50,7 +50,8 @@ export const Hero = () => {
             <img
               src={tagDeviceHero}
               alt="Tag It Device"
-              className="w-full h-auto max-w-xs mx-auto drop-shadow-2xl rounded-2xl"
+              className="w-full h-auto max-w-xs mx-auto drop-shadow-2xl"
+              style={{ mixBlendMode: "multiply" }}
             />
             <img
               src={tagProduct}
