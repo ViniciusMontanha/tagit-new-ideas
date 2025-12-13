@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import tagProduct from "@/assets/tag-product.png";
-import tagDeviceHero from "@/assets/tag-device-hero.png";
 export const Hero = () => {
   return (
     <section className="relative flex items-center pt-20 pb-32 overflow-hidden bg-primary">
@@ -46,15 +45,8 @@ export const Hero = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative flex flex-col gap-6 items-center justify-center"
+            className="relative flex flex-col items-center justify-center"
           >
-            <div className="w-full max-w-xs mx-auto rounded-3xl bg-card shadow-blue p-4">
-              <img
-                src={tagDeviceHero}
-                alt="Tag It Device"
-                className="w-full h-auto object-contain"
-              />
-            </div>
             <img
               src={tagProduct}
               alt="Tag It Product"
