@@ -30,7 +30,7 @@ const benefits = [
 
 export const Personal = () => {
   return (
-    <section id="para-voce" className="py-32 relative overflow-hidden" style={{ backgroundColor: '#E6F7FB' }}>
+    <section id="para-voce" className="py-32 relative overflow-hidden bg-primary/5">
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -66,7 +66,7 @@ export const Personal = () => {
                 >
                   <Card className="p-8 hover:shadow-soft transition-all duration-500 border hover:border-secondary/20 bg-card/50 backdrop-blur-sm group">
                     <div className="flex items-start gap-5">
-                      <div className="p-4 bg-gradient-purple rounded-2xl shadow-soft group-hover:scale-105 transition-transform duration-500">
+                      <div className="p-4 bg-gradient-blue-purple rounded-2xl shadow-soft group-hover:scale-105 transition-transform duration-500">
                         <benefit.icon className="w-8 h-8 text-primary-foreground" />
                       </div>
                       <div className="flex-1">
@@ -88,7 +88,7 @@ export const Personal = () => {
             className="order-1 lg:order-2 space-y-8"
           >
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-purple opacity-10 blur-[100px] rounded-full"></div>
+              <div className="absolute inset-0 bg-gradient-blue-purple opacity-10 blur-[100px] rounded-full"></div>
               <motion.img 
                 src={tagProduct} 
                 alt="Tag It - Dispositivo de rastreamento inteligente" 

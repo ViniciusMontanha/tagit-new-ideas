@@ -31,9 +31,9 @@ const benefits = [
 
 export const Enterprise = () => {
   return (
-    <section id="empresas" className="py-32 relative overflow-hidden" style={{ backgroundColor: '#ffffff' }}>
+    <section id="empresas" className="py-32 relative overflow-hidden bg-background">
       {/* Background accent */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0099CC]/5 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <motion.div
