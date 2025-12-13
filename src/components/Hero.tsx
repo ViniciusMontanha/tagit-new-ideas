@@ -48,11 +48,13 @@ export const Hero = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative flex flex-col gap-6 items-center justify-center"
           >
-            <img
-              src={tagDeviceHero}
-              alt="Tag It Device"
-              className="w-full h-auto max-w-xs mx-auto drop-shadow-2xl"
-            />
+            <div className="w-full max-w-xs mx-auto rounded-3xl bg-primary shadow-blue p-4">
+              <img
+                src={tagDeviceHero}
+                alt="Tag It Device"
+                className="w-full h-auto object-contain"
+              />
+            </div>
             <img
               src={tagProduct}
               alt="Tag It Product"
