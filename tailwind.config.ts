@@ -41,6 +41,8 @@ export default {
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
+          alt: "hsl(var(--accent-alt))",
+          "alt-foreground": "hsl(var(--accent-alt-foreground))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -66,6 +68,7 @@ export default {
         'gradient-card': 'var(--gradient-card)',
         'gradient-accent': 'var(--gradient-accent)',
         'gradient-purple': 'var(--gradient-purple)',
+        'gradient-blue-purple': 'var(--gradient-blue-purple)',
       },
       boxShadow: {
         'soft': 'var(--shadow-soft)',

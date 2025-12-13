@@ -27,7 +27,7 @@ const features = [
 
 export const Features = () => {
   return (
-    <section id="recursos" className="pt-8 pb-16" style={{ backgroundColor: '#ffffff' }}>
+    <section id="recursos" className="pt-8 pb-16 bg-background">
       <div className="container mx-auto px-6 md:px-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
