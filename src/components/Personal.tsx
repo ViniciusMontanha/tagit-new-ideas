@@ -30,7 +30,7 @@ const benefits = [
 
 export const Personal = () => {
   return (
-    <section id="para-voce" className="py-32 relative overflow-hidden" style={{ backgroundColor: '#E6F7FB' }}>
+    <section id="para-voce" className="py-32 relative overflow-hidden bg-gradient-to-b from-primary/5 to-secondary/5">
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -40,7 +40,7 @@ export const Personal = () => {
           className="text-center mb-20"
         >
           <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight">
-            Para <span className="bg-gradient-hero bg-clip-text text-transparent">Você</span>
+            Para <span className="bg-gradient-purple bg-clip-text text-transparent">Você</span>
           </h2>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto font-light leading-relaxed">
             Proteja o que é importante com tecnologia inteligente.
@@ -64,13 +64,13 @@ export const Personal = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
                 >
-                  <Card className="p-8 hover:shadow-soft transition-all duration-500 border hover:border-secondary/20 bg-card/50 backdrop-blur-sm group">
+                  <Card className="p-8 hover:shadow-soft transition-all duration-500 border hover:border-secondary/20 bg-card/80 backdrop-blur-sm group">
                     <div className="flex items-start gap-5">
-                      <div className="p-4 bg-gradient-purple rounded-2xl shadow-soft group-hover:scale-105 transition-transform duration-500">
+                      <div className="p-4 bg-gradient-purple rounded-2xl shadow-purple group-hover:scale-105 transition-transform duration-500">
                         <benefit.icon className="w-8 h-8 text-primary-foreground" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="text-2xl font-semibold mb-3">{benefit.title}</h3>
+                        <h3 className="text-2xl font-semibold mb-3 text-foreground">{benefit.title}</h3>
                         <p className="text-muted-foreground text-lg font-light leading-relaxed">{benefit.description}</p>
                       </div>
                     </div>
@@ -88,7 +88,7 @@ export const Personal = () => {
             className="order-1 lg:order-2 space-y-8"
           >
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-purple opacity-10 blur-[100px] rounded-full"></div>
+              <div className="absolute inset-0 bg-gradient-purple opacity-15 blur-[100px] rounded-full"></div>
               <motion.img 
                 src={tagProduct} 
                 alt="Tag It - Dispositivo de rastreamento inteligente" 
@@ -116,7 +116,7 @@ export const Personal = () => {
           viewport={{ once: true }}
           className="text-center"
         >
-          <Button size="lg" className="text-base px-10 py-7 rounded-full shadow-blue hover:shadow-strong transition-all">
+          <Button size="lg" className="text-base px-10 py-7 rounded-full shadow-purple hover:shadow-strong transition-all bg-secondary hover:bg-secondary/90">
             Comprar Agora
           </Button>
         </motion.div>

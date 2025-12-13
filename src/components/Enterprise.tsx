@@ -31,9 +31,9 @@ const benefits = [
 
 export const Enterprise = () => {
   return (
-    <section id="empresas" className="py-32 relative overflow-hidden" style={{ backgroundColor: '#ffffff' }}>
+    <section id="empresas" className="py-32 relative overflow-hidden bg-background">
       {/* Background accent */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0099CC]/5 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <motion.div
@@ -64,7 +64,7 @@ export const Enterprise = () => {
               <motion.img
                 src={professionalTool}
                 alt="Ferramenta profissional de alto valor protegida com Tag It"
-                className="relative w-full max-w-lg mx-auto drop-shadow-2xl"
+                className="relative w-full max-w-lg mx-auto drop-shadow-2xl rounded-2xl"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
               />
@@ -96,13 +96,13 @@ export const Enterprise = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
                 >
-                  <Card className="p-8 hover:shadow-soft transition-all duration-500 border hover:border-accent/20 bg-card/50 backdrop-blur-sm group">
+                  <Card className="p-8 hover:shadow-soft transition-all duration-500 border hover:border-primary/20 bg-card/80 backdrop-blur-sm group">
                     <div className="flex items-start gap-5">
                       <div className="p-4 bg-gradient-accent rounded-2xl shadow-soft group-hover:scale-105 transition-transform duration-500">
                         <benefit.icon className="w-8 h-8 text-primary-foreground" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="text-2xl font-semibold mb-3">{benefit.title}</h3>
+                        <h3 className="text-2xl font-semibold mb-3 text-foreground">{benefit.title}</h3>
                         <p className="text-muted-foreground text-lg font-light leading-relaxed">
                           {benefit.description}
                         </p>
@@ -124,7 +124,7 @@ export const Enterprise = () => {
         >
           <Button
             size="lg"
-            className="text-base px-10 py-7 rounded-full shadow-blue hover:shadow-strong transition-all"
+            className="text-base px-10 py-7 rounded-full shadow-blue hover:shadow-strong transition-all bg-primary hover:bg-primary/90"
           >
             Solicitar Proposta Comercial
           </Button>
