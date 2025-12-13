@@ -6,9 +6,9 @@ export const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-sm shadow-sm">
       <div className="container mx-auto px-4">
         <nav className="flex items-center justify-between h-20">
-          <div className="flex items-center gap-2">
-            <img src={logo} alt="Tag It" className="h-12 w-12" />
-            <span className="text-2xl font-bold text-foreground">Tag It</span>
+          <div className="flex items-center gap-3">
+            <img src={logo} alt="Tag It" className="h-12 w-auto" />
+            <span className="text-lg font-medium text-muted-foreground">localização inteligente</span>
           </div>
 
           <div className="hidden md:flex items-center gap-8">
