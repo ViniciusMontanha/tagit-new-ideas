@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import tagProduct from "@/assets/tag-product.png";
-import tagDeviceHero from "@/assets/tag-device-hero.png";
 
 export const Hero = () => {
   return (
@@ -47,21 +46,12 @@ export const Hero = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative flex flex-col gap-8 items-center"
+            className="relative flex flex-col items-center justify-center"
           >
-            <img
-              src={tagDeviceHero}
-              alt="Tag It Device"
-              className="w-full h-auto max-w-xs mx-auto"
-              style={{
-                filter: "brightness(0.95) saturate(1.1)",
-                mixBlendMode: "darken",
-              }}
-            />
             <img
               src={tagProduct}
               alt="Tag It Product"
-              className="w-full h-auto max-w-sm mx-auto drop-shadow-2xl"
+              className="w-full h-auto max-w-md mx-auto drop-shadow-2xl"
             />
           </motion.div>
         </div>
