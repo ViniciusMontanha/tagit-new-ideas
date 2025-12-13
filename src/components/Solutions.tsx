@@ -32,7 +32,7 @@ const solutions = [
 
 export const Solutions = () => {
   return (
-    <section id="solucoes" className="py-32" style={{ backgroundColor: '#0099CC' }}>
+    <section id="solucoes" className="py-32 bg-gradient-to-br from-blue-medium via-primary to-secondary">
       <div className="container mx-auto px-6 md:px-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -41,13 +41,13 @@ export const Solutions = () => {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight text-white">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight text-primary-foreground">
             Soluções para{" "}
             <span className="font-bold">
               Cada Segmento
             </span>
           </h2>
-          <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto font-light">
+          <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-3xl mx-auto font-light">
             Tecnologia adaptável para diferentes necessidades empresariais.
           </p>
         </motion.div>
@@ -61,11 +61,11 @@ export const Solutions = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="p-8 h-full hover:shadow-soft transition-all duration-500 border-white/20 hover:border-white/40 bg-white backdrop-blur-sm group">
-                <div className="mb-6 inline-block p-4 rounded-2xl shadow-soft group-hover:scale-105 transition-transform duration-500" style={{ backgroundColor: '#00FFD9' }}>
-                  <solution.icon className="w-9 h-9" style={{ color: '#0099CC' }} />
+              <Card className="p-8 h-full hover:shadow-strong transition-all duration-500 border-primary-foreground/20 hover:border-primary-foreground/40 bg-background backdrop-blur-sm group">
+                <div className="mb-6 inline-block p-4 rounded-2xl shadow-soft group-hover:scale-105 transition-transform duration-500 bg-gradient-accent">
+                  <solution.icon className="w-9 h-9 text-primary-foreground" />
                 </div>
-                <h3 className="text-2xl font-semibold mb-4">{solution.title}</h3>
+                <h3 className="text-2xl font-semibold mb-4 text-foreground">{solution.title}</h3>
                 <p className="text-muted-foreground mb-6 text-base font-light leading-relaxed">{solution.description}</p>
                 <div className="flex flex-wrap gap-2">
                   {solution.tags.map((tag) => (

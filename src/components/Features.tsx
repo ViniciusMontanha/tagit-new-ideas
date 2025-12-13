@@ -27,7 +27,7 @@ const features = [
 
 export const Features = () => {
   return (
-    <section id="recursos" className="pt-8 pb-16" style={{ backgroundColor: '#ffffff' }}>
+    <section id="recursos" className="pt-8 pb-16 bg-background">
       <div className="container mx-auto px-6 md:px-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -53,11 +53,11 @@ export const Features = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="p-6 h-full hover:shadow-soft transition-all duration-500 border hover:border-primary/20 bg-card/50 backdrop-blur-sm group">
+              <Card className="p-6 h-full hover:shadow-soft transition-all duration-500 border hover:border-primary/20 bg-card/80 backdrop-blur-sm group">
                 <div className="mb-4 inline-block p-3 bg-gradient-to-br from-primary/10 to-secondary/5 rounded-2xl group-hover:bg-gradient-hero transition-all duration-500">
                   <feature.icon className="w-7 h-7 text-primary group-hover:text-primary-foreground transition-colors duration-500" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                <h3 className="text-xl font-semibold mb-2 text-foreground">{feature.title}</h3>
                 <p className="text-muted-foreground text-base leading-relaxed">{feature.description}</p>
               </Card>
             </motion.div>

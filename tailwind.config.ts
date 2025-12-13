@@ -50,6 +50,18 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Brand colors
+        cyan: {
+          light: "hsl(var(--cyan-light))",
+        },
+        blue: {
+          medium: "hsl(var(--blue-medium))",
+          dark: "hsl(var(--blue-dark))",
+        },
+        purple: {
+          medium: "hsl(var(--purple-medium))",
+          magenta: "hsl(var(--purple-magenta))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -66,11 +78,13 @@ export default {
         'gradient-card': 'var(--gradient-card)',
         'gradient-accent': 'var(--gradient-accent)',
         'gradient-purple': 'var(--gradient-purple)',
+        'gradient-brand': 'var(--gradient-brand)',
       },
       boxShadow: {
         'soft': 'var(--shadow-soft)',
         'strong': 'var(--shadow-strong)',
         'blue': 'var(--shadow-blue)',
+        'purple': 'var(--shadow-purple)',
       },
       borderRadius: {
         lg: "var(--radius)",
