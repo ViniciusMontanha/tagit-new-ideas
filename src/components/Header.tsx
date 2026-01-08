@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/tagit_logo_sem_fundo.png";
+import logo from "@/assets/tagit_vector_logo_HD_transp.png";
 
 export const Header = () => {
   return (
