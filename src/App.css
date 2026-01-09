@@ -40,3 +40,33 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Esconde o "Powered by" em qualquer tela */
+.wa-chat-box-poweredby {
+  display: none !important;
+}
+
+/* --- Ajustes Mobile (Telas até 768px) --- */
+@media (max-width: 768px) {
+  /* 1. Ajusta o botão flutuante */
+  .wa-chat-button {
+    bottom: 20px !important; /* Espaço da borda inferior */
+    right: 20px !important;  /* Espaço da borda lateral */
+    transform: scale(0.9);    /* Reduz levemente para não poluir o visual */
+  }
+
+  /* 2. Ajusta a janela de chat quando aberta */
+  .wa-chat-box {
+    width: 85vw !important;    /* Ocupa 85% da largura da tela */
+    max-width: 340px !important;
+    right: 7.5vw !important;   /* Centraliza lateralmente */
+    bottom: 90px !important;   /* Fica acima do botão */
+    border-radius: 12px !important;
+  }
+
+  /* 3. Ajusta o texto interno para mobile */
+  .wa-chat-box-content-text {
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+  }
+}
