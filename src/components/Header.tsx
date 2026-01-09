@@ -5,16 +5,14 @@ export const Header = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm shadow-soft">
       <div className="container mx-auto px-4">
-        {/* Mantivemos h-24 para dar um respiro elegante para a logo HD */}
-        <nav className="flex items-center justify-between h-24">
+        {/* Mantivemos h-48 para dar espaço à logo aumentada (12rem = h-48 no Tailwind) */}
+        <nav className="flex items-center justify-between h-48">
           <div className="flex items-center">
-            {/* Ajustamos para h-16 ou h-20. 
-              Como a logo já tem o slogan interno, h-20 (80px) garante a leitura do texto pequeno.
-            */}
+            {/* Logo aumentada para 12rem (h-48) conforme solicitado */}
             <img 
               src={logo} 
               alt="Tag It - Localização Inteligente" 
-              className="h-20 w-auto object-contain" 
+              className="h-48 w-auto object-contain" 
             />
           </div>
 
