@@ -1,2 +1,11 @@
 User-agent: *
 Allow: /
+Disallow:
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+Sitemap: https://lovable.dev/projects/62a69c91-fff4-4881-8f91-3d65af5a2d74/sitemap.xml

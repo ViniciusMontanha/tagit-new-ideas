@@ -143,34 +143,4 @@ New Palette:
   body {
     @apply bg-background text-foreground;
   }
-
-  /* --- Otimização do Widget WhatsApp --- */
-  
-  /* Esconde o link da edna.io e o container de créditos */
-  a[href*="edna.io"],
-  .wa-chat-box-poweredby {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-    height: 0 !important;
-    width: 0 !important;
-    position: absolute !important;
-  }
-
-  /* Ajustes para Mobile no Vite */
-  @media (max-width: 768px) {
-    .wa-chat-button {
-      bottom: 20px !important;
-      right: 20px !important;
-      transform: scale(0.9);
-    }
-
-    .wa-chat-box {
-      width: 90vw !important;
-      max-width: 350px !important;
-      right: 5vw !important;
-      bottom: 85px !important;
-    }
-  }
 }
