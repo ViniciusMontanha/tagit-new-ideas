@@ -10,7 +10,7 @@ const benefits = [
     icon: Lock,
     title: "Proteja seus ativos",
     description:
-      "Gerencie e rastreie qualquer equipamentos de alto valor , ferramentas e inventário da empresa com segurança total.",
+      "Gerencie e rastreie equipamentos de alto valor, ferramentas e inventário da empresa com segurança total.",
   },
   {
     icon: TrendingUp,
@@ -31,7 +31,14 @@ const benefits = [
 
 export const Enterprise = () => {
   return (
-    <section id="empresas" className="py-32 relative overflow-hidden bg-background">
+    <section 
+      id="empresas" 
+      className="py-32 relative overflow-hidden bg-background"
+      role="region"
+      aria-labelledby="empresas-heading"
+      itemScope
+      itemType="https://schema.org/Service"
+    >
       {/* Background accent */}
       <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
 
@@ -43,10 +50,17 @@ export const Enterprise = () => {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight">
+          <h2 
+            id="empresas-heading"
+            className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight"
+            itemProp="name"
+          >
             Para <span className="bg-gradient-hero bg-clip-text text-transparent">Empresas</span>
           </h2>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto font-light leading-relaxed">
+          <p 
+            className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto font-light leading-relaxed"
+            itemProp="description"
+          >
             Transforme a forma como sua empresa gerencia ativos com tecnologia de rastreamento inteligente.
           </p>
         </motion.div>
@@ -63,19 +77,25 @@ export const Enterprise = () => {
               <div className="absolute inset-0 bg-gradient-accent opacity-10 blur-[100px] rounded-full"></div>
               <motion.img
                 src={professionalTool}
-                alt="Ferramenta profissional de alto valor protegida com Tag It"
+                alt="Ferramenta profissional de alto valor sendo rastreada com Tag It GPS"
                 className="relative w-full max-w-lg mx-auto drop-shadow-2xl rounded-2xl"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
+                loading="lazy"
+                width={400}
+                height={400}
               />
             </div>
             <div className="relative">
               <motion.img
                 src={tagPossibilities}
-                alt="Possibilidades de rastreamento Tag It - pets, veículos, equipamentos e mais"
+                alt="Possibilidades de rastreamento Tag It - equipamentos, veículos, ferramentas e ativos empresariais"
                 className="relative w-full rounded-2xl shadow-strong"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
+                loading="lazy"
+                width={400}
+                height={400}
               />
             </div>
           </motion.div>
@@ -87,7 +107,11 @@ export const Enterprise = () => {
             viewport={{ once: true }}
             className="order-1 lg:order-2"
           >
-            <div className="grid grid-cols-1 gap-6">
+            {/* Lista de benefícios com microdata */}
+            <div 
+              className="grid grid-cols-1 gap-6"
+              role="list"
+            >
               {benefits.map((benefit, index) => (
                 <motion.div
                   key={benefit.title}
@@ -95,15 +119,29 @@ export const Enterprise = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
+                  role="listitem"
+                  itemScope
+                  itemType="https://schema.org/Thing"
                 >
                   <Card className="p-8 hover:shadow-soft transition-all duration-500 border hover:border-primary/20 bg-card/80 backdrop-blur-sm group">
                     <div className="flex items-start gap-5">
                       <div className="p-4 bg-gradient-accent rounded-2xl shadow-soft group-hover:scale-105 transition-transform duration-500">
-                        <benefit.icon className="w-8 h-8 text-primary-foreground" />
+                        <benefit.icon 
+                          className="w-8 h-8 text-primary-foreground" 
+                          aria-hidden="true"
+                        />
                       </div>
                       <div className="flex-1">
-                        <h3 className="text-2xl font-semibold mb-3 text-foreground">{benefit.title}</h3>
-                        <p className="text-muted-foreground text-lg font-light leading-relaxed">
+                        <h3 
+                          className="text-2xl font-semibold mb-3 text-foreground"
+                          itemProp="name"
+                        >
+                          {benefit.title}
+                        </h3>
+                        <p 
+                          className="text-muted-foreground text-lg font-light leading-relaxed"
+                          itemProp="description"
+                        >
                           {benefit.description}
                         </p>
                       </div>
@@ -125,8 +163,9 @@ export const Enterprise = () => {
           <Button
             size="lg"
             className="text-base px-10 py-7 rounded-full shadow-blue hover:shadow-strong transition-all bg-primary hover:bg-primary/90"
+            asChild
           >
-            Solicitar Proposta Comercial
+            <a href="#contato">Solicitar Proposta Comercial</a>
           </Button>
         </motion.div>
       </div>

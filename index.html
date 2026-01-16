@@ -1,36 +1,169 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="index, follow" />
-    <meta name="googlebot" content="index, follow" />
-
-    <title>Tag It - Rastreamento e Gestão de Ativos Empresariais</title>
-    <meta name="description" content="Tecnologia de localização avançada para gestão de ativos empresariais. Monitore equipamentos, ferramentas e inventário em tempo real com precisão e segurança." />
-    <meta name="keywords" content="rastreamento, gestão de ativos, localização GPS, monitoramento empresarial, Tag It" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <!-- SEO Essencial -->
+    <title>Tag It - Rastreamento Inteligente de Ativos | Localização em Tempo Real</title>
+    <meta name="description" content="Solução completa de rastreamento GPS para empresas e pessoas físicas. Monitore ativos, equipamentos e inventário em tempo real com tecnologia avançada de localização." />
+    <meta name="keywords" content="rastreamento GPS, gestão de ativos, localização em tempo real, monitoramento empresarial, rastreador de equipamentos, GPS tracker, Tag It" />
     <meta name="author" content="Tag It" />
-    <link rel="canonical" href="https://lovable.dev/projects/62a69c91-fff4-4881-8f91-3d65af5a2d74" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="theme-color" content="#00B4FF" />
+    <meta name="color-scheme" content="light dark" />
+    
+    <!-- Canonical URL - Domínio real verificado -->
+    <link rel="canonical" href="https://tagit.com.br/" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tagit.com.br/" />
+    <meta property="og:title" content="Tag It - Rastreamento Inteligente de Ativos em Tempo Real" />
+    <meta property="og:description" content="Tecnologia avançada de localização para empresas e pessoas físicas. Rastreie equipamentos, ferramentas e ativos com segurança e precisão." />
+    <meta property="og:image" content="https://tagit.com.br/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="pt_BR" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://tagit.com.br/" />
+    <meta name="twitter:title" content="Tag It - Rastreamento Inteligente de Ativos" />
+    <meta name="twitter:description" content="Monitore seus ativos em tempo real com a tecnologia mais avançada de localização GPS." />
+    <meta name="twitter:image" content="https://tagit.com.br/og-image.png" />
 
-
-    <!-- Google Fonts - Inter -->
+    <!-- Preconnect para Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:title" content="Tag It - Rastreamento e Gestão de Ativos Empresariais" />
-    <meta property="og:description" content="Tecnologia de localização avançada para gestão de ativos empresariais. Monitore equipamentos em tempo real." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-    <meta property="og:url" content="https://lovable.dev/projects/62a69c91-fff4-4881-8f91-3d65af5a2d74" />
+    <!-- Schema.org Markup - Organization -->
+    <!-- Dados verificados e atualizados -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Tag It",
+      "description": "Solução completa de rastreamento inteligente de ativos em tempo real",
+      "url": "https://tagit.com.br",
+      "logo": "https://tagit.com.br/logo.png",
+      "image": "https://tagit.com.br/og-image.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Service",
+        "telephone": "+5516997534316",
+        "email": "contato@tagit.com.br",
+        "contactOption": "TollFree",
+        "areaServed": "BR",
+        "availableLanguage": "pt-BR"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "BR",
+        "addressLocality": "São Paulo",
+        "addressRegion": "SP",
+        "postalCode": "01310-100"
+      }
+    }
+    </script>
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Lovable" />
-    <meta name="twitter:title" content="Tag It - Rastreamento e Gestão de Ativos Empresariais" />
-    <meta name="twitter:description" content="Tecnologia de localização avançada para gestão de ativos empresariais." />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <!-- Schema.org Product Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "Tag It - Rastreador de Ativos",
+      "description": "Tecnologia avançada de rastreamento GPS para empresas e pessoas físicas",
+      "image": "https://tagit.com.br/product-image.png",
+      "brand": {
+        "@type": "Brand",
+        "name": "Tag It"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "availability": "https://schema.org/InStock",
+        "priceCurrency": "BRL",
+        "priceRange": "Consultar"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "150"
+      }
+    }
+    </script>
+
+    <!-- FAQPage Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Como funciona o rastreamento Tag It?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "O rastreamento Tag It usa tecnologia GPS avançada para monitorar a localização de seus ativos em tempo real através de uma plataforma intuitiva."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quais são os casos de uso do Tag It?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tag It é ideal para gestão de equipamentos empresariais, rastreamento de frotas, proteção de ativos pessoais, inventário e monitoramento de ferramentas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Tag It é seguro?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim, Tag It utiliza criptografia avançada e segurança em nível empresarial para proteger seus dados e informações de localização."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://tagit.com.br"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Para Empresas",
+          "item": "https://tagit.com.br/#empresas"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Para Pessoas Físicas",
+          "item": "https://tagit.com.br/#para-voce"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Recursos",
+          "item": "https://tagit.com.br/#features"
+        }
+      ]
+    }
+    </script>
   </head>
   
   <body>

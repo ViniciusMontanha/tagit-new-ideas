@@ -7,13 +7,31 @@ import { Solutions } from "@/components/Solutions";
 
 const Index = () => {
   return (
-    <main className="min-h-screen">
+    <main 
+      className="min-h-screen"
+      role="main"
+      itemScope
+      itemType="https://schema.org/WebPage"
+    >
+      {/* Header com navegação semântica */}
       <Header />
+      
+      {/* Seção Hero - Apresentação Principal */}
       <Hero />
+      
+      {/* Seção Para Empresas */}
       <Enterprise />
+      
+      {/* Seção Para Pessoas Físicas */}
       <Personal />
+      
+      {/* Seção de Recursos/Features */}
       <Features />
+      
+      {/* Seção CTA - Contato/Demo */}
       <Solutions />
+      
+      {/* Footer será adicionado em versão completa */}
     </main>
   );
 };
