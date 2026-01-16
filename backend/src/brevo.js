@@ -38,73 +38,143 @@ if (apiKey) {
  * Template de email para a empresa
  */
 function getAdminEmailTemplate(data) {
+  const whatsappNumber = data.telefone.replace(/\D/g, "");
+  const whatsappUrl = `https://wa.me/${whatsappNumber}`;
+  
   return `
     <!DOCTYPE html>
     <html>
       <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
-          body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; line-height: 1.6; }
-          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; 
+            color: #333; 
+            line-height: 1.6;
+            background: #f5f5f5;
+          }
+          .container { 
+            max-width: 600px; 
+            margin: 20px auto; 
+            padding: 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+          }
           .header { 
             background: linear-gradient(135deg, #00B4FF 0%, #7B3EFF 100%); 
             color: white; 
-            padding: 30px 20px; 
-            border-radius: 8px 8px 0 0; 
-            margin-bottom: 0;
+            padding: 40px 20px; 
             text-align: center;
           }
-          .header h1 { margin: 0; font-size: 24px; }
+          .header h1 { 
+            margin: 0 0 10px 0; 
+            font-size: 26px;
+            font-weight: 700;
+          }
+          .header p {
+            margin: 0;
+            font-size: 14px;
+            opacity: 0.9;
+          }
           .content { 
-            background: #f9f9f9; 
-            padding: 30px 20px;
-            border: 1px solid #e0e0e0;
-            border-top: none;
+            padding: 40px 20px;
           }
           .field { 
-            margin-bottom: 20px; 
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 30px;
           }
-          .field:last-child { border-bottom: none; }
           .label { 
-            font-weight: bold; 
+            font-weight: 600; 
             color: #00B4FF; 
             margin-bottom: 8px;
             font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            display: block;
           }
           .value { 
             color: #333;
-            font-size: 14px;
-            word-break: break-word;
+            font-size: 15px;
+            word-wrap: break-word;
+          }
+          .value a {
+            color: #00B4FF;
+            text-decoration: none;
+            word-wrap: break-word;
+            display: inline-block;
+          }
+          .value a:hover {
+            text-decoration: underline;
           }
           .message-box {
-            background: white;
-            padding: 15px;
+            background: #f0f8ff;
+            padding: 20px;
             border-left: 4px solid #00B4FF;
             border-radius: 4px;
-            margin-top: 5px;
+            margin-top: 10px;
             white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 14px;
+            color: #333;
+          }
+          .action-box {
+            background: #e8f4ff;
+            padding: 25px 20px;
+            border-radius: 6px;
+            margin: 30px 0;
+            text-align: center;
+          }
+          .action-box h3 {
+            margin: 0 0 15px 0;
+            font-size: 16px;
+            color: #00B4FF;
+          }
+          .whatsapp-btn {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 10px 5px;
+            font-size: 15px;
+            transition: background 0.3s;
+          }
+          .whatsapp-btn:hover {
+            background: #20BA5A;
+            text-decoration: none;
+            color: white;
+          }
+          .email-btn {
+            display: inline-block;
+            background: #00B4FF;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 10px 5px;
+            font-size: 15px;
+            transition: background 0.3s;
+          }
+          .email-btn:hover {
+            background: #0099CC;
+            text-decoration: none;
+            color: white;
           }
           .footer { 
-            background: #f0f0f0;
+            background: #f5f5f5;
             color: #666; 
             font-size: 12px; 
             text-align: center; 
-            padding: 20px;
-            border-radius: 0 0 8px 8px;
-            border: 1px solid #e0e0e0;
-            border-top: none;
+            padding: 25px 20px;
+            border-top: 1px solid #e0e0e0;
           }
-          .link { color: #00B4FF; text-decoration: none; }
-          .link:hover { text-decoration: underline; }
-          .action-box {
-            background: #e8f4ff;
-            padding: 15px;
-            border-radius: 4px;
-            margin-top: 20px;
+          .footer p {
+            margin: 8px 0;
           }
         </style>
       </head>
@@ -112,56 +182,48 @@ function getAdminEmailTemplate(data) {
         <div class="container">
           <div class="header">
             <h1>📞 Nova Solicitação de Demo</h1>
-            <p style="margin: 10px 0 0 0;">Tag It - Sistema de Rastreamento de Ativos</p>
+            <p>Tag It - Sistema de Rastreamento de Ativos</p>
           </div>
           
           <div class="content">
             <div class="field">
-              <div class="label">👤 Nome do Cliente</div>
+              <label class="label">👤 Nome do Cliente</label>
               <div class="value">${data.nome}</div>
             </div>
             
             <div class="field">
-              <div class="label">📧 Email</div>
+              <label class="label">📧 Email</label>
               <div class="value">
-                <a href="mailto:${data.email}" class="link">${data.email}</a>
+                <a href="mailto:${data.email}">${data.email}</a>
               </div>
             </div>
             
             <div class="field">
-              <div class="label">📱 Telefone</div>
+              <label class="label">📱 Telefone</label>
               <div class="value">
-                <a href="tel:${data.telefone}" class="link">${data.telefone}</a>
+                <a href="tel:${whatsappNumber}">${data.telefone}</a>
               </div>
             </div>
             
             <div class="field">
-              <div class="label">💬 Mensagem</div>
+              <label class="label">💬 Mensagem</label>
               <div class="message-box">${data.mensagem.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
             </div>
 
             <div class="action-box">
-              <p style="margin: 0; font-size: 13px; color: #0066cc;">
-                <strong>⏰ Próximo Passo:</strong> 
-                Entre em contato com este cliente em até 24 horas via:
+              <h3>⏰ Responda em até 24 horas</h3>
+              <p style="margin: 0 0 15px 0; font-size: 14px; color: #666;">
+                Clique nos botões abaixo para contatar o cliente:
               </p>
-              <ul style="margin: 10px 0 0 0; padding-left: 20px; font-size: 13px;">
-                <li>WhatsApp: <a href="https://wa.me/${data.telefone.replace(/\D/g, "")}" class="link" target="_blank">${data.telefone}</a></li>
-                <li>Email: <a href="mailto:${data.email}" class="link">${data.email}</a></li>
-              </ul>
+              <a href="${whatsappUrl}" class="whatsapp-btn" target="_blank">💬 Responder via WhatsApp</a>
+              <a href="mailto:${data.email}" class="email-btn">📧 Responder via Email</a>
             </div>
           </div>
           
           <div class="footer">
-            <p style="margin: 0 0 10px 0;">
-              <strong>Tag It - Rastreamento Inteligente de Ativos</strong>
-            </p>
-            <p style="margin: 0;">
-              📞 +55 16 99753-4316 | 🌐 https://tagit.com.br
-            </p>
-            <p style="margin: 10px 0 0 0; color: #999;">
-              Este email foi gerado automaticamente pelo formulário de contato do site.
-            </p>
+            <p><strong>Tag It - Rastreamento Inteligente de Ativos</strong></p>
+            <p>©️ 2026 Tag It. Todos os direitos reservados.</p>
+            <p>Este email foi gerado automaticamente pelo formulário de contato.</p>
           </div>
         </div>
       </body>
