@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { ContactModal } from "@/components/ContactModal";
 import { Building2, TrendingUp, Users, Lock } from "lucide-react";
 import tagPossibilities from "@/assets/tag-possibilities.png";
 import professionalTool from "@/assets/professional-tool.jpg";
@@ -30,12 +32,15 @@ const benefits = [
 ];
 
 export const Enterprise = () => {
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
   return (
-    <section 
-      id="empresas" 
-      className="py-32 relative overflow-hidden bg-background"
-      role="region"
-      aria-labelledby="empresas-heading"
+    <>
+      <section 
+        id="empresas" 
+        className="py-32 relative overflow-hidden bg-background"
+        role="region"
+        aria-labelledby="empresas-heading"
       itemScope
       itemType="https://schema.org/Service"
     >
@@ -163,12 +168,19 @@ export const Enterprise = () => {
           <Button
             size="lg"
             className="text-base px-10 py-7 rounded-full shadow-blue hover:shadow-strong transition-all bg-primary hover:bg-primary/90"
-            asChild
+            onClick={() => setIsContactModalOpen(true)}
           >
-            <a href="#contato">Solicitar Proposta Comercial</a>
+            Solicitar Proposta Comercial
           </Button>
         </motion.div>
       </div>
     </section>
+
+    {/* Modal de Contato */}
+    <ContactModal 
+      isOpen={isContactModalOpen} 
+      onOpenChange={setIsContactModalOpen} 
+    />
+    </>
   );
 };
