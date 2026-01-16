@@ -1,11 +1,19 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
+
+// Configurar paths para ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// ⚠️ CARREGAR VARIÁVEIS DE AMBIENTE PRIMEIRO
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
+
+// Agora importar depois que as variáveis estão carregadas
 import { contactFormSchema, sendContactEmailBrevo } from "./brevo.js";
 import { z } from "zod";
-
-// Carregar variáveis de ambiente
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
