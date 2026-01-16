@@ -44,79 +44,79 @@ app.use(
   })
 );
 
-// Health check
-app.get("/api/health", (req, res) => {
-  res.json({
-    status: "OK",
-    timestamp: new Date().toISOString(),
-    brevoConfigured: !!process.env.BREVO_API_KEY,
-  });
-});
-
-// Rota de envio de email
-app.post("/api/send-contact", async (req, res) => {
-  try {
-    // Validar método
-    if (req.method !== "POST" && req.method !== "get") {
-      // Express já valida por padrão
-    }
-
-    // Validar dados com Zod
-    const validatedData = contactFormSchema.parse(req.body);
-
-    // Enviar email via Brevo
-    const result = await sendContactEmailBrevo(validatedData);
-
-    if (result.success) {
-      return res.status(200).json({
-        success: true,
-        message: "Email enviado com sucesso!",
-        timestamp: new Date().toISOString(),
-      });
-    } else {
-      return res.status(500).json({
-        error: "Erro ao enviar email",
-        details: result.error,
-      });
-    }
-  } catch (error) {
-    console.error("❌ Erro na API de contato:", error);
-
-    if (error instanceof z.ZodError) {
-      return res.status(400).json({
-        error: "Dados inválidos",
-        details: error.errors.map((e) => ({
-          field: e.path.join("."),
-          message: e.message,
-        })),
-      });
-    }
-
-    if (error instanceof Error) {
-      return res.status(500).json({
-        error: "Erro ao enviar email",
-        message: error.message,
-      });
-    }
-
-    return res.status(500).json({
-      error: "Erro desconhecido ao enviar email",
+// Função para configurar rotas (chamada após inicializar Brevo)
+function setupRoutes() {
+  // Health check
+  app.get("/api/health", (req, res) => {
+    res.json({
+      status: "OK",
+      timestamp: new Date().toISOString(),
+      brevoConfigured: !!process.env.BREVO_API_KEY,
     });
-  }
-});
-
-// 404 handler
-app.use((req, res) => {
-  res.status(404).json({
-    error: "Rota não encontrada",
-    path: req.path,
-    method: req.method,
   });
-});
+
+  // Rota de envio de email
+  app.post("/api/send-contact", async (req, res) => {
+    try {
+      // Validar dados com Zod
+      const validatedData = contactFormSchema.parse(req.body);
+
+      // Enviar email via Brevo
+      const result = await sendContactEmailBrevo(validatedData);
+
+      if (result.success) {
+        return res.status(200).json({
+          success: true,
+          message: "Email enviado com sucesso!",
+          timestamp: new Date().toISOString(),
+        });
+      } else {
+        return res.status(500).json({
+          error: "Erro ao enviar email",
+          details: result.error,
+        });
+      }
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error("❌ Erro na API de contato:", errorMessage);
+
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({
+          error: "Dados inválidos",
+          details: error.errors.map((e) => ({
+            field: e.path.join("."),
+            message: e.message,
+          })),
+        });
+      }
+
+      if (error instanceof Error) {
+        return res.status(500).json({
+          error: "Erro ao enviar email",
+          message: error.message,
+        });
+      }
+
+      return res.status(500).json({
+        error: "Erro desconhecido ao enviar email",
+      });
+    }
+  });
+
+  // 404 handler
+  app.use((req, res) => {
+    res.status(404).json({
+      error: "Rota não encontrada",
+      path: req.path,
+      method: req.method,
+    });
+  });
+}
 
 // Iniciar servidor
 (async () => {
   await initBrevo();
+  setupRoutes();  // Configurar rotas DEPOIS de inicializar Brevo
   
   app.listen(PORT, () => {
     console.log(`\n🚀 Backend Tag It rodando em http://localhost:${PORT}`);

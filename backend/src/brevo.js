@@ -18,8 +18,7 @@ export const contactFormSchema = z.object({
     .max(1000, "Mensagem não pode exceder 1000 caracteres"),
 });
 
-// Configurar Brevo
-const apiInstance = new brevo.TransactionalEmailsApi();
+// Configurar Brevo - CORRETO PARA v3.0.0+
 const apiKey = process.env.BREVO_API_KEY;
 
 if (!apiKey) {
@@ -28,7 +27,12 @@ if (!apiKey) {
   );
 }
 
-apiInstance.setApiKey(brevo.TransactionalEmailsApiApiKeys.apiKey, apiKey || "");
+const apiInstance = new brevo.TransactionalEmailsApi();
+
+// Configurar a chave corretamente (NÃO passar || "")
+if (apiKey) {
+  apiInstance.setApiKey(brevo.TransactionalEmailsApiApiKeys.apiKey, apiKey);
+}
 
 /**
  * Template de email para a empresa
@@ -290,6 +294,11 @@ export async function sendContactEmailBrevo(data) {
       throw new Error("BREVO_API_KEY não configurada");
     }
 
+    console.log("📧 Iniciando envio de email via Brevo...");
+    console.log(`   API Key: ${apiKey.substring(0, 10)}...`);
+    console.log(`   Destinatário Admin: contato@tagit.com.br`);
+    console.log(`   Destinatário Cliente: ${data.email}`);
+
     // Email para a empresa
     const adminEmailData = new brevo.SendSmtpEmail();
     adminEmailData.subject = `[NOVO CONTATO] ${data.nome} - Solicitação de Demo`;
@@ -329,8 +338,13 @@ export async function sendContactEmailBrevo(data) {
     ];
 
     // Enviar ambos os emails
+    console.log("🔄 Enviando email para administrador...");
     await apiInstance.sendTransacEmail(adminEmailData);
+    console.log("✅ Email para administrador enviado!");
+
+    console.log("🔄 Enviando email de confirmação para cliente...");
     await apiInstance.sendTransacEmail(clientEmailData);
+    console.log("✅ Email de confirmação enviado!");
 
     console.log(`✅ Email enviado com sucesso para ${data.email}`);
     console.log(`👤 Cliente: ${data.nome} | 📱 Telefone: ${data.telefone}`);
@@ -339,8 +353,17 @@ export async function sendContactEmailBrevo(data) {
       success: true,
     };
   } catch (error) {
-    const errorMessage =
-      error instanceof Error ? error.message : "Erro desconhecido";
+    console.error(`❌ Erro bruto:`, error);
+    
+    let errorMessage = "Erro desconhecido";
+    
+    if (error.response && error.response.body) {
+      console.error(`❌ Resposta da Brevo:`, error.response.body);
+      errorMessage = error.response.body.message || error.response.body.error || JSON.stringify(error.response.body);
+    } else if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+    
     console.error(`❌ Erro ao enviar email via Brevo: ${errorMessage}`);
 
     return {
