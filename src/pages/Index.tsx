@@ -1,4 +1,5 @@
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { Features } from "@/components/Features";
 import { Personal } from "@/components/Personal";
@@ -31,7 +32,8 @@ const Index = () => {
       {/* Seção CTA - Contato/Demo */}
       <Solutions />
       
-      {/* Footer será adicionado em versão completa */}
+      {/* Footer com política de privacidade */}
+      <Footer />
     </main>
   );
 };
