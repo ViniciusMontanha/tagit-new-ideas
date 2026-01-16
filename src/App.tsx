@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { WhatsAppWidget } from "./components/WhatsAppWidget";
+import { CookieBanner } from "./components/CookieBanner";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,9 @@ const App = () => {
         
         {/* Widget de contato WhatsApp - globalmente disponível */}
         <WhatsAppWidget />
+        
+        {/* Banner de Cookies - globalmente disponível */}
+        <CookieBanner />
 
         <BrowserRouter>
           <Routes>
