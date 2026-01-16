@@ -39,7 +39,8 @@ app.use(
       "http://localhost:8080",
       "http://localhost:8081",
       "http://127.0.0.1:8081", // Frontend em dev
-      "https://tagit.com.br",
+      "https://tagit.com.br", // Produção (domínio principal)
+      "https://tagit-new-ideas.vercel.app", // Vercel deployment
       process.env.FRONTEND_URL || "",
     ].filter(Boolean),
     credentials: true,
