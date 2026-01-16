@@ -52,11 +52,11 @@ export const Header = () => {
                 Para Você
               </a>
               <a 
-                href="#features" 
+                href="#recursos" 
                 className="text-sm font-semibold text-foreground hover:text-primary transition-colors"
-                aria-label="Ir para seção de Features"
+                aria-label="Ir para seção de Recursos"
               >
-                Features
+                Recursos
               </a>
               <Button 
                 onClick={() => setIsContactModalOpen(true)}
