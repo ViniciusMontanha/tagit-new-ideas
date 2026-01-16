@@ -6,7 +6,7 @@ import { MessageCircle } from "lucide-react";
  * Localização: Bottom-right, z-50
  */
 export const WhatsAppWidget = () => {
-  const phoneNumber = "5516997534316";
+  const phoneNumber = "5516996403745";
   const message = "Olá! Gostaria de mais informações sobre a Tag It.";
 
   const handleClick = () => {

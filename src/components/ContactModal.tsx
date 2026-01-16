@@ -8,6 +8,46 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Loader2 } from "lucide-react";
 
+// Função para formatar telefone enquanto digita
+const formatPhoneNumber = (value: string): string => {
+  // Se já está formatado (começa com +55), não formata novamente
+  if (value.startsWith("+55")) {
+    return value;
+  }
+
+  // Remove tudo que não é número
+  const cleaned = value.replace(/\D/g, "");
+  
+  // Se está vazio, retorna vazio
+  if (!cleaned) return "";
+  
+  // Se começa com 0, remove (para evitar formatação incorreta)
+  let number = cleaned.startsWith("0") ? cleaned.slice(1) : cleaned;
+  
+  // Se tem menos de 10 dígitos, retorna como está
+  if (number.length < 10) {
+    return number;
+  }
+  
+  // Se tem 10 ou 11 dígitos (sem o 55)
+  if (number.length <= 11) {
+    // Adiciona +55 na frente
+    const withCountryCode = "55" + number;
+    return "+" + withCountryCode;
+  }
+  
+  // Se tem 12 ou mais dígitos (55 + número), já tem código de país
+  if (number.length >= 12) {
+    // Garante que começa com 55
+    if (!number.startsWith("55")) {
+      number = "55" + number;
+    }
+    return "+" + number.slice(0, 12); // Limita a 12 dígitos
+  }
+  
+  return value;
+};
+
 // Schema de validação com Zod
 const contactFormSchema = z.object({
   nome: z.string()
@@ -16,7 +56,7 @@ const contactFormSchema = z.object({
   email: z.string()
     .email("Email inválido"),
   telefone: z.string()
-    .regex(/^\+?55?\d{10,11}$/, "Telefone inválido. Use formato: (11) 99999-9999 ou +55 11 99999-9999"),
+    .regex(/^\+?55?\d{10,11}$/, "Telefone inválido. Digite um número brasileiro válido"),
   mensagem: z.string()
     .min(10, "Mensagem deve ter pelo menos 10 caracteres")
     .max(1000, "Mensagem não pode exceder 1000 caracteres"),
@@ -39,9 +79,19 @@ export const ContactModal = ({ isOpen, onOpenChange }: ContactModalProps) => {
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
+    watch,
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
   });
+
+  // Observar o campo de telefone
+  const phoneValue = watch("telefone");
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatPhoneNumber(e.target.value);
+    setValue("telefone", formatted);
+  };
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
@@ -161,11 +211,18 @@ export const ContactModal = ({ isOpen, onOpenChange }: ContactModalProps) => {
               <Input
                 id="telefone"
                 type="tel"
-                placeholder="(11) 99999-9999 ou +55 11 99999-9999"
+                placeholder="Digite seu número (11) 99999-9999"
                 className="bg-background/50 border-muted-foreground/20 focus:border-primary focus:ring-1 focus:ring-primary"
                 {...register("telefone")}
+                onChange={handlePhoneChange}
+                value={phoneValue}
                 disabled={isSubmitting}
               />
+              {phoneValue && !errors.telefone && (
+                <p className="text-xs text-muted-foreground">
+                  ✓ Formato: {phoneValue}
+                </p>
+              )}
               {errors.telefone && (
                 <p className="text-sm text-destructive">{errors.telefone.message}</p>
               )}

@@ -259,12 +259,12 @@ function getClientEmailTemplate(data) {
             <p>Entre em contato conosco diretamente:</p>
             <ul style="margin: 10px 0;">
               <li>🌐 Website: <a href="https://tagit.com.br" style="color: #00B4FF; text-decoration: none;">tagit.com.br</a></li>
-              <li>📞 WhatsApp: <a href="https://wa.me/5516997534316" style="color: #00B4FF; text-decoration: none;">+55 16 99753-4316</a></li>
+              <li>📞 WhatsApp: <a href="https://wa.me/5516996403745" style="color: #00B4FF; text-decoration: none;">+55 16 99640-3745</a></li>
               <li>⏰ Horário: Segunda a Sexta, 9h-18h (Brasília)</li>
             </ul>
             
             <center>
-              <a href="https://wa.me/5516997534316" class="button">Fale Conosco via WhatsApp</a>
+              <a href="https://wa.me/5516996403745" class="button">Fale Conosco via WhatsApp</a>
             </center>
           </div>
           
@@ -305,7 +305,7 @@ export async function sendContactEmailBrevo(data) {
     adminEmailData.htmlContent = getAdminEmailTemplate(data);
     adminEmailData.sender = {
       name: "Tag It - Contato",
-      email: process.env.BREVO_FROM_EMAIL || "noreply@tagit.com.br",
+      email: process.env.BREVO_FROM_EMAIL || "contato@tagit.com.br",
     };
     adminEmailData.to = [
       {
@@ -328,7 +328,7 @@ export async function sendContactEmailBrevo(data) {
     clientEmailData.htmlContent = getClientEmailTemplate(data);
     clientEmailData.sender = {
       name: "Tag It",
-      email: process.env.BREVO_FROM_EMAIL || "noreply@tagit.com.br",
+      email: process.env.BREVO_FROM_EMAIL || "contato@tagit.com.br",
     };
     clientEmailData.to = [
       {
@@ -339,18 +339,22 @@ export async function sendContactEmailBrevo(data) {
 
     // Enviar ambos os emails
     console.log("🔄 Enviando email para administrador...");
-    await apiInstance.sendTransacEmail(adminEmailData);
+    const adminResponse = await apiInstance.sendTransacEmail(adminEmailData);
     console.log("✅ Email para administrador enviado!");
+    console.log(`   Message ID: ${adminResponse.body?.messageId || "N/A"}`);
 
     console.log("🔄 Enviando email de confirmação para cliente...");
-    await apiInstance.sendTransacEmail(clientEmailData);
+    const clientResponse = await apiInstance.sendTransacEmail(clientEmailData);
     console.log("✅ Email de confirmação enviado!");
+    console.log(`   Message ID: ${clientResponse.body?.messageId || "N/A"}`);
 
     console.log(`✅ Email enviado com sucesso para ${data.email}`);
     console.log(`👤 Cliente: ${data.nome} | 📱 Telefone: ${data.telefone}`);
 
     return {
       success: true,
+      adminMessageId: adminResponse.body?.messageId,
+      clientMessageId: clientResponse.body?.messageId,
     };
   } catch (error) {
     console.error(`❌ Erro bruto:`, error);
