@@ -11,12 +11,23 @@ const __dirname = path.dirname(__filename);
 // ⚠️ CARREGAR VARIÁVEIS DE AMBIENTE PRIMEIRO
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
-// Agora importar depois que as variáveis estão carregadas
-import { contactFormSchema, sendContactEmailBrevo } from "./brevo.js";
+// Importar Zod de forma estática (não depende de env vars)
 import { z } from "zod";
 
+// Criar app e variáveis de forma síncrona
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Importar brevo de forma dinâmica DEPOIS das env vars carregarem
+let contactFormSchema;
+let sendContactEmailBrevo;
+
+// Função para inicializar o brevo
+async function initBrevo() {
+  const brevoModule = await import("./brevo.js");
+  contactFormSchema = brevoModule.contactFormSchema;
+  sendContactEmailBrevo = brevoModule.sendContactEmailBrevo;
+}
 
 // Middleware
 app.use(express.json());
@@ -104,12 +115,16 @@ app.use((req, res) => {
 });
 
 // Iniciar servidor
-app.listen(PORT, () => {
-  console.log(`\n🚀 Backend Tag It rodando em http://localhost:${PORT}`);
-  console.log(`📧 API de contato: http://localhost:${PORT}/api/send-contact`);
-  console.log(`✅ Health check: http://localhost:${PORT}/api/health`);
-  console.log(`\n🔑 Brevo API Key: ${process.env.BREVO_API_KEY ? "✓ Configurada" : "❌ Não configurada"}\n`);
-});
+(async () => {
+  await initBrevo();
+  
+  app.listen(PORT, () => {
+    console.log(`\n🚀 Backend Tag It rodando em http://localhost:${PORT}`);
+    console.log(`📧 API de contato: http://localhost:${PORT}/api/send-contact`);
+    console.log(`✅ Health check: http://localhost:${PORT}/api/health`);
+    console.log(`\n🔑 Brevo API Key: ${process.env.BREVO_API_KEY ? "✓ Configurada" : "❌ Não configurada"}\n`);
+  });
+})();
 
 // Tratamento de erros não capturados
 process.on("unhandledRejection", (reason, promise) => {
