@@ -135,7 +135,7 @@ export const ContactModal = ({ isOpen, onOpenChange }: ContactModalProps) => {
       <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-foreground">
-            Solicitar Demo
+            Solicitar Contato
           </DialogTitle>
           <DialogDescription className="text-muted-foreground">
             Preencha o formulário abaixo e nossa equipe entrará em contato em breve.
