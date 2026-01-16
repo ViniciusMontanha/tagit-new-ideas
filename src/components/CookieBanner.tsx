@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
+import { usePrivacyPolicy } from "@/contexts/PrivacyPolicyContext";
 
 export const CookieBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { openPrivacyPolicy } = usePrivacyPolicy();
 
   useEffect(() => {
     // Verificar se o usuário já aceitou cookies
@@ -42,9 +44,13 @@ export const CookieBanner = () => {
             <p className="text-sm text-muted-foreground">
               Usamos cookies para melhorar sua experiência no site, personalizar conteúdo e analisar tráfego. 
               Ao continuar navegando, você concorda com nossa 
-              <a href="#" onClick={(e) => { e.preventDefault(); }} className="text-primary hover:underline ml-1">
+              <button 
+                onClick={openPrivacyPolicy}
+                className="text-primary hover:underline ml-1 font-semibold"
+                aria-label="Abrir política de privacidade"
+              >
                 Política de Privacidade
-              </a>
+              </button>
               .
             </p>
           </div>

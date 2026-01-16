@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { WhatsAppWidget } from "./components/WhatsAppWidget";
 import { CookieBanner } from "./components/CookieBanner";
+import { PrivacyPolicyProvider } from "./contexts/PrivacyPolicyContext";
 
 const queryClient = new QueryClient();
 
@@ -19,23 +20,25 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        
-        {/* Widget de contato WhatsApp - globalmente disponível */}
-        <WhatsAppWidget />
-        
-        {/* Banner de Cookies - globalmente disponível */}
-        <CookieBanner />
+      <PrivacyPolicyProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          
+          {/* Widget de contato WhatsApp - globalmente disponível */}
+          <WhatsAppWidget />
+          
+          {/* Banner de Cookies - globalmente disponível */}
+          <CookieBanner />
 
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </PrivacyPolicyProvider>
     </QueryClientProvider>
   );
 };
