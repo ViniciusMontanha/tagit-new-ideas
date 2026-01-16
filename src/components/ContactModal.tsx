@@ -48,8 +48,10 @@ export const ContactModal = ({ isOpen, onOpenChange }: ContactModalProps) => {
     setSubmitError(null);
 
     try {
-      // Enviar para API route que irá processar o email
-      const response = await fetch("/api/send-contact", {
+      // Usar URL do backend (desenvolvido em localhost:3001)
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3001";
+      
+      const response = await fetch(`${apiUrl}/api/send-contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
