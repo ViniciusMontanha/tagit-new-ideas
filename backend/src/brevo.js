@@ -181,7 +181,7 @@ function getAdminEmailTemplate(data) {
       <body>
         <div class="container">
           <div class="header">
-            <h1>📞 Nova Solicitação de Demo</h1>
+            <h1>📞 Nova Solicitação de Contato</h1>
             <p>Tag It - Sistema de Rastreamento de Ativos</p>
           </div>
           
