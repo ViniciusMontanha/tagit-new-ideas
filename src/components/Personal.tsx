@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { User, Bell, Heart, PawPrint } from "lucide-react";
-import tagProduct from "@/assets/tag-product.png";
+import tagProduct from "@/assets/tag_branca_logo.png";
 import familyWithPet from "@/assets/family-with-pet.jpg";
 
 const benefits = [

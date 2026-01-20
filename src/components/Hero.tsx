@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import tagProduct from "@/assets/tag-product.png";
+import tagProduct from "@/assets/tag_branca_logo.png";
 
 export const Hero = () => {
   return (
