@@ -70,7 +70,7 @@ export const Header = () => {
               <img 
                 src={logo} 
                 alt="Tag It - Rastreamento Inteligente de Ativos"
-                className="h-20 w-auto object-contain"
+                className="h-[104px] w-auto object-contain"
                 loading="eager"
               />
             </a>
