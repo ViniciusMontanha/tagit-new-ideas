@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ContactModal } from "@/components/ContactModal";
 import { Building2, TrendingUp, Users, Lock } from "lucide-react";
 import tagPossibilities from "@/assets/tag-possibilities.png";
-import professionalTool from "@/assets/professional-tool.jpg";
+import professionalTool from "@/assets/tag_preta_cm.png";
 
 const benefits = [
   {
