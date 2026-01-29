@@ -117,7 +117,7 @@ export const Header = () => {
                 aria-label="Acessar área de login"
                 asChild
               >
-                <a href="/login">Login</a>
+                <a href="https://web.iatag.com.br/login">Login</a>
               </Button>
             </div>
 
