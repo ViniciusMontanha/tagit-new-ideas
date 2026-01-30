@@ -22,7 +22,7 @@ const benefits = [
   {
     icon: Users,
     title: "Gestão centralizada",
-    description: "Plataforma única para toda equipe gerenciar e monitorar ativos empresariais em tempo real.",
+    description: "Plataforma única para toda equipe gerenciar e monitorar ativos empresariais.",
   },
   {
     icon: Building2,
