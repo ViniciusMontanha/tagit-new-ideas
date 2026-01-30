@@ -19,7 +19,7 @@ const solutions = [
   {
     icon: Truck,
     title: "Frotas e Veículos",
-    description: "Acompanhe veículos, trailers e equipamentos móveis em tempo real.",
+    description: "Acompanhe veículos, trailers e equipamentos móveis.",
     tags: ["Transporte", "Logística", "Entrega"],
   },
   {
