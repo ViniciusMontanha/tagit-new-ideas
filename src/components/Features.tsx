@@ -21,7 +21,7 @@ const features = [
   {
     icon: BarChart,
     title: "Gestão Centralizada",
-    description: "Plataforma única para toda equipe gerenciar e monitorar ativos empresariais em tempo real.",
+    description: "Plataforma única para toda equipe gerenciar e monitorar ativos empresariais.",
   },
 ];
 
