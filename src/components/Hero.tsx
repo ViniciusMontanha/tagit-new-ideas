@@ -33,7 +33,7 @@ export const Hero = () => {
               itemProp="description"
             >
               <span className="font-semibold">Tag It</span> usa <span className="font-semibold">Tecnologia Avançada</span> para proteger 
-              seus ativos empresariais e pessoais com rastreamento em tempo real, 
+              seus ativos empresariais e pessoais com rastreamento, 
               tudo de forma <span className="font-semibold">simples e segura</span>.
             </p>
 
@@ -84,7 +84,7 @@ export const Hero = () => {
         className="absolute bottom-0 left-0 right-0 overflow-hidden h-16"
         role="region"
         aria-live="polite"
-        aria-label="Destaques: Rastreamento em tempo real, Bateria de longa duração, Criptografia ponta a ponta"
+        aria-label="Destaques: Rastreamento, Bateria de longa duração, Criptografia ponta a ponta"
       >
         <motion.div
           animate={{ x: [0, -1000] }}
@@ -95,7 +95,7 @@ export const Hero = () => {
         >
           {[...Array(20)].map((_, i) => (
             <div key={i} className="flex items-center gap-2 whitespace-nowrap text-primary-foreground font-bold text-sm">
-              <span>✓ Rastreamento em Tempo Real</span>
+              <span>✓ Rastreamento</span>
               <span className="mx-4">•</span>
               <span>✓ Bateria de Longa Duração</span>
               <span className="mx-4">•</span>
