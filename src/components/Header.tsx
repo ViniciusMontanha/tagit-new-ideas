@@ -11,6 +11,7 @@ export const Header = () => {
   const [activeSection, setActiveSection] = useState<string>("");
 
   const menuLinks = [
+    { href: "/sobre", label: "Sobre", ariaLabel: "Ir para página sobre a Tag It", isExternal: true },
     { href: "#empresas", label: "Para Empresas", ariaLabel: "Ir para seção Para Empresas" },
     { href: "#para-voce", label: "Para Você", ariaLabel: "Ir para seção Para Pessoas Físicas" },
     { href: "#recursos", label: "Recursos", ariaLabel: "Ir para seção de Recursos" },
@@ -19,7 +20,9 @@ export const Header = () => {
   // Hook para detectar seção ativa ao scrollar
   useEffect(() => {
     const handleScroll = () => {
-      const sections = menuLinks.map(link => link.href.substring(1)); // Remove o #
+      // Filtrar apenas os links que começam com # (âncoras internas)
+      const internalLinks = menuLinks.filter(link => link.href.startsWith("#"));
+      const sections = internalLinks.map(link => link.href.substring(1)); // Remove o #
       
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -41,9 +44,18 @@ export const Header = () => {
     };
     window.addEventListener("hashchange", handleHashChange);
     
+    // Detectar mudança de página
+    const handlePathChange = () => {
+      if (window.location.pathname !== "/") {
+        setActiveSection("");
+      }
+    };
+    window.addEventListener("popstate", handlePathChange);
+    
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("hashchange", handleHashChange);
+      window.removeEventListener("popstate", handlePathChange);
     };
   }, []);
 
