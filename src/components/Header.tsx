@@ -17,6 +17,18 @@ export const Header = () => {
     { href: "#recursos", label: "Recursos", ariaLabel: "Ir para seção de Recursos" },
   ];
 
+  // Função para obter o href correto baseado na página atual
+  const getLinkHref = (link: typeof menuLinks[0]) => {
+    if (link.isExternal) {
+      return link.href;
+    }
+    // Se estiver fora da página principal, adiciona o prefixo "/"
+    if (window.location.pathname !== "/") {
+      return "/" + link.href;
+    }
+    return link.href;
+  };
+
   // Hook para detectar seção ativa ao scrollar
   useEffect(() => {
     const handleScroll = () => {
@@ -92,9 +104,9 @@ export const Header = () => {
               {menuLinks.map((link) => (
                 <a 
                   key={link.href}
-                  href={link.href} 
+                  href={getLinkHref(link)}
                   className={`text-sm font-semibold transition-all duration-200 relative pb-2 ${
-                    activeSection === link.href 
+                    activeSection === link.href || (link.isExternal && window.location.pathname === link.href)
                       ? "text-primary after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-primary" 
                       : "text-foreground hover:text-primary"
                   }`}
@@ -157,10 +169,10 @@ export const Header = () => {
                     {menuLinks.map((link) => (
                       <a 
                         key={link.href}
-                        href={link.href}
+                        href={getLinkHref(link)}
                         onClick={() => setIsMenuOpen(false)}
                         className={`px-4 py-3 rounded-lg font-semibold transition-colors ${
-                          activeSection === link.href
+                          activeSection === link.href || (link.isExternal && window.location.pathname === link.href)
                             ? "bg-primary/20 text-primary border-l-2 border-primary"
                             : "text-foreground hover:bg-primary/10 hover:text-primary"
                         }`}
