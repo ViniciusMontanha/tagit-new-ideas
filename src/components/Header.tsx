@@ -11,7 +11,7 @@ export const Header = () => {
   const [activeSection, setActiveSection] = useState<string>("");
 
   const menuLinks = [
-    { href: "/sobre", label: "Sobre", ariaLabel: "Ir para página sobre a Tag It", isExternal: true },
+    { href: "/quem-somos", label: "Quem Somos", ariaLabel: "Ir para página Quem Somos da Tag It", isExternal: true },
     { href: "#empresas", label: "Para Empresas", ariaLabel: "Ir para seção Para Empresas" },
     { href: "#para-voce", label: "Para Você", ariaLabel: "Ir para seção Para Pessoas Físicas" },
     { href: "#recursos", label: "Recursos", ariaLabel: "Ir para seção de Recursos" },
