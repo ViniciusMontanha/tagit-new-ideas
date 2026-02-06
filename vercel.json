@@ -1,9 +1,10 @@
 {
-  "buildCommand": "npm ci --omit=dev && npm run build",
+  "buildCommand": "bash build.sh",
   "outputDirectory": "dist",
   "framework": "vite",
   "env": {
-    "NODE_ENV": "production"
+    "NODE_ENV": "production",
+    "CI": "true"
   },
   "regions": ["sfo1"],
   "rewrites": [
