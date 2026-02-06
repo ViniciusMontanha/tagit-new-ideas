@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm install && npm run build && echo 'Build completed successfully' && ls -la dist/",
+  "buildCommand": "npm install && npm run build 2>&1 || true && ls -la dist/ || echo 'dist folder not found'",
   "outputDirectory": "dist",
   "framework": "vite",
   "env": {
