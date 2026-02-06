@@ -1,12 +1,10 @@
 {
-  "buildCommand": "bash build.sh",
+  "buildCommand": "npm ci && npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
   "env": {
-    "NODE_ENV": "production",
-    "CI": "true"
+    "NODE_ENV": "production"
   },
-  "regions": ["sfo1"],
   "rewrites": [
     {
       "source": "/(.*)",
