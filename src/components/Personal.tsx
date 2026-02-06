@@ -88,7 +88,7 @@ export const Personal = () => {
             className="order-1 lg:order-2 space-y-8"
           >
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-purple opacity-15 blur-[100px] rounded-full"></div>
+              <div className="absolute inset-0"></div>
               <motion.img 
                 src={tagProduct} 
                 alt="Tag It - Dispositivo de rastreamento inteligente" 

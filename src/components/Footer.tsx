@@ -8,7 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { usePrivacyPolicy } from "@/contexts/PrivacyPolicyContext";
 import { Link } from "react-router-dom";
-import { Home, Info, Briefcase, Users, Shield } from "lucide-react";
+import { Home, Info, Briefcase, Users, Shield, Instagram } from "lucide-react";
 
 export const Footer = () => {
   const { isOpen, openPrivacyPolicy, closePrivacyPolicy } = usePrivacyPolicy();
@@ -23,7 +23,7 @@ export const Footer = () => {
         itemType="https://schema.org/Organization"
       >
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
             {/* Informações de Contato */}
             <div className="space-y-3">
               <h3 className="font-semibold text-sm text-foreground">Contato</h3>
@@ -31,7 +31,7 @@ export const Footer = () => {
                 <p itemProp="name" className="font-medium text-foreground">
                   Tag IT Tecnologia em Localização LTDA
                 </p>
-                <p itemProp="identifier" className="hidden">
+                <p itemProp="identifier" className="text-xs text-muted-foreground">
                   CNPJ: 64.407.101/0001-64
                 </p>
                 <div className="space-y-1">
@@ -120,6 +120,26 @@ export const Footer = () => {
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
                   </span>
                 </Button>
+              </nav>
+            </div>
+
+            {/* Redes Sociais */}
+            <div className="space-y-3">
+              <h3 className="font-semibold text-sm text-foreground">Redes Sociais</h3>
+              <nav aria-label="Redes sociais" className="space-y-3">
+                <a
+                  href="https://www.instagram.com/tagitlocalizacaointeligente/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors group"
+                  aria-label="Seguir Tag It no Instagram"
+                >
+                  <Instagram className="w-4 h-4 group-hover:translate-y-0.5 transition-transform duration-300" />
+                  <span className="relative pb-0.5">
+                    Instagram
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
+                  </span>
+                </a>
               </nav>
             </div>
           </div>
