@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm ci && npm run build",
+  "buildCommand": "npm install && npm run build && echo 'Build completed successfully' && ls -la dist/",
   "outputDirectory": "dist",
   "framework": "vite",
   "env": {
