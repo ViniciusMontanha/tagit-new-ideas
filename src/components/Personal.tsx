@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { User, Bell, Heart, PawPrint } from "lucide-react";
 import tagProduct from "@/assets/tag_branca_logo.png";
-import familyWithPet from "@/assets/family-with-pet.jpg";
+import coleirGolden from "@/assets/Coleira_golden.png";
 
 const benefits = [
   {
@@ -92,16 +92,16 @@ export const Personal = () => {
               <motion.img 
                 src={tagProduct} 
                 alt="Tag It - Dispositivo de rastreamento inteligente" 
-                className="relative w-full max-w-lg mx-auto drop-shadow-2xl"
+                className="relative w-full max-w-md mx-auto drop-shadow-2xl"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
               />
             </div>
             <div className="relative">
               <motion.img 
-                src={familyWithPet} 
-                alt="Família feliz com seu pet protegido pela Tag It" 
-                className="relative w-full rounded-2xl shadow-strong"
+                src={coleirGolden} 
+                alt="Coleira Golden - Rastreador para pets Tag It" 
+                className="relative w-full max-w-md mx-auto rounded-2xl shadow-strong"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
               />

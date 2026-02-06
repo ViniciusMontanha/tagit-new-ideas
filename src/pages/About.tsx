@@ -2,9 +2,10 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Zap, Users, Globe, Award } from "lucide-react";
+import { Zap, Users, Globe, Award, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { ContactModal } from "@/components/ContactModal";
+import josyImage from "@/assets/josy.jpeg";
 
 const About = () => {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -30,13 +31,6 @@ const About = () => {
       title: "Qualidade",
       description: "Cada produto é desenvolvido com excelência, passando por rigorosos testes de qualidade.",
     },
-  ];
-
-  const milestones = [
-    { year: "2023", event: "Fundação da Tag It" },
-    { year: "2024", event: "Expansão para América Latina" },
-    { year: "2025", event: "Lançamento da plataforma integrada" },
-    { year: "2026", event: "Alcance de 10.000+ usuários ativos" },
   ];
 
   return (
@@ -91,35 +85,96 @@ const About = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
-                className="space-y-6"
               >
-                <div>
-                  <h2
-                    id="historia-heading"
-                    className="text-4xl md:text-5xl font-bold mb-4"
-                    itemProp="name"
-                  >
-                    Nossa História
-                  </h2>
-                  <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-                    A <span className="font-semibold">Tag It</span> nasceu de uma visão
-                    simples: oferecer a tecnologia de rastreamento mais avançada,
-                    confiável e acessível para proteger os ativos das pessoas e empresas.
-                  </p>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    Com uma equipe dedicada de engenheiros e especialistas em localização,
-                    desenvolvemos soluções que combinam inovação com facilidade de uso,
-                    sempre colocando a segurança e privacidade dos nossos clientes em primeiro lugar.
-                  </p>
-                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                  {/* Conteúdo de texto */}
+                  <div className="space-y-6">
+                    <div>
+                      <h2
+                        id="historia-heading"
+                        className="text-4xl md:text-5xl font-bold mb-4"
+                        itemProp="name"
+                      >
+                        Nossa História
+                      </h2>
+                      <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+                        A <span className="font-semibold">Tag IT Localização</span> nasceu 
+                        da necessidade de oferecer soluções inteligentes, acessíveis e confiáveis 
+                        para rastreamento e gestão de ativos, veículos e pessoas. Observando as 
+                        dificuldades enfrentadas por empresas e usuários no controle, segurança e 
+                        localização em tempo real, surgiu a ideia de criar uma tecnologia prática, 
+                        eficiente e adaptada à realidade do mercado.
+                      </p>
+                      <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+                        Unimos inovação, tecnologia e conhecimento para desenvolver soluções de 
+                        localização que tragam mais segurança, controle e tranquilidade aos nossos clientes.
+                      </p>
+                      <p className="text-lg text-muted-foreground leading-relaxed">
+                        <span className="font-semibold">Josy Dizaro</span> é uma empreendedora 
+                        que iniciou sua trajetória no setor da estética, onde o contato direto com as 
+                        clientes revelou dores reais relacionadas à segurança, controle e organização. 
+                        A partir dessas necessidades e opiniões, surgiu a motivação para expandir sua 
+                        atuação para o ramo da tecnologia, transformando experiências práticas em 
+                        soluções inovadoras, unindo sensibilidade ao mercado, visão empreendedora e tecnologia.
+                      </p>
+                    </div>
+                  </div>
 
-                <Button
-                  size="lg"
-                  className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold"
-                  onClick={() => setIsContactModalOpen(true)}
-                >
-                  Saiba Mais
-                </Button>
+                  {/* Card da Josy - Melhorado */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    viewport={{ once: true }}
+                    className="flex justify-center"
+                  >
+                    <button
+                      onClick={() => setIsContactModalOpen(true)}
+                      className="group w-full max-w-xs text-left transition-all duration-300"
+                      aria-label="Conheça a fundadora - Josy Dizaro"
+                    >
+                      {/* Imagem com Overlay */}
+                      <div className="relative overflow-hidden rounded-lg mb-4 h-auto bg-muted/20 flex items-center justify-center min-h-64 shadow-md group-hover:shadow-lg transition-shadow duration-300">
+                        <img
+                          src={josyImage}
+                          alt="Josy Dizaro - Fundadora da Tag IT Localização"
+                          className="w-full h-auto object-contain transition-opacity duration-500"
+                          loading="lazy"
+                        />
+                        {/* Overlay Gradient - Só aparece no hover */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        
+                        {/* Indicador de Clique */}
+                        <div className="absolute bottom-4 right-4 bg-primary rounded-full p-2.5 transform translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-md">
+                          <ArrowRight className="w-4 h-4 text-primary-foreground" />
+                        </div>
+                      </div>
+
+                      {/* Informações */}
+                      <div className="space-y-3">
+                        {/* Divider */}
+                        <div className="h-0.5 w-10 bg-primary group-hover:w-14 transition-all duration-300" />
+                        
+                        {/* Nome e Cargo */}
+                        <div>
+                          <h3 className="text-2xl font-bold text-foreground">Josy Dizaro</h3>
+                          <p className="text-xs font-semibold uppercase tracking-wide text-primary mt-1">Fundadora & CEO</p>
+                        </div>
+
+                        {/* Quote */}
+                        <p className="text-sm text-muted-foreground italic leading-relaxed border-l-2 border-primary/30 pl-3">
+                          "Transformando experiências práticas em soluções inovadoras"
+                        </p>
+
+                        {/* CTA */}
+                        <div className="pt-2 flex items-center gap-2 text-primary text-sm font-semibold group-hover:gap-3 transition-all duration-300">
+                          <span>Conheça a história</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </div>
+                      </div>
+                    </button>
+                  </motion.div>
+                </div>
               </motion.div>
             </div>
           </div>
@@ -180,64 +235,6 @@ const About = () => {
                   </motion.div>
                 );
               })}
-            </div>
-          </div>
-        </section>
-
-        {/* Seção Timeline */}
-        <section
-          className="py-32 bg-background"
-          role="region"
-          aria-labelledby="timeline-heading"
-        >
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
-            >
-              <h2
-                id="timeline-heading"
-                className="text-4xl md:text-5xl font-bold mb-4"
-              >
-                Nossa Jornada
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Marcos importantes na história da Tag It
-              </p>
-            </motion.div>
-
-            <div className="max-w-4xl mx-auto">
-              {milestones.map((milestone, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6 }}
-                  viewport={{ once: true }}
-                  className={`flex gap-8 mb-8 ${index % 2 === 0 ? "flex-row" : "flex-row-reverse"}`}
-                >
-                  <div className="flex-1 text-right md:text-left">
-                    <div className="p-6 bg-card border border-border rounded-lg">
-                      <p className="text-primary font-bold text-lg mb-2">
-                        {milestone.year}
-                      </p>
-                      <p className="text-foreground font-semibold">
-                        {milestone.event}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="hidden md:flex flex-col items-center">
-                    <div className="w-4 h-4 rounded-full bg-primary" />
-                    {index < milestones.length - 1 && (
-                      <div className="w-1 h-24 bg-primary/30" />
-                    )}
-                  </div>
-                  <div className="flex-1" />
-                </motion.div>
-              ))}
             </div>
           </div>
         </section>

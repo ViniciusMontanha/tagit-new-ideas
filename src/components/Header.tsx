@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ContactModal } from "@/components/ContactModal";
 import logo from "@/assets/logo.png";
-import { Menu, X } from "lucide-react";
+import { Menu, Info, Briefcase, Users, Zap, Sparkles, Mail, LogIn } from "lucide-react";
 
 export const Header = () => {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -11,10 +11,10 @@ export const Header = () => {
   const [activeSection, setActiveSection] = useState<string>("");
 
   const menuLinks = [
-    { href: "/quem-somos", label: "Quem Somos", ariaLabel: "Ir para página Quem Somos da Tag It", isExternal: true },
-    { href: "#empresas", label: "Para Empresas", ariaLabel: "Ir para seção Para Empresas" },
-    { href: "#para-voce", label: "Para Você", ariaLabel: "Ir para seção Para Pessoas Físicas" },
-    { href: "#recursos", label: "Recursos", ariaLabel: "Ir para seção de Recursos" },
+    { href: "/quem-somos", label: "Quem Somos", ariaLabel: "Ir para página Quem Somos da Tag It", isExternal: true, icon: Info },
+    { href: "#empresas", label: "Para Empresas", ariaLabel: "Ir para seção Para Empresas", isExternal: false, icon: Briefcase },
+    { href: "#para-voce", label: "Para Você", ariaLabel: "Ir para seção Para Pessoas Físicas", isExternal: false, icon: Users },
+    { href: "#recursos", label: "Recursos", ariaLabel: "Ir para seção de Recursos", isExternal: false, icon: Zap },
   ];
 
   // Função para obter o href correto baseado na página atual
@@ -100,48 +100,63 @@ export const Header = () => {
             </a>
 
             {/* Menu Desktop */}
-            <div className="hidden lg:flex items-center gap-6 flex-1 justify-center">
-              {menuLinks.map((link) => (
-                <a 
-                  key={link.href}
-                  href={getLinkHref(link)}
-                  className={`text-sm font-semibold transition-all duration-200 relative pb-2 ${
-                    activeSection === link.href || (link.isExternal && window.location.pathname === link.href)
-                      ? "text-primary after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-primary" 
-                      : "text-foreground hover:text-primary"
-                  }`}
-                  aria-label={link.ariaLabel}
-                  aria-current={activeSection === link.href ? "page" : undefined}
-                >
-                  {link.label}
-                </a>
-              ))}
+            <div className="hidden lg:flex items-center gap-8 flex-1 justify-center">
+              {menuLinks.map((link) => {
+                const IconComponent = link.icon;
+                return (
+                  <a 
+                    key={link.href}
+                    href={getLinkHref(link)}
+                    className={`group flex items-center gap-2 font-semibold transition-all duration-200 relative ${
+                      activeSection === link.href || (link.isExternal && window.location.pathname === link.href)
+                        ? "text-primary" 
+                        : "text-foreground hover:text-primary"
+                    }`}
+                    aria-label={link.ariaLabel}
+                    aria-current={activeSection === link.href ? "page" : undefined}
+                  >
+                    {IconComponent && <IconComponent className="w-4 h-4 transition-transform group-hover:scale-110 duration-300" />}
+                    <span className="relative text-sm pb-0.5">
+                      {link.label}
+                      <span className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                        activeSection === link.href || (link.isExternal && window.location.pathname === link.href)
+                          ? "w-full" 
+                          : "w-0 group-hover:w-full"
+                      }`} />
+                    </span>
+                  </a>
+                );
+              })}
             </div>
 
             {/* Desktop Right Section - E-mail, Demo, Login */}
-            <div className="hidden md:flex items-center gap-4">
+            <div className="hidden md:flex items-center gap-3">
               <a 
                 href="mailto:contato@tagit.com.br" 
-                className="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 hover:border-primary/40 text-primary font-semibold text-xs hover:shadow-[0_0_12px_hsl(198_100%_50%_/_0.15)] transition-all duration-200"
+                className="group flex items-center gap-2 px-3 py-2.5 rounded-lg bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground transition-all duration-200"
                 aria-label="Enviar e-mail para contato@tagit.com.br"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                <span className="hidden lg:inline">contato@tagit.com.br</span>
+                <Mail className="h-4 w-4 transition-transform group-hover:scale-110 duration-300" />
+                <span className="hidden lg:inline text-sm font-medium">contato@tagit.com.br</span>
               </a>
               <Button 
                 onClick={() => setIsContactModalOpen(true)}
-                className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold text-sm"
+                className="bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:shadow-lg hover:shadow-primary/40 font-semibold text-sm transition-all duration-300 flex items-center gap-2"
                 aria-label="Abrir formulário de contato"
               >
+                <Sparkles className="w-4 h-4" />
                 Solicitar Demo
               </Button>
               <Button 
-                variant="ghost" 
-                className="text-sm font-semibold text-foreground hover:text-primary hidden lg:flex"
+                variant="outline" 
+                className="text-sm font-semibold hover:bg-primary/10 hover:text-primary transition-all duration-300 flex items-center gap-2"
                 aria-label="Acessar área de login"
                 asChild
               >
-                <a href="https://web.iatag.com.br/login">Login</a>
+                <a href="https://web.iatag.com.br/login" target="_blank" rel="noopener noreferrer">
+                  <LogIn className="w-4 h-4" />
+                  Login
+                </a>
               </Button>
             </div>
 
@@ -151,66 +166,74 @@ export const Header = () => {
                 <Button 
                   variant="ghost" 
                   size="icon"
-                  className="md:hidden"
+                  className="md:hidden hover:bg-primary/10 transition-colors duration-200"
                   aria-label="Abrir menu de navegação"
                 >
-                  <Menu className="h-6 w-6" />
+                  <Menu className="h-6 w-6 transition-transform duration-300" />
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-64 p-0">
-                <div className="flex flex-col h-full">
+                <div className="flex flex-col h-full bg-background">
                   {/* Header do Menu Mobile */}
                   <div className="p-4 border-b border-border">
-                    <span className="font-semibold text-foreground">Menu</span>
+                    <span className="font-semibold text-foreground">Navegação</span>
                   </div>
 
                   {/* Links do Menu Mobile */}
-                  <div className="flex flex-col gap-2 p-4">
-                    {menuLinks.map((link) => (
-                      <a 
-                        key={link.href}
-                        href={getLinkHref(link)}
-                        onClick={() => setIsMenuOpen(false)}
-                        className={`px-4 py-3 rounded-lg font-semibold transition-colors ${
-                          activeSection === link.href || (link.isExternal && window.location.pathname === link.href)
-                            ? "bg-primary/20 text-primary border-l-2 border-primary"
-                            : "text-foreground hover:bg-primary/10 hover:text-primary"
-                        }`}
-                        aria-label={link.ariaLabel}
-                        aria-current={activeSection === link.href ? "page" : undefined}
-                      >
-                        {link.label}
-                      </a>
-                    ))}
+                  <div className="flex flex-col gap-3 p-4">
+                    {menuLinks.map((link) => {
+                      const IconComponent = link.icon;
+                      return (
+                        <a 
+                          key={link.href}
+                          href={getLinkHref(link)}
+                          onClick={() => setIsMenuOpen(false)}
+                          className={`group flex items-center gap-3 px-4 py-3 rounded-lg font-semibold transition-all duration-200 ${
+                            activeSection === link.href || (link.isExternal && window.location.pathname === link.href)
+                              ? "bg-primary/20 text-primary border-l-2 border-primary"
+                              : "text-foreground hover:bg-primary/10 hover:text-primary"
+                          }`}
+                          aria-label={link.ariaLabel}
+                          aria-current={activeSection === link.href ? "page" : undefined}
+                        >
+                          {IconComponent && <IconComponent className="w-4 h-4 transition-transform group-hover:scale-110 duration-300" />}
+                          {link.label}
+                        </a>
+                      );
+                    })}
                     <a 
                       href="mailto:contato@tagit.com.br"
-                      className="px-4 py-3 rounded-lg bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 text-primary font-semibold flex items-center gap-2 hover:border-primary/40 transition-colors"
+                      className="flex items-center gap-3 px-4 py-3 rounded-lg bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground font-semibold transition-all duration-200"
                       aria-label="Enviar e-mail para contato@tagit.com.br"
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                      <Mail className="w-4 h-4" />
                       contato@tagit.com.br
                     </a>
                   </div>
 
                   {/* Buttons do Menu Mobile */}
-                  <div className="mt-auto p-4 border-t border-border flex flex-col gap-2">
+                  <div className="mt-auto p-4 border-t border-border flex flex-col gap-3">
                     <Button 
                       onClick={() => {
                         setIsContactModalOpen(true);
                         setIsMenuOpen(false);
                       }}
-                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold"
+                      className="w-full bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:shadow-lg font-semibold transition-all duration-300 flex items-center gap-2"
                       aria-label="Abrir formulário de contato"
                     >
+                      <Sparkles className="w-4 h-4" />
                       Solicitar Demo
                     </Button>
                     <Button 
                       variant="outline" 
-                      className="w-full font-semibold"
+                      className="w-full font-semibold hover:bg-primary/10 hover:text-primary hover:border-primary transition-all duration-300"
                       aria-label="Acessar área de login"
                       asChild
                     >
-                      <a href="/login">Login</a>
+                      <a href="https://web.iatag.com.br/login" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                        <LogIn className="w-4 h-4" />
+                        Login
+                      </a>
                     </Button>
                   </div>
                 </div>
