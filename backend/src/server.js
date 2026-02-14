@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+import { uploadCarouselImageToGitHub } from "./github-upload.js";
 
 // Configurar paths para ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -30,7 +31,7 @@ async function initBrevo() {
 }
 
 // Middleware
-app.use(express.json());
+app.use(express.json({ limit: "15mb" }));
 app.use(
   cors({
     origin: [
@@ -102,6 +103,42 @@ function setupRoutes() {
 
       return res.status(500).json({
         error: "Erro desconhecido ao enviar email",
+      });
+    }
+  });
+
+  // Upload de imagem do carrossel para GitHub
+  app.post("/api/upload-carousel-image", async (req, res) => {
+    try {
+      const schema = z.object({
+        fileName: z.string().min(1),
+        fileBase64: z.string().min(1),
+        slideId: z.string().min(1),
+      });
+
+      const payload = schema.parse(req.body);
+      const upload = await uploadCarouselImageToGitHub(payload);
+
+      return res.status(200).json({
+        success: true,
+        imageUrl: upload.imageUrl,
+        filePath: upload.filePath,
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({
+          error: "Dados inválidos",
+          details: error.errors.map((e) => ({
+            field: e.path.join("."),
+            message: e.message,
+          })),
+        });
+      }
+
+      const errorMessage = error instanceof Error ? error.message : "Erro desconhecido";
+      return res.status(500).json({
+        error: "Falha ao enviar imagem para o GitHub",
+        message: errorMessage,
       });
     }
   });

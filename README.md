@@ -92,6 +92,22 @@ As imagens continuam hospedadas no GitHub. Basta salvar no admin uma URL públic
 
 Se você colar uma URL `github.com/.../blob/...`, o sistema converte automaticamente para URL raw.
 
+### Upload local de imagem para GitHub
+
+No admin do carrossel, você pode selecionar uma imagem da máquina local e enviar direto para o repositório GitHub.
+
+Variáveis necessárias no backend:
+
+```sh
+GITHUB_TOKEN=...
+GITHUB_OWNER=...
+GITHUB_REPO=...
+GITHUB_BRANCH=main
+GITHUB_UPLOAD_PATH=public/carousel
+```
+
+Depois do upload, a URL raw é vinculada ao slide e persistida no Supabase automaticamente.
+
 ## How can I deploy this project?
 
 Simply open [Lovable](https://lovable.dev/projects/62a69c91-fff4-4881-8f91-3d65af5a2d74) and click on Share -> Publish.

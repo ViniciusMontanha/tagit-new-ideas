@@ -14,12 +14,30 @@ const getAdminPassword = () => {
   return import.meta.env.VITE_ADMIN_CAROUSEL_PASSWORD || "tagit-admin1";
 };
 
+const fileToBase64 = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      if (typeof reader.result === "string") {
+        resolve(reader.result);
+      } else {
+        reject(new Error("Falha ao ler arquivo"));
+      }
+    };
+
+    reader.onerror = () => reject(new Error("Falha ao ler arquivo"));
+    reader.readAsDataURL(file);
+  });
+};
+
 const AdminCarousel = () => {
   const [slides, setSlides] = useState<HeroSlide[]>(defaultHeroSlides);
   const [statusMessage, setStatusMessage] = useState<string>("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoadingSlides, setIsLoadingSlides] = useState(false);
   const [isSavingSlides, setIsSavingSlides] = useState(false);
+  const [uploadingSlideId, setUploadingSlideId] = useState<string | null>(null);
   const [passwordInput, setPasswordInput] = useState("");
   const [authError, setAuthError] = useState<string>("");
 
@@ -84,6 +102,58 @@ const AdminCarousel = () => {
   const handleDeleteSlide = (id: string) => {
     setSlides((prev) => prev.filter((slide) => slide.id !== id));
     setStatusMessage("Slide removido.");
+  };
+
+  const handleUploadSlideImage = async (slideId: string, file: File | null) => {
+    if (!file) {
+      return;
+    }
+
+    try {
+      setUploadingSlideId(slideId);
+      setStatusMessage("Enviando imagem para o GitHub...");
+
+      const fileBase64 = await fileToBase64(file);
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3001";
+
+      const response = await fetch(`${apiUrl}/api/upload-carousel-image`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fileName: file.name,
+          fileBase64,
+          slideId,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorPayload = await response.json().catch(() => null);
+        const message = errorPayload?.message || "Falha no upload da imagem";
+        throw new Error(message);
+      }
+
+      const uploadResult = await response.json();
+      const nextSlides = slides.map((slide) =>
+        slide.id === slideId ? { ...slide, image: uploadResult.imageUrl } : slide,
+      );
+
+      setSlides(nextSlides);
+
+      const saveResult = await saveHeroSlides(nextSlides);
+
+      if (!saveResult.success) {
+        throw new Error(saveResult.errorMessage || "Falha ao persistir slide no Supabase");
+      }
+
+      setStatusMessage("Imagem enviada para o GitHub e slide atualizado no Supabase.");
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Falha no upload da imagem";
+      setStatusMessage(`Erro ao enviar imagem: ${message}`);
+    } finally {
+      setUploadingSlideId(null);
+    }
   };
 
   const handleSave = async () => {
@@ -225,6 +295,21 @@ const AdminCarousel = () => {
                             onChange={(e) => updateSlide(slide.id, "image", e.target.value)}
                             placeholder="https://raw.githubusercontent.com/..."
                           />
+                          <div className="flex gap-2">
+                            <Input
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) => {
+                                const file = e.target.files?.[0] || null;
+                                handleUploadSlideImage(slide.id, file);
+                                e.currentTarget.value = "";
+                              }}
+                              disabled={isSavingSlides || uploadingSlideId === slide.id}
+                            />
+                          </div>
+                          {uploadingSlideId === slide.id ? (
+                            <p className="text-xs text-muted-foreground">Enviando imagem...</p>
+                          ) : null}
                         </div>
 
                         <div className="space-y-2 md:col-span-2">
