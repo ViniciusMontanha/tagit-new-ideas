@@ -9,10 +9,7 @@ import { defaultHeroSlides, createEmptyHeroSlide } from "@/lib/hero-default-slid
 import { loadHeroSlides, saveHeroSlides, type HeroSlide } from "@/lib/hero-slides";
 
 const ADMIN_AUTH_STORAGE_KEY = "tagit.admin.carousel.auth";
-
-const getAdminPassword = () => {
-  return import.meta.env.VITE_ADMIN_CAROUSEL_PASSWORD || "tagit-admin1";
-};
+const ADMIN_TOKEN_STORAGE_KEY = "tagit.admin.carousel.token";
 
 const fileToBase64 = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -40,10 +37,14 @@ const AdminCarousel = () => {
   const [uploadingSlideId, setUploadingSlideId] = useState<string | null>(null);
   const [passwordInput, setPasswordInput] = useState("");
   const [authError, setAuthError] = useState<string>("");
+  const [adminToken, setAdminToken] = useState<string>("");
 
   useEffect(() => {
     const auth = window.localStorage.getItem(ADMIN_AUTH_STORAGE_KEY);
-    setIsAuthenticated(auth === "true");
+    const token = window.localStorage.getItem(ADMIN_TOKEN_STORAGE_KEY) || "";
+
+    setIsAuthenticated(auth === "true" && Boolean(token));
+    setAdminToken(token);
   }, []);
 
   useEffect(() => {
@@ -72,21 +73,46 @@ const AdminCarousel = () => {
     };
   }, [isAuthenticated]);
 
-  const handleLogin = () => {
-    if (passwordInput === getAdminPassword()) {
+  const handleLogin = async () => {
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3001";
+      const response = await fetch(`${apiUrl}/api/admin-session`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ password: passwordInput }),
+      });
+
+      if (!response.ok) {
+        setAuthError("Senha inválida. Tente novamente.");
+        return;
+      }
+
+      const payload = await response.json();
+      const token = payload?.token as string;
+
+      if (!token) {
+        setAuthError("Falha ao iniciar sessão admin.");
+        return;
+      }
+
+      setAdminToken(token);
       setIsAuthenticated(true);
       setAuthError("");
       setPasswordInput("");
       window.localStorage.setItem(ADMIN_AUTH_STORAGE_KEY, "true");
-      return;
+      window.localStorage.setItem(ADMIN_TOKEN_STORAGE_KEY, token);
+    } catch {
+      setAuthError("Falha ao autenticar. Tente novamente.");
     }
-
-    setAuthError("Senha inválida. Tente novamente.");
   };
 
   const handleLogout = () => {
     setIsAuthenticated(false);
+    setAdminToken("");
     window.localStorage.removeItem(ADMIN_AUTH_STORAGE_KEY);
+    window.localStorage.removeItem(ADMIN_TOKEN_STORAGE_KEY);
     setStatusMessage("");
   };
 
@@ -120,6 +146,7 @@ const AdminCarousel = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${adminToken}`,
         },
         body: JSON.stringify({
           fileName: file.name,
@@ -141,7 +168,7 @@ const AdminCarousel = () => {
 
       setSlides(nextSlides);
 
-      const saveResult = await saveHeroSlides(nextSlides);
+      const saveResult = await saveHeroSlides(nextSlides, adminToken);
 
       if (!saveResult.success) {
         throw new Error(saveResult.errorMessage || "Falha ao persistir slide no Supabase");
@@ -164,7 +191,7 @@ const AdminCarousel = () => {
 
     setIsSavingSlides(true);
 
-    const result = await saveHeroSlides(slides);
+    const result = await saveHeroSlides(slides, adminToken);
 
     if (!result.success) {
       setStatusMessage(`Erro ao salvar slides: ${result.errorMessage || "falha desconhecida"}`);
@@ -186,7 +213,7 @@ const AdminCarousel = () => {
     setSlides(defaultHeroSlides);
     setIsSavingSlides(true);
 
-    const result = await saveHeroSlides(defaultHeroSlides);
+    const result = await saveHeroSlides(defaultHeroSlides, adminToken);
 
     if (!result.success) {
       setStatusMessage(`Erro ao restaurar slides padrão: ${result.errorMessage || "falha desconhecida"}`);

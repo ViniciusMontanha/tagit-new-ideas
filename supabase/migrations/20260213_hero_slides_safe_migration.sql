@@ -92,9 +92,9 @@ create policy "hero_slides_select_public"
 
 drop policy if exists "hero_slides_write_authenticated" on public.hero_slides;
 drop policy if exists "hero_slides_write_public" on public.hero_slides;
-create policy "hero_slides_write_public"
+create policy "hero_slides_write_authenticated"
   on public.hero_slides
   for all
-  to anon, authenticated
+  to authenticated
   using (true)
   with check (true);

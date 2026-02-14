@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { uploadCarouselImageToGitHub } from "../src/github-upload.js";
+import { extractBearerToken, verifyAdminToken } from "../src/admin-auth.js";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "https://tagit.com.br",
@@ -8,9 +9,9 @@ const corsHeaders = {
 };
 
 const payloadSchema = z.object({
-  fileName: z.string().min(1),
-  fileBase64: z.string().min(1),
-  slideId: z.string().min(1),
+  fileName: z.string().min(1).max(120).regex(/\.(png|jpe?g|webp|gif|svg)$/i, "Formato não permitido"),
+  fileBase64: z.string().min(1).max(10_000_000),
+  slideId: z.string().min(1).max(64).regex(/^[a-zA-Z0-9_-]+$/),
 });
 
 export default async function handler(req, res) {
@@ -25,6 +26,13 @@ export default async function handler(req, res) {
   }
 
   try {
+    const token = extractBearerToken(req.headers.authorization);
+    const authorized = verifyAdminToken(token);
+
+    if (!authorized) {
+      return res.status(401).json({ error: "Não autorizado" });
+    }
+
     const payload = payloadSchema.parse(req.body || {});
     const upload = await uploadCarouselImageToGitHub(payload);
     const protocol = String(req.headers["x-forwarded-proto"] || "https");

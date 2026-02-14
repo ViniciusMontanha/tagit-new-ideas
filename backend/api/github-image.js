@@ -21,18 +21,30 @@ export default async function handler(req, res) {
   const owner = process.env.GITHUB_OWNER;
   const repo = process.env.GITHUB_REPO;
   const branch = process.env.GITHUB_BRANCH || "main";
+  const uploadPath = process.env.GITHUB_UPLOAD_PATH || "public/carousel";
   const path = typeof req.query.path === "string" ? req.query.path : "";
 
   if (!token || !owner || !repo) {
     return res.status(500).json({ error: "Configuração GitHub ausente" });
   }
 
-  if (!path || path.includes("..")) {
+  const normalizedPath = path.trim().replace(/^\/+/, "");
+
+  if (!normalizedPath || normalizedPath.includes("..")) {
     return res.status(400).json({ error: "Parâmetro path inválido" });
   }
 
+  const allowedPrefix = uploadPath.replace(/^\/+/, "");
+  if (!normalizedPath.startsWith(`${allowedPrefix}/`)) {
+    return res.status(403).json({ error: "Path não permitido" });
+  }
+
+  if (!/\.(png|jpe?g|webp|gif|svg)$/i.test(normalizedPath)) {
+    return res.status(400).json({ error: "Formato de imagem não permitido" });
+  }
+
   const response = await fetch(
-    `${GITHUB_API_URL}/repos/${owner}/${repo}/contents/${encodeURI(path)}?ref=${encodeURIComponent(branch)}`,
+    `${GITHUB_API_URL}/repos/${owner}/${repo}/contents/${encodeURI(normalizedPath)}?ref=${encodeURIComponent(branch)}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -52,11 +64,11 @@ export default async function handler(req, res) {
 
   const arrayBuffer = await response.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
-  const responseContentType = response.headers.get("content-type") || contentTypeFromFileName(path);
+  const responseContentType = response.headers.get("content-type") || contentTypeFromFileName(normalizedPath);
 
   res.setHeader("Content-Type", responseContentType);
   res.setHeader("Cache-Control", "public, max-age=3600, s-maxage=3600");
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "https://tagit.com.br");
 
   return res.status(200).send(buffer);
 }

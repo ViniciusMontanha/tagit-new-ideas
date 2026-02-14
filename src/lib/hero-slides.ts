@@ -33,6 +33,7 @@ type SaveHeroSlidesResult = {
 
 export const HERO_SLIDES_STORAGE_KEY = "tagit.heroSlides";
 const HERO_SLIDES_TABLE = "hero_slides";
+const apiBaseUrl = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
 
 export const isValidHeroSlide = (value: unknown): value is HeroSlide => {
   if (!value || typeof value !== "object") {
@@ -55,8 +56,6 @@ export const isValidHeroSlide = (value: unknown): value is HeroSlide => {
 };
 
 const normalizeGithubImageUrl = (url: string): string => {
-  const apiBaseUrl = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
-
   if (url.includes("raw.githubusercontent.com/") && apiBaseUrl) {
     const marker = "raw.githubusercontent.com/";
     const markerIndex = url.indexOf(marker);
@@ -148,6 +147,27 @@ const mapHeroSlideToRow = (slide: HeroSlide, position: number): HeroSlideRow => 
 };
 
 export const loadHeroSlides = async (): Promise<HeroSlide[] | null> => {
+  if (apiBaseUrl) {
+    try {
+      const response = await fetch(`${apiBaseUrl}/api/hero-slides`);
+
+      if (response.ok) {
+        const payload = await response.json();
+        const data = Array.isArray(payload?.slides) ? payload.slides : [];
+
+        const mappedSlides = data.map((row) => mapRowToHeroSlide(row as HeroSlideRow));
+        const validSlides = mappedSlides.filter(isValidHeroSlide);
+
+        if (validSlides.length > 0) {
+          saveHeroSlidesToStorage(validSlides);
+          return validSlides;
+        }
+      }
+    } catch {
+      // fallback para Supabase/localStorage
+    }
+  }
+
   if (isSupabaseConfigured && supabase) {
     const { data, error } = await supabase
       .from(HERO_SLIDES_TABLE)
@@ -174,7 +194,7 @@ export const loadHeroSlides = async (): Promise<HeroSlide[] | null> => {
   return loadHeroSlidesFromStorage();
 };
 
-export const saveHeroSlides = async (slides: HeroSlide[]): Promise<SaveHeroSlidesResult> => {
+export const saveHeroSlides = async (slides: HeroSlide[], adminToken?: string): Promise<SaveHeroSlidesResult> => {
   const validSlides = slides.filter(isValidHeroSlide);
 
   if (validSlides.length === 0) {
@@ -183,6 +203,48 @@ export const saveHeroSlides = async (slides: HeroSlide[]): Promise<SaveHeroSlide
       persistence: "localStorage",
       errorMessage: "Nenhum slide válido para salvar.",
     };
+  }
+
+  if (apiBaseUrl) {
+    if (!adminToken) {
+      return {
+        success: false,
+        persistence: "supabase",
+        errorMessage: "Sessão admin inválida. Faça login novamente.",
+      };
+    }
+
+    try {
+      const response = await fetch(`${apiBaseUrl}/api/hero-slides`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${adminToken}`,
+        },
+        body: JSON.stringify({ slides: validSlides }),
+      });
+
+      if (!response.ok) {
+        const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+        return {
+          success: false,
+          persistence: "supabase",
+          errorMessage: payload?.error || "Falha ao salvar slides no backend.",
+        };
+      }
+
+      saveHeroSlidesToStorage(validSlides);
+      return {
+        success: true,
+        persistence: "supabase",
+      };
+    } catch {
+      return {
+        success: false,
+        persistence: "supabase",
+        errorMessage: "Falha de comunicação ao salvar slides.",
+      };
+    }
   }
 
   if (isSupabaseConfigured && supabase) {
