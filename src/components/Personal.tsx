@@ -19,7 +19,7 @@ const benefits = [
   {
     icon: Heart,
     title: "Monitore seu Pet com conforto e tecnologia",
-    description: "Saiba exatamente onde esta seu pet.",
+    description: "Saiba exatamente onde está seu pet.",
   },
   {
     icon: PawPrint,
@@ -91,7 +91,7 @@ export const Personal = () => {
               <div className="absolute inset-0"></div>
               <motion.img 
                 src={tagProduct} 
-                alt="Tag It - Dispositivo de rastreamento inteligente" 
+                alt="Tag It - Dispositivo de localização inteligente" 
                 className="relative w-full max-w-md mx-auto drop-shadow-2xl"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}

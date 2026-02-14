@@ -1,7 +1,7 @@
 # Copilot Instructions for Tag It Project
 
 ## Project Overview
-**Tag It** é uma landing page moderna de rastreamento inteligente de ativos. Construída com Vite, TypeScript, React Router, e shadcn-ui components, otimizada para **SEO conforme diretrizes do Google** e **padrões Schema.org/JSON-LD**.
+**Tag It** é uma landing page moderna de localização inteligente de ativos. Construída com Vite, TypeScript, React Router, e shadcn-ui components, otimizada para **SEO conforme diretrizes do Google** e **padrões Schema.org/JSON-LD**.
 
 **Stack Tecnológico:**
 - **Frontend**: React 18, Vite, TypeScript

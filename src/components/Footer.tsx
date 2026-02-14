@@ -8,10 +8,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { usePrivacyPolicy } from "@/contexts/PrivacyPolicyContext";
 import { Link } from "react-router-dom";
-import { Home, Info, Briefcase, Users, Shield, Instagram } from "lucide-react";
+import { useState } from "react";
+import { Home, Info, Briefcase, Users, Shield, Instagram, Layers, ChevronDown } from "lucide-react";
 
 export const Footer = () => {
   const { isOpen, openPrivacyPolicy, closePrivacyPolicy } = usePrivacyPolicy();
+  const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
 
   return (
     <>
@@ -81,26 +83,51 @@ export const Footer = () => {
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
                   </span>
                 </Link>
-                <a
-                  href="/#empresas"
-                  className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors group"
-                >
-                  <Briefcase className="w-4 h-4 group-hover:translate-y-0.5 transition-transform duration-300" />
-                  <span className="relative pb-0.5">
-                    Para Empresas
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
-                  </span>
-                </a>
-                <a
-                  href="/#para-voce"
-                  className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors group"
-                >
-                  <Users className="w-4 h-4 group-hover:translate-y-0.5 transition-transform duration-300" />
-                  <span className="relative pb-0.5">
-                    Para Você
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
-                  </span>
-                </a>
+
+                <div className="space-y-2">
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors group"
+                    onClick={() => setIsSolutionsOpen((prev) => !prev)}
+                    aria-label="Expandir menu Soluções"
+                    aria-expanded={isSolutionsOpen}
+                    aria-controls="footer-solucoes-submenu"
+                  >
+                    <span className="flex items-center gap-2">
+                      <Layers className="w-4 h-4 group-hover:translate-y-0.5 transition-transform duration-300" />
+                      <span className="relative pb-0.5">
+                        Soluções
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
+                      </span>
+                    </span>
+                    <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isSolutionsOpen ? "rotate-180" : ""}`} />
+                  </button>
+                  <div
+                    id="footer-solucoes-submenu"
+                    className={`pl-7 space-y-2 overflow-hidden transition-all duration-300 ${isSolutionsOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}
+                  >
+                    <a
+                      href="/para-empresas"
+                      className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors group"
+                    >
+                      <Briefcase className="w-4 h-4 group-hover:translate-y-0.5 transition-transform duration-300" />
+                      <span className="relative pb-0.5">
+                        Para Empresas
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
+                      </span>
+                    </a>
+                    <a
+                      href="/para-voce"
+                      className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors group"
+                    >
+                      <Users className="w-4 h-4 group-hover:translate-y-0.5 transition-transform duration-300" />
+                      <span className="relative pb-0.5">
+                        Para Você
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
+                      </span>
+                    </a>
+                  </div>
+                </div>
               </nav>
             </div>
 

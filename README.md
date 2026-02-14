@@ -60,6 +60,38 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
+## Persistência do carrossel (Supabase)
+
+O carrossel da Home (`Hero`) e a tela de administração (`/admin/carrossel`) agora usam Supabase para persistir textos e URLs das imagens.
+
+### 1) Configure variáveis de ambiente
+
+No frontend, adicione:
+
+```sh
+VITE_SUPABASE_URL=...
+VITE_SUPABASE_ANON_KEY=...
+```
+
+Você pode colocar em `.env.local` (desenvolvimento) e no ambiente de produção.
+
+### Segurança de credenciais
+
+- Nunca coloque senha de banco no frontend (variáveis `VITE_*` são públicas no build).
+- Use `SUPABASE_DB_PASSWORD` e `SUPABASE_SERVICE_ROLE_KEY` somente em backend/CI/infra.
+- Use o arquivo [.env.example](.env.example) como referência de nomes de variáveis.
+- Se uma senha já foi exposta, faça rotação imediata no Supabase e atualize os ambientes (local e Vercel).
+
+### 2) Crie a tabela no Supabase
+
+Execute o SQL de [supabase/hero_slides.sql](supabase/hero_slides.sql).
+
+### 3) Imagens no GitHub
+
+As imagens continuam hospedadas no GitHub. Basta salvar no admin uma URL pública, de preferência `raw.githubusercontent.com`.
+
+Se você colar uma URL `github.com/.../blob/...`, o sistema converte automaticamente para URL raw.
+
 ## How can I deploy this project?
 
 Simply open [Lovable](https://lovable.dev/projects/62a69c91-fff4-4881-8f91-3d65af5a2d74) and click on Share -> Publish.

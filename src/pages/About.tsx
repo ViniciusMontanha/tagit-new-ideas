@@ -14,7 +14,7 @@ const About = () => {
     {
       icon: Zap,
       title: "Inovação",
-      description: "Desenvolvemos tecnologia de ponta em rastreamento e localização de ativos para o mercado.",
+      description: "Desenvolvemos tecnologia de ponta em localização e gestão de ativos para o mercado.",
     },
     {
       icon: Users,
@@ -64,7 +64,7 @@ const About = () => {
                 Conheça a Tag It
               </h1>
               <p className="text-xl md:text-2xl font-light leading-relaxed opacity-95">
-                A melhor solução em rastreamento inteligente de ativos do Brasil
+                A melhor solução em localização inteligente de ativos do Brasil
               </p>
             </motion.div>
           </div>
@@ -100,7 +100,7 @@ const About = () => {
                       <p className="text-lg text-muted-foreground leading-relaxed mb-4">
                         A <span className="font-semibold">Tag IT Localização</span> nasceu 
                         da necessidade de oferecer soluções inteligentes, acessíveis e confiáveis 
-                        para rastreamento e gestão de ativos, veículos e pessoas. Observando as 
+                        para localização e gestão de ativos, veículos e pessoas. Observando as 
                         dificuldades enfrentadas por empresas e usuários no controle, segurança e 
                         localização em tempo real, surgiu a ideia de criar uma tecnologia prática, 
                         eficiente e adaptada à realidade do mercado.

@@ -117,7 +117,12 @@ NODE_ENV=development                  # development ou production
 
 # Frontend
 FRONTEND_URL=http://localhost:5173    # URL do frontend para CORS
+
+# Supabase (somente backend/infra)
+SUPABASE_DB_PASSWORD=CHANGE_ME
 ```
+
+> Importante: nunca use senha de banco em variáveis `VITE_*`, pois elas ficam públicas no frontend.
 
 ## 🔄 Fluxo Completo
 

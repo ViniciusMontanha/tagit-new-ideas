@@ -6,6 +6,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import About from "./pages/About";
+import Empresas from "./pages/Empresas";
+import ParaVoce from "./pages/ParaVoce";
+import AdminCarousel from "./pages/AdminCarousel";
 import NotFound from "./pages/NotFound";
 import { WhatsAppWidget } from "./components/WhatsAppWidget";
 import { CookieBanner } from "./components/CookieBanner";
@@ -36,6 +39,9 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/quem-somos" element={<About />} />
+              <Route path="/para-empresas" element={<Empresas />} />
+              <Route path="/para-voce" element={<ParaVoce />} />
+              <Route path="/admin/carrossel" element={<AdminCarousel />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

@@ -182,7 +182,7 @@ function getAdminEmailTemplate(data) {
         <div class="container">
           <div class="header">
             <h1>📞 Nova Solicitação de Contato</h1>
-            <p>Tag It - Sistema de Rastreamento de Ativos</p>
+            <p>Tag It - Sistema de Localização de Ativos</p>
           </div>
           
           <div class="content">
@@ -221,7 +221,7 @@ function getAdminEmailTemplate(data) {
           </div>
           
           <div class="footer">
-            <p><strong>Tag It - Rastreamento Inteligente de Ativos</strong></p>
+            <p><strong>Tag It - Localização Inteligente de Ativos</strong></p>
             <p>©️ 2026 Tag It. Todos os direitos reservados.</p>
             <p>Este email foi gerado automaticamente pelo formulário de contato.</p>
           </div>
@@ -332,7 +332,7 @@ function getClientEmailTemplate(data) {
           
           <div class="footer">
             <p style="margin: 0 0 10px 0;">
-              <strong>Tag It - Rastreamento Inteligente de Ativos</strong>
+              <strong>Tag It - Localização Inteligente de Ativos</strong>
             </p>
             <p style="margin: 0; color: #999;">
               © 2026 Tag It. Todos os direitos reservados.

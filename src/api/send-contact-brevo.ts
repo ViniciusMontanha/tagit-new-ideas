@@ -111,7 +111,7 @@ function getAdminEmailTemplate(data: ContactFormData): string {
         <div class="container">
           <div class="header">
             <h1>📞 Nova Solicitação de Demo</h1>
-            <p style="margin: 10px 0 0 0;">Tag It - Sistema de Rastreamento de Ativos</p>
+            <p style="margin: 10px 0 0 0;">Tag It - Sistema de Localização de Ativos</p>
           </div>
           
           <div class="content">
@@ -153,7 +153,7 @@ function getAdminEmailTemplate(data: ContactFormData): string {
           
           <div class="footer">
             <p style="margin: 0 0 10px 0;">
-              <strong>Tag It - Rastreamento Inteligente de Ativos</strong>
+              <strong>Tag It - Localização Inteligente de Ativos</strong>
             </p>
             <p style="margin: 0;">
               📞 +55 16 99753-4316 | 🌐 https://tagit.com.br
@@ -284,7 +284,7 @@ function getClientEmailTemplate(data: ContactFormData): string {
           
           <div class="footer">
             <p style="margin: 0 0 10px 0;">
-              <strong>Tag It - Rastreamento Inteligente de Ativos</strong>
+              <strong>Tag It - Localização Inteligente de Ativos</strong>
             </p>
             <p style="margin: 0; color: #999;">
               © 2026 Tag It. Todos os direitos reservados.

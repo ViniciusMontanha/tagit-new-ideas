@@ -1,27 +1,27 @@
 import { motion } from "framer-motion";
-import { Target, Shield, Zap, BarChart } from "lucide-react";
+import { Truck, Hammer, PawPrint, Briefcase } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 const features = [
   {
-    icon: Target,
-    title: "Precisão Avançada",
-    description: "Tecnologia de localização de alta precisão que ajuda a encontrar ativos com facilidade e velocidade.",
+    icon: Truck,
+    title: "Logística",
+    description: "Mais controle de cargas, equipamentos e prazos de entrega com visibilidade na plataforma.",
   },
   {
-    icon: Shield,
-    title: "Privacidade Integrada",
-    description: "Conexões seguras e dados protegidos por design — somente você terá acesso às informações.",
+    icon: Hammer,
+    title: "Construção",
+    description: "Localize ferramentas e máquinas no canteiro e reduza perdas operacionais.",
   },
   {
-    icon: Zap,
-    title: "Bateria Duradoura",
-    description: "Energia para meses com uso diário. Fácil substituição quando necessário.",
+    icon: PawPrint,
+    title: "Pet",
+    description: "Acompanhe a localização do seu pet com mais tranquilidade no dia a dia.",
   },
   {
-    icon: BarChart,
-    title: "Gestão Centralizada",
-    description: "Plataforma única para toda equipe gerenciar e monitorar ativos empresariais.",
+    icon: Briefcase,
+    title: "Uso Pessoal",
+    description: "Tenha seus itens essenciais sempre no radar e evite perder tempo procurando.",
   },
 ];
 
@@ -37,10 +37,10 @@ export const Features = () => {
           className="text-center mb-12"
         >
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
-            Tecnologia de <span className="bg-gradient-hero bg-clip-text text-transparent">Ponta</span>
+            Casos reais por <span className="bg-gradient-hero bg-clip-text text-transparent">segmento</span>
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-            Recursos avançados que garantem total controle sobre seus ativos empresariais.
+            Veja como a Tag It se adapta rápido ao seu cenário de operação.
           </p>
         </motion.div>
 

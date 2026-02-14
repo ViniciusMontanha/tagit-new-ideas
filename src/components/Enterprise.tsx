@@ -12,7 +12,7 @@ const benefits = [
     icon: Lock,
     title: "Proteja seus ativos",
     description:
-      "Gerencie e rastreie equipamentos de alto valor, ferramentas e inventário da empresa com segurança total.",
+      "Gerencie e localize equipamentos de alto valor, ferramentas e inventário da empresa com segurança total.",
   },
   {
     icon: TrendingUp,
@@ -66,7 +66,7 @@ export const Enterprise = () => {
             className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto font-light leading-relaxed"
             itemProp="description"
           >
-            Transforme a forma como sua empresa gerencia ativos com tecnologia de rastreamento inteligente.
+            Transforme a forma como sua empresa gerencia ativos com tecnologia de localização inteligente.
           </p>
         </motion.div>
 
@@ -94,7 +94,7 @@ export const Enterprise = () => {
             <div className="relative">
               <motion.img
                 src={tagPossibilities}
-                alt="Possibilidades de rastreamento Tag It - equipamentos, veículos, ferramentas e ativos empresariais"
+                alt="Possibilidades de localização Tag It - equipamentos, veículos, ferramentas e ativos empresariais"
                 className="relative w-full rounded-2xl shadow-strong"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}

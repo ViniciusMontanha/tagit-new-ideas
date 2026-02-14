@@ -3,17 +3,21 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ContactModal } from "@/components/ContactModal";
 import logo from "@/assets/logo.png";
-import { Menu, Info, Briefcase, Users, Zap, Sparkles, Mail, LogIn } from "lucide-react";
+import { Menu, Info, Briefcase, Users, Zap, Sparkles, Mail, LogIn, Layers, ChevronDown } from "lucide-react";
 
 export const Header = () => {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSolutionsMobileOpen, setIsSolutionsMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
+
+  const solutionLinks = [
+    { href: "/para-empresas", label: "Para Empresas", ariaLabel: "Ir para página Para Empresas", isExternal: true, icon: Briefcase },
+    { href: "/para-voce", label: "Para Você", ariaLabel: "Ir para página Para Você", isExternal: true, icon: Users },
+  ];
 
   const menuLinks = [
     { href: "/quem-somos", label: "Quem Somos", ariaLabel: "Ir para página Quem Somos da Tag It", isExternal: true, icon: Info },
-    { href: "#empresas", label: "Para Empresas", ariaLabel: "Ir para seção Para Empresas", isExternal: false, icon: Briefcase },
-    { href: "#para-voce", label: "Para Você", ariaLabel: "Ir para seção Para Pessoas Físicas", isExternal: false, icon: Users },
     { href: "#recursos", label: "Recursos", ariaLabel: "Ir para seção de Recursos", isExternal: false, icon: Zap },
   ];
 
@@ -33,7 +37,7 @@ export const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       // Filtrar apenas os links que começam com # (âncoras internas)
-      const internalLinks = menuLinks.filter(link => link.href.startsWith("#"));
+      const internalLinks = [...menuLinks, ...solutionLinks].filter(link => link.href.startsWith("#"));
       const sections = internalLinks.map(link => link.href.substring(1)); // Remove o #
       
       for (const section of sections) {
@@ -89,11 +93,11 @@ export const Header = () => {
               href="/"
               className="flex items-center transition-opacity hover:opacity-80 flex-shrink-0"
               aria-label="Tag It - Ir para a página inicial"
-              title="Tag It - Rastreamento de Ativos"
+              title="Tag It - Localização de Ativos"
             >
               <img 
                 src={logo} 
-                alt="Tag It - Rastreamento Inteligente de Ativos"
+                alt="Tag It - Localização Inteligente de Ativos"
                 className="h-[104px] w-auto object-contain"
                 loading="eager"
               />
@@ -127,6 +131,58 @@ export const Header = () => {
                   </a>
                 );
               })}
+
+              <div className="relative group">
+                <button
+                  type="button"
+                  className={`flex items-center gap-2 font-semibold transition-all duration-200 relative ${
+                    solutionLinks.some((link) => window.location.pathname === link.href)
+                      ? "text-primary"
+                      : "text-foreground hover:text-primary"
+                  }`}
+                  aria-label="Abrir submenu Soluções"
+                  aria-expanded="false"
+                >
+                  <Layers className="w-4 h-4 transition-transform group-hover:scale-110 duration-300" />
+                  <span className="relative text-sm pb-0.5">
+                    Soluções
+                    <span className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                      solutionLinks.some((link) => window.location.pathname === link.href)
+                        ? "w-full"
+                        : "w-0 group-hover:w-full"
+                    }`} />
+                  </span>
+                </button>
+
+                <div className="absolute top-full left-0 mt-3 min-w-[220px] rounded-lg border border-border bg-white shadow-soft opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 px-3 py-2">
+                  {solutionLinks.map((link) => {
+                    const IconComponent = link.icon;
+                    return (
+                      <a
+                        key={link.href}
+                        href={getLinkHref(link)}
+                        className={`group/item flex items-center gap-2 py-2 font-semibold transition-all duration-200 relative ${
+                          window.location.pathname === link.href
+                            ? "text-primary"
+                            : "text-foreground hover:text-primary"
+                        }`}
+                        aria-label={link.ariaLabel}
+                        aria-current={window.location.pathname === link.href ? "page" : undefined}
+                      >
+                        {IconComponent && <IconComponent className="w-4 h-4 transition-transform group-hover/item:scale-110 duration-300" />}
+                        <span className="relative text-sm pb-0.5">
+                          {link.label}
+                          <span className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                            window.location.pathname === link.href
+                              ? "w-full"
+                              : "w-0 group-hover/item:w-full"
+                          }`} />
+                        </span>
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
 
             {/* Desktop Right Section - E-mail, Demo, Login */}
@@ -201,6 +257,49 @@ export const Header = () => {
                         </a>
                       );
                     })}
+
+                    <div>
+                      <button
+                        type="button"
+                        onClick={() => setIsSolutionsMobileOpen((prev) => !prev)}
+                        className="w-full flex items-center justify-between px-4 py-3 text-foreground font-semibold hover:bg-primary/10 rounded-lg transition-colors duration-200"
+                        aria-label="Expandir menu Soluções"
+                        aria-expanded={isSolutionsMobileOpen}
+                        aria-controls="mobile-solucoes-submenu"
+                      >
+                        <span className="flex items-center gap-3">
+                          <Layers className="w-4 h-4" />
+                          Soluções
+                        </span>
+                        <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isSolutionsMobileOpen ? "rotate-180" : ""}`} />
+                      </button>
+                      <div
+                        id="mobile-solucoes-submenu"
+                        className={`flex flex-col gap-2 pl-6 overflow-hidden transition-all duration-300 ${isSolutionsMobileOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}
+                      >
+                        {solutionLinks.map((link) => {
+                          const IconComponent = link.icon;
+                          return (
+                            <a
+                              key={link.href}
+                              href={getLinkHref(link)}
+                              onClick={() => setIsMenuOpen(false)}
+                              className={`group flex items-center gap-3 px-4 py-3 rounded-lg font-semibold transition-all duration-200 ${
+                                window.location.pathname === link.href
+                                  ? "bg-primary/20 text-primary border-l-2 border-primary"
+                                  : "text-foreground hover:bg-primary/10 hover:text-primary"
+                              }`}
+                              aria-label={link.ariaLabel}
+                              aria-current={window.location.pathname === link.href ? "page" : undefined}
+                            >
+                              {IconComponent && <IconComponent className="w-4 h-4 transition-transform group-hover:scale-110 duration-300" />}
+                              {link.label}
+                            </a>
+                          );
+                        })}
+                      </div>
+                    </div>
+
                     <a 
                       href="mailto:contato@tagit.com.br"
                       className="flex items-center gap-3 px-4 py-3 rounded-lg bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground font-semibold transition-all duration-200"

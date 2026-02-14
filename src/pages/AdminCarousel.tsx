@@ -1,0 +1,277 @@
+import { useEffect, useState } from "react";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Card } from "@/components/ui/card";
+import { defaultHeroSlides, createEmptyHeroSlide } from "@/lib/hero-default-slides";
+import { loadHeroSlides, saveHeroSlides, type HeroSlide } from "@/lib/hero-slides";
+
+const ADMIN_AUTH_STORAGE_KEY = "tagit.admin.carousel.auth";
+
+const getAdminPassword = () => {
+  return import.meta.env.VITE_ADMIN_CAROUSEL_PASSWORD || "tagit-admin1";
+};
+
+const AdminCarousel = () => {
+  const [slides, setSlides] = useState<HeroSlide[]>(defaultHeroSlides);
+  const [statusMessage, setStatusMessage] = useState<string>("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoadingSlides, setIsLoadingSlides] = useState(false);
+  const [isSavingSlides, setIsSavingSlides] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+  const [authError, setAuthError] = useState<string>("");
+
+  useEffect(() => {
+    const auth = window.localStorage.getItem(ADMIN_AUTH_STORAGE_KEY);
+    setIsAuthenticated(auth === "true");
+  }, []);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      return;
+    }
+
+    let isMounted = true;
+
+    const fetchSlides = async () => {
+      setIsLoadingSlides(true);
+      const remoteSlides = await loadHeroSlides();
+
+      if (!isMounted) {
+        return;
+      }
+
+      setSlides(remoteSlides ?? defaultHeroSlides);
+      setIsLoadingSlides(false);
+    };
+
+    fetchSlides();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [isAuthenticated]);
+
+  const handleLogin = () => {
+    if (passwordInput === getAdminPassword()) {
+      setIsAuthenticated(true);
+      setAuthError("");
+      setPasswordInput("");
+      window.localStorage.setItem(ADMIN_AUTH_STORAGE_KEY, "true");
+      return;
+    }
+
+    setAuthError("Senha inválida. Tente novamente.");
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    window.localStorage.removeItem(ADMIN_AUTH_STORAGE_KEY);
+    setStatusMessage("");
+  };
+
+  const updateSlide = (id: string, field: keyof HeroSlide, value: string) => {
+    setSlides((prev) => prev.map((slide) => (slide.id === id ? { ...slide, [field]: value } : slide)));
+  };
+
+  const handleAddSlide = () => {
+    setSlides((prev) => [...prev, createEmptyHeroSlide()]);
+    setStatusMessage("Novo slide adicionado.");
+  };
+
+  const handleDeleteSlide = (id: string) => {
+    setSlides((prev) => prev.filter((slide) => slide.id !== id));
+    setStatusMessage("Slide removido.");
+  };
+
+  const handleSave = async () => {
+    if (slides.length === 0) {
+      setStatusMessage("Adicione pelo menos um slide antes de salvar.");
+      return;
+    }
+
+    setIsSavingSlides(true);
+
+    const result = await saveHeroSlides(slides);
+    const persistenceLabel = result === "supabase" ? "Supabase" : "armazenamento local";
+    setStatusMessage(
+      `Slides (incluindo textos, imagens e botões) salvos com sucesso em ${persistenceLabel}. A home já usa esses dados.`,
+    );
+    setIsSavingSlides(false);
+  };
+
+  const handleResetDefaults = async () => {
+    setSlides(defaultHeroSlides);
+    setIsSavingSlides(true);
+
+    const result = await saveHeroSlides(defaultHeroSlides);
+    const persistenceLabel = result === "supabase" ? "Supabase" : "armazenamento local";
+    setStatusMessage(`Slides restaurados para o padrão e salvos em ${persistenceLabel}.`);
+    setIsSavingSlides(false);
+  };
+
+  return (
+    <main className="min-h-screen" role="main" itemScope itemType="https://schema.org/WebPage">
+      <Header />
+
+      <section className="pt-36 pb-16 bg-background" role="region" aria-labelledby="admin-carrossel-heading">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="max-w-6xl mx-auto">
+            <h1 id="admin-carrossel-heading" className="text-3xl md:text-4xl font-bold mb-3 text-center">
+              Administração do Carrossel da Home
+            </h1>
+            {!isAuthenticated ? (
+              <div className="flex justify-center">
+                <Card className="p-6 w-full max-w-md">
+                  <p className="text-muted-foreground mb-4 text-center">Digite a senha para acessar a administração do carrossel.</p>
+                  <div className="space-y-3">
+                    <Input
+                      type="password"
+                      value={passwordInput}
+                      onChange={(e) => setPasswordInput(e.target.value)}
+                      placeholder="Senha do admin"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          handleLogin();
+                        }
+                      }}
+                    />
+                    <Button onClick={handleLogin} className="w-full">
+                      Entrar
+                    </Button>
+                  </div>
+                  {authError ? <p className="text-sm text-destructive mt-3 text-center">{authError}</p> : null}
+                </Card>
+              </div>
+            ) : (
+              <>
+                <p className="text-muted-foreground mb-8">
+                  Edite, exclua e insira slides. Depois clique em salvar para publicar na home.
+                </p>
+
+                <div className="flex flex-wrap gap-3 mb-8">
+                  <Button onClick={handleAddSlide}>Adicionar slide</Button>
+                  <Button variant="secondary" onClick={handleSave} disabled={isSavingSlides || isLoadingSlides}>
+                    {isSavingSlides ? "Salvando..." : "Salvar alterações"}
+                  </Button>
+                  <Button variant="outline" onClick={handleResetDefaults} disabled={isSavingSlides || isLoadingSlides}>
+                    Restaurar padrão
+                  </Button>
+                  <Button variant="destructive" onClick={handleLogout}>
+                    Sair
+                  </Button>
+                </div>
+
+                {statusMessage ? (
+                  <p className="text-sm text-muted-foreground mb-6" aria-live="polite">
+                    {statusMessage}
+                  </p>
+                ) : null}
+
+                {isLoadingSlides ? (
+                  <p className="text-sm text-muted-foreground mb-6" aria-live="polite">
+                    Carregando slides salvos no Supabase...
+                  </p>
+                ) : null}
+
+                <div className="space-y-6">
+                  {slides.map((slide, index) => (
+                    <Card key={slide.id} className="p-6 border-border">
+                      <div className="flex items-center justify-between mb-4 gap-4">
+                        <h2 className="text-xl font-semibold">Slide {index + 1}</h2>
+                        <Button variant="destructive" onClick={() => handleDeleteSlide(slide.id)}>
+                          Excluir slide
+                        </Button>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium">Título</label>
+                          <Input
+                            value={slide.title}
+                            onChange={(e) => updateSlide(slide.id, "title", e.target.value)}
+                            placeholder="Título do slide"
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium">URL da imagem</label>
+                          <Input
+                            value={slide.image}
+                            onChange={(e) => updateSlide(slide.id, "image", e.target.value)}
+                            placeholder="https://raw.githubusercontent.com/..."
+                          />
+                        </div>
+
+                        <div className="space-y-2 md:col-span-2">
+                          <label className="text-sm font-medium">Descrição</label>
+                          <Textarea
+                            value={slide.description}
+                            onChange={(e) => updateSlide(slide.id, "description", e.target.value)}
+                            placeholder="Descrição do slide"
+                            rows={3}
+                          />
+                        </div>
+
+                        <div className="space-y-2 md:col-span-2">
+                          <label className="text-sm font-medium">Texto alternativo da imagem (alt)</label>
+                          <Input
+                            value={slide.imageAlt}
+                            onChange={(e) => updateSlide(slide.id, "imageAlt", e.target.value)}
+                            placeholder="Descrição acessível da imagem"
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium">Texto botão principal</label>
+                          <Input
+                            value={slide.primaryCtaLabel}
+                            onChange={(e) => updateSlide(slide.id, "primaryCtaLabel", e.target.value)}
+                            placeholder="PARA EMPRESAS"
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium">Link botão principal</label>
+                          <Input
+                            value={slide.primaryCtaHref}
+                            onChange={(e) => updateSlide(slide.id, "primaryCtaHref", e.target.value)}
+                            placeholder="/para-empresas"
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium">Texto botão secundário</label>
+                          <Input
+                            value={slide.secondaryCtaLabel}
+                            onChange={(e) => updateSlide(slide.id, "secondaryCtaLabel", e.target.value)}
+                            placeholder="PARA VOCÊ"
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium">Link botão secundário</label>
+                          <Input
+                            value={slide.secondaryCtaHref}
+                            onChange={(e) => updateSlide(slide.id, "secondaryCtaHref", e.target.value)}
+                            placeholder="/para-voce"
+                          />
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </main>
+  );
+};
+
+export default AdminCarousel;
