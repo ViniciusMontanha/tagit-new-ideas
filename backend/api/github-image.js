@@ -36,7 +36,7 @@ export default async function handler(req, res) {
     {
       headers: {
         Authorization: `Bearer ${token}`,
-        Accept: "application/vnd.github+json",
+        Accept: "application/vnd.github.raw",
         "X-GitHub-Api-Version": "2022-11-28",
       },
     },
@@ -50,16 +50,11 @@ export default async function handler(req, res) {
     });
   }
 
-  const payload = await response.json();
+  const arrayBuffer = await response.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+  const responseContentType = response.headers.get("content-type") || contentTypeFromFileName(path);
 
-  if (!payload.content) {
-    return res.status(404).json({ error: "Conteúdo não encontrado" });
-  }
-
-  const base64 = String(payload.content).replace(/\n/g, "");
-  const buffer = Buffer.from(base64, "base64");
-
-  res.setHeader("Content-Type", contentTypeFromFileName(payload.name));
+  res.setHeader("Content-Type", responseContentType);
   res.setHeader("Cache-Control", "public, max-age=3600, s-maxage=3600");
   res.setHeader("Access-Control-Allow-Origin", "*");
 
