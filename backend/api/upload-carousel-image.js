@@ -27,10 +27,14 @@ export default async function handler(req, res) {
   try {
     const payload = payloadSchema.parse(req.body || {});
     const upload = await uploadCarouselImageToGitHub(payload);
+    const protocol = String(req.headers["x-forwarded-proto"] || "https");
+    const host = String(req.headers.host || "");
+    const imageProxyUrl = `${protocol}://${host}/api/github-image?path=${encodeURIComponent(upload.filePath)}`;
 
     return res.status(200).json({
       success: true,
-      imageUrl: upload.imageUrl,
+      imageUrl: imageProxyUrl,
+      rawImageUrl: upload.imageUrl,
       filePath: upload.filePath,
     });
   } catch (error) {

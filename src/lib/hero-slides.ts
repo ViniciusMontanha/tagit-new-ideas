@@ -55,6 +55,23 @@ export const isValidHeroSlide = (value: unknown): value is HeroSlide => {
 };
 
 const normalizeGithubImageUrl = (url: string): string => {
+  const apiBaseUrl = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
+
+  if (url.includes("raw.githubusercontent.com/") && apiBaseUrl) {
+    const marker = "raw.githubusercontent.com/";
+    const markerIndex = url.indexOf(marker);
+
+    if (markerIndex >= 0) {
+      const tail = url.slice(markerIndex + marker.length);
+      const parts = tail.split("/").filter(Boolean);
+
+      if (parts.length >= 4) {
+        const filePath = parts.slice(3).join("/");
+        return `${apiBaseUrl}/api/github-image?path=${encodeURIComponent(filePath)}`;
+      }
+    }
+  }
+
   if (!url.includes("github.com") || !url.includes("/blob/")) {
     return url;
   }
