@@ -50,7 +50,8 @@ if [[ "${SKIP_SERVICE_ROLE}" == "false" && -z "${SUPABASE_SERVICE_ROLE_KEY:-}" ]
   exit 1
 fi
 
-DATABASE_URL="postgresql://${SUPABASE_DB_USER}:${SUPABASE_DB_PASSWORD}@${SUPABASE_DB_HOST}:${SUPABASE_DB_PORT}/${SUPABASE_DB_NAME}?sslmode=require"
+ENCODED_SUPABASE_DB_PASSWORD="$(node -e 'process.stdout.write(encodeURIComponent(process.argv[1]))' "${SUPABASE_DB_PASSWORD}")"
+DATABASE_URL="postgresql://${SUPABASE_DB_USER}:${ENCODED_SUPABASE_DB_PASSWORD}@${SUPABASE_DB_HOST}:${SUPABASE_DB_PORT}/${SUPABASE_DB_NAME}?sslmode=require"
 
 echo "Configurando variáveis no Vercel (development, preview, production)..."
 for ENVIRONMENT in development preview production; do

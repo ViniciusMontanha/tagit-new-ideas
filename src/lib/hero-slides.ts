@@ -25,6 +25,12 @@ type HeroSlideRow = {
   secondary_cta_href: string;
 };
 
+type SaveHeroSlidesResult = {
+  success: boolean;
+  persistence: "supabase" | "localStorage";
+  errorMessage?: string;
+};
+
 export const HERO_SLIDES_STORAGE_KEY = "tagit.heroSlides";
 const HERO_SLIDES_TABLE = "hero_slides";
 
@@ -142,33 +148,78 @@ export const loadHeroSlides = async (): Promise<HeroSlide[] | null> => {
         return validSlides;
       }
     }
+
+    if (error) {
+      console.error("Erro ao carregar slides do Supabase:", error.message);
+    }
   }
 
   return loadHeroSlidesFromStorage();
 };
 
-export const saveHeroSlides = async (slides: HeroSlide[]): Promise<"supabase" | "localStorage"> => {
+export const saveHeroSlides = async (slides: HeroSlide[]): Promise<SaveHeroSlidesResult> => {
   const validSlides = slides.filter(isValidHeroSlide);
 
   if (validSlides.length === 0) {
-    throw new Error("Nenhum slide válido para salvar.");
+    return {
+      success: false,
+      persistence: "localStorage",
+      errorMessage: "Nenhum slide válido para salvar.",
+    };
   }
 
   if (isSupabaseConfigured && supabase) {
     const rows = validSlides.map((slide, index) => mapHeroSlideToRow(slide, index));
 
-    const { error: clearError } = await supabase.from(HERO_SLIDES_TABLE).delete().neq("id", "__none__");
+    const { error: upsertError } = await supabase
+      .from(HERO_SLIDES_TABLE)
+      .upsert(rows, { onConflict: "id" });
 
-    if (!clearError) {
-      const { error: insertError } = await supabase.from(HERO_SLIDES_TABLE).insert(rows);
+    if (upsertError) {
+      return {
+        success: false,
+        persistence: "supabase",
+        errorMessage: upsertError.message,
+      };
+    }
 
-      if (!insertError) {
-        saveHeroSlidesToStorage(validSlides);
-        return "supabase";
+    const { data: existingRows, error: existingError } = await supabase.from(HERO_SLIDES_TABLE).select("id");
+
+    if (existingError) {
+      return {
+        success: false,
+        persistence: "supabase",
+        errorMessage: existingError.message,
+      };
+    }
+
+    const incomingIds = new Set(rows.map((row) => row.id));
+    const idsToDelete = (existingRows || [])
+      .map((row) => (row as { id: string }).id)
+      .filter((id) => !incomingIds.has(id));
+
+    if (idsToDelete.length > 0) {
+      const { error: deleteError } = await supabase.from(HERO_SLIDES_TABLE).delete().in("id", idsToDelete);
+
+      if (deleteError) {
+        return {
+          success: false,
+          persistence: "supabase",
+          errorMessage: deleteError.message,
+        };
       }
     }
+
+    saveHeroSlidesToStorage(validSlides);
+    return {
+      success: true,
+      persistence: "supabase",
+    };
   }
 
   saveHeroSlidesToStorage(validSlides);
-  return "localStorage";
+  return {
+    success: true,
+    persistence: "localStorage",
+  };
 };

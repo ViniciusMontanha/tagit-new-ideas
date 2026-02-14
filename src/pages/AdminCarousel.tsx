@@ -95,10 +95,20 @@ const AdminCarousel = () => {
     setIsSavingSlides(true);
 
     const result = await saveHeroSlides(slides);
-    const persistenceLabel = result === "supabase" ? "Supabase" : "armazenamento local";
-    setStatusMessage(
-      `Slides (incluindo textos, imagens e botões) salvos com sucesso em ${persistenceLabel}. A home já usa esses dados.`,
-    );
+
+    if (!result.success) {
+      setStatusMessage(`Erro ao salvar slides: ${result.errorMessage || "falha desconhecida"}`);
+      setIsSavingSlides(false);
+      return;
+    }
+
+    if (result.persistence === "supabase") {
+      setStatusMessage("Slides (incluindo textos, imagens e botões) salvos com sucesso no Supabase.");
+    } else {
+      setStatusMessage(
+        "Slides salvos apenas neste navegador (fallback local). Configure VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY para salvar no Supabase.",
+      );
+    }
     setIsSavingSlides(false);
   };
 
@@ -107,8 +117,20 @@ const AdminCarousel = () => {
     setIsSavingSlides(true);
 
     const result = await saveHeroSlides(defaultHeroSlides);
-    const persistenceLabel = result === "supabase" ? "Supabase" : "armazenamento local";
-    setStatusMessage(`Slides restaurados para o padrão e salvos em ${persistenceLabel}.`);
+
+    if (!result.success) {
+      setStatusMessage(`Erro ao restaurar slides padrão: ${result.errorMessage || "falha desconhecida"}`);
+      setIsSavingSlides(false);
+      return;
+    }
+
+    if (result.persistence === "supabase") {
+      setStatusMessage("Slides restaurados para o padrão e salvos no Supabase.");
+    } else {
+      setStatusMessage(
+        "Slides padrão restaurados apenas neste navegador (fallback local). Configure VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY para salvar no Supabase.",
+      );
+    }
     setIsSavingSlides(false);
   };
 
