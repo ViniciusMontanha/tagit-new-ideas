@@ -9,6 +9,7 @@ import About from "./pages/About";
 import Empresas from "./pages/Empresas";
 import ParaVoce from "./pages/ParaVoce";
 import AdminCarousel from "./pages/AdminCarousel";
+import Seguimento from "./pages/Seguimento";
 import NotFound from "./pages/NotFound";
 import { WhatsAppWidget } from "./components/WhatsAppWidget";
 import { CookieBanner } from "./components/CookieBanner";
@@ -41,6 +42,8 @@ const App = () => {
               <Route path="/quem-somos" element={<About />} />
               <Route path="/para-empresas" element={<Empresas />} />
               <Route path="/para-voce" element={<ParaVoce />} />
+              <Route path="/seguimento" element={<Seguimento />} />
+              <Route path="/seguimento/:slug" element={<Seguimento />} />
               <Route path="/admin/carrossel" element={<AdminCarousel />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

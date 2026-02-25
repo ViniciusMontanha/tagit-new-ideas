@@ -1,31 +1,128 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Truck, Hammer, PawPrint, Briefcase } from "lucide-react";
+import {
+  Truck,
+  Hammer,
+  PawPrint,
+  Briefcase,
+  CheckCircle2,
+  MapPin,
+  Shield,
+  Clock3,
+} from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useNavigate, useParams } from "react-router-dom";
 
-const features = [
+type FeatureItem = {
+  slug: string;
+  icon: typeof Truck;
+  title: string;
+  description: string;
+  modalDescription: string;
+  highlights: string[];
+};
+
+const features: FeatureItem[] = [
   {
+    slug: "logistica",
     icon: Truck,
     title: "Logística",
     description: "Mais controle de cargas, equipamentos e prazos de entrega com visibilidade na plataforma.",
+    modalDescription:
+      "Acompanhe ativos em rota, organize entregas e tenha visão rápida dos pontos críticos da operação.",
+    highlights: [
+      "Localização contínua de cargas e equipamentos",
+      "Menos atrasos em coletas e entregas",
+      "Decisão mais rápida com dados em tempo real",
+    ],
   },
   {
+    slug: "construcao",
     icon: Hammer,
     title: "Construção",
     description: "Localize ferramentas e máquinas no canteiro e reduza perdas operacionais.",
+    modalDescription:
+      "Ganhe controle do canteiro com rastreio prático de máquinas e ferramentas usadas no dia a dia.",
+    highlights: [
+      "Rastreio de itens de alto valor",
+      "Menos extravio e retrabalho na obra",
+      "Mais produtividade com equipe coordenada",
+    ],
   },
   {
+    slug: "pet",
     icon: PawPrint,
     title: "Pet",
     description: "Acompanhe a localização do seu pet com mais tranquilidade no dia a dia.",
+    modalDescription:
+      "Monitore deslocamentos e tenha mais segurança para passeios, viagens e rotina fora de casa.",
+    highlights: [
+      "Visualização de localização em poucos toques",
+      "Mais tranquilidade em áreas abertas",
+      "Apoio para rotinas com pets mais ativos",
+    ],
   },
   {
+    slug: "uso-pessoal",
     icon: Briefcase,
     title: "Uso Pessoal",
     description: "Tenha seus itens essenciais sempre no radar e evite perder tempo procurando.",
+    modalDescription:
+      "Ideal para quem quer praticidade na rotina, mantendo mochila, mala ou objetos importantes sempre localizáveis.",
+    highlights: [
+      "Encontre itens pessoais com rapidez",
+      "Mais organização na rotina diária",
+      "Menos estresse com perdas e esquecimentos",
+    ],
   },
 ];
 
-export const Features = () => {
+type FeaturesProps = {
+  enableRouting?: boolean;
+};
+
+export const Features = ({ enableRouting = false }: FeaturesProps) => {
+  const [selectedFeature, setSelectedFeature] = useState<FeatureItem | null>(null);
+  const navigate = useNavigate();
+  const { slug } = useParams();
+
+  useEffect(() => {
+    if (!enableRouting) {
+      return;
+    }
+
+    if (!slug) {
+      setSelectedFeature(null);
+      return;
+    }
+
+    const matchedFeature = features.find((feature) => feature.slug === slug) ?? null;
+    setSelectedFeature(matchedFeature);
+  }, [enableRouting, slug]);
+
+  const openFeatureModal = (feature: FeatureItem) => {
+    if (enableRouting) {
+      navigate(`/seguimento/${feature.slug}`);
+      return;
+    }
+
+    setSelectedFeature(feature);
+  };
+
+  const handleOpenChange = (open: boolean) => {
+    if (open) {
+      return;
+    }
+
+    if (enableRouting) {
+      navigate("/seguimento");
+      return;
+    }
+
+    setSelectedFeature(null);
+  };
+
   return (
     <section id="recursos" className="pt-8 pb-16 bg-background">
       <div className="container mx-auto px-6 md:px-12">
@@ -53,16 +150,65 @@ export const Features = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="p-6 h-full hover:shadow-soft transition-all duration-500 border hover:border-primary/20 bg-card/80 backdrop-blur-sm group">
-                <div className="mb-4 inline-block p-3 bg-gradient-to-br from-primary/10 to-secondary/5 rounded-2xl group-hover:bg-gradient-hero transition-all duration-500">
-                  <feature.icon className="w-7 h-7 text-primary group-hover:text-primary-foreground transition-colors duration-500" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2 text-foreground">{feature.title}</h3>
-                <p className="text-muted-foreground text-base leading-relaxed">{feature.description}</p>
-              </Card>
+              <button
+                type="button"
+                onClick={() => openFeatureModal(feature)}
+                aria-label={`Abrir detalhes do segmento ${feature.title}`}
+                className="w-full h-full text-left"
+              >
+                <Card className="p-6 h-full hover:shadow-soft transition-all duration-500 border hover:border-primary/20 bg-card/80 backdrop-blur-sm group">
+                  <div className="mb-4 inline-block p-3 bg-gradient-to-br from-primary/10 to-secondary/5 rounded-2xl group-hover:bg-gradient-hero transition-all duration-500">
+                    <feature.icon className="w-7 h-7 text-primary group-hover:text-primary-foreground transition-colors duration-500" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2 text-foreground">{feature.title}</h3>
+                  <p className="text-muted-foreground text-base leading-relaxed">{feature.description}</p>
+                </Card>
+              </button>
             </motion.div>
           ))}
         </div>
+
+        <Dialog open={Boolean(selectedFeature)} onOpenChange={handleOpenChange}>
+          <DialogContent className="sm:max-w-[620px] max-h-[90vh] overflow-y-auto">
+            {selectedFeature && (
+              <div className="space-y-6">
+                <DialogHeader className="text-left">
+                  <div className="mb-1 inline-flex w-fit items-center gap-2 rounded-full border bg-muted/40 px-3 py-1 text-sm text-muted-foreground">
+                    <MapPin className="h-4 w-4 text-primary" />
+                    Segmento
+                  </div>
+                  <DialogTitle className="flex items-center gap-2 text-2xl font-bold text-foreground">
+                    <selectedFeature.icon className="h-6 w-6 text-primary" />
+                    {selectedFeature.title}
+                  </DialogTitle>
+                  <DialogDescription className="text-base leading-relaxed text-muted-foreground">
+                    {selectedFeature.modalDescription}
+                  </DialogDescription>
+                </DialogHeader>
+
+                <div className="rounded-xl border bg-card p-4">
+                  <div className="mb-3 flex items-center gap-2 text-sm font-medium text-foreground">
+                    <Shield className="h-4 w-4 text-primary" />
+                    Como a Tag It ajuda nesse cenário
+                  </div>
+                  <ul className="space-y-3">
+                    {selectedFeature.highlights.map((item) => (
+                      <li key={item} className="flex items-start gap-2 text-sm leading-relaxed text-muted-foreground">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Clock3 className="h-4 w-4 text-primary" />
+                  Conteúdo resumido para leitura rápida.
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </section>
   );
