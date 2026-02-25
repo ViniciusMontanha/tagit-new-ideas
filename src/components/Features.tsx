@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 type FeatureItem = {
   slug: string;
@@ -85,7 +85,10 @@ type FeaturesProps = {
 export const Features = ({ enableRouting = false }: FeaturesProps) => {
   const [selectedFeature, setSelectedFeature] = useState<FeatureItem | null>(null);
   const navigate = useNavigate();
+  const location = useLocation();
   const { slug } = useParams();
+
+  const routeBase = location.pathname.startsWith("/segmento") ? "/segmento" : "/seguimento";
 
   useEffect(() => {
     if (!enableRouting) {
@@ -103,7 +106,7 @@ export const Features = ({ enableRouting = false }: FeaturesProps) => {
 
   const openFeatureModal = (feature: FeatureItem) => {
     if (enableRouting) {
-      navigate(`/seguimento/${feature.slug}`);
+      navigate(`${routeBase}/${feature.slug}`);
       return;
     }
 
@@ -116,7 +119,7 @@ export const Features = ({ enableRouting = false }: FeaturesProps) => {
     }
 
     if (enableRouting) {
-      navigate("/seguimento");
+      navigate(routeBase);
       return;
     }
 

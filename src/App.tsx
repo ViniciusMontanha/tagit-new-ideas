@@ -44,6 +44,8 @@ const App = () => {
               <Route path="/para-voce" element={<ParaVoce />} />
               <Route path="/seguimento" element={<Seguimento />} />
               <Route path="/seguimento/:slug" element={<Seguimento />} />
+              <Route path="/segmento" element={<Seguimento />} />
+              <Route path="/segmento/:slug" element={<Seguimento />} />
               <Route path="/admin/carrossel" element={<AdminCarousel />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
