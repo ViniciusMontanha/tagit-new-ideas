@@ -43,9 +43,9 @@ const features: FeatureItem[] = [
     title: "Construção",
     description: "Localize ferramentas e máquinas no canteiro e reduza perdas operacionais.",
     modalDescription:
-      "Ganhe controle do canteiro com rastreio prático de máquinas e ferramentas usadas no dia a dia.",
+      "Ganhe controle do canteiro com a localização prática de máquinas e ferramentas usadas no dia a dia.",
     highlights: [
-      "Rastreio de itens de alto valor",
+      "Localização de itens de alto valor",
       "Menos extravio e retrabalho na obra",
       "Mais produtividade com equipe coordenada",
     ],
