@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ContactModal } from "@/components/ContactModal";
 import logo from "@/assets/logo.png";
-import { Menu, Info, Briefcase, Users, Zap, Sparkles, Mail, LogIn, Layers, ChevronDown } from "lucide-react";
+import { Menu, Info, Briefcase, Users, Zap, Sparkles, Mail, LogIn, Layers, ChevronDown, Cpu } from "lucide-react";
 
 export const Header = () => {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -17,9 +17,12 @@ export const Header = () => {
   ];
 
   const menuLinks = [
-    { href: "/quem-somos", label: "Quem Somos", ariaLabel: "Ir para página Quem Somos da Tag It", isExternal: true, icon: Info },
     { href: "#recursos", label: "Recursos", ariaLabel: "Ir para seção de Recursos", isExternal: false, icon: Zap },
+    { href: "#dispositivo", label: "Dispositivo", ariaLabel: "Ir para seção do Dispositivo", isExternal: false, icon: Cpu },
+    { href: "/quem-somos", label: "Quem Somos", ariaLabel: "Ir para página Quem Somos da Tag It", isExternal: true, icon: Info },
   ];
+
+  const isSolutionActive = solutionLinks.some((link) => window.location.pathname === link.href);
 
   // Função para obter o href correto baseado na página atual
   const getLinkHref = (link: typeof menuLinks[0]) => {
@@ -105,40 +108,13 @@ export const Header = () => {
 
             {/* Menu Desktop */}
             <div className="hidden lg:flex items-center gap-8 flex-1 justify-center">
-              {menuLinks.map((link) => {
-                const IconComponent = link.icon;
-                return (
-                  <a 
-                    key={link.href}
-                    href={getLinkHref(link)}
-                    className={`group flex items-center gap-2 font-semibold transition-all duration-200 relative ${
-                      activeSection === link.href || (link.isExternal && window.location.pathname === link.href)
-                        ? "text-primary" 
-                        : "text-foreground hover:text-primary"
-                    }`}
-                    aria-label={link.ariaLabel}
-                    aria-current={activeSection === link.href ? "page" : undefined}
-                  >
-                    {IconComponent && <IconComponent className="w-4 h-4 transition-transform group-hover:scale-110 duration-300" />}
-                    <span className="relative text-sm pb-0.5">
-                      {link.label}
-                      <span className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${
-                        activeSection === link.href || (link.isExternal && window.location.pathname === link.href)
-                          ? "w-full" 
-                          : "w-0 group-hover:w-full"
-                      }`} />
-                    </span>
-                  </a>
-                );
-              })}
-
               <div className="relative group">
                 <button
                   type="button"
-                  className={`flex items-center gap-2 font-semibold transition-all duration-200 relative ${
-                    solutionLinks.some((link) => window.location.pathname === link.href)
-                      ? "text-primary"
-                      : "text-foreground hover:text-primary"
+                  className={`px-4 py-2 rounded-full border flex items-center gap-2 font-semibold transition-all duration-200 relative ${
+                    isSolutionActive
+                      ? "bg-primary text-primary-foreground border-primary"
+                      : "bg-primary/10 text-primary border-primary/30 hover:bg-primary/15"
                   }`}
                   aria-label="Abrir submenu Soluções"
                   aria-expanded="false"
@@ -146,10 +122,10 @@ export const Header = () => {
                   <Layers className="w-4 h-4 transition-transform group-hover:scale-110 duration-300" />
                   <span className="relative text-sm pb-0.5">
                     Soluções
-                    <span className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${
-                      solutionLinks.some((link) => window.location.pathname === link.href)
-                        ? "w-full"
-                        : "w-0 group-hover:w-full"
+                    <span className={`absolute bottom-0 left-0 h-0.5 transition-all duration-300 ${
+                      isSolutionActive
+                        ? "w-full bg-primary-foreground"
+                        : "w-0 group-hover:w-full bg-primary"
                     }`} />
                   </span>
                 </button>
@@ -183,6 +159,33 @@ export const Header = () => {
                   })}
                 </div>
               </div>
+
+              {menuLinks.map((link) => {
+                const IconComponent = link.icon;
+                return (
+                  <a 
+                    key={link.href}
+                    href={getLinkHref(link)}
+                    className={`group flex items-center gap-2 font-semibold transition-all duration-200 relative ${
+                      activeSection === link.href || (link.isExternal && window.location.pathname === link.href)
+                        ? "text-primary" 
+                        : "text-foreground hover:text-primary"
+                    }`}
+                    aria-label={link.ariaLabel}
+                    aria-current={activeSection === link.href ? "page" : undefined}
+                  >
+                    {IconComponent && <IconComponent className="w-4 h-4 transition-transform group-hover:scale-110 duration-300" />}
+                    <span className="relative text-sm pb-0.5">
+                      {link.label}
+                      <span className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                        activeSection === link.href || (link.isExternal && window.location.pathname === link.href)
+                          ? "w-full" 
+                          : "w-0 group-hover:w-full"
+                      }`} />
+                    </span>
+                  </a>
+                );
+              })}
             </div>
 
             {/* Desktop Right Section - E-mail, Demo, Login */}
@@ -237,32 +240,15 @@ export const Header = () => {
 
                   {/* Links do Menu Mobile */}
                   <div className="flex flex-col gap-3 p-4">
-                    {menuLinks.map((link) => {
-                      const IconComponent = link.icon;
-                      return (
-                        <a 
-                          key={link.href}
-                          href={getLinkHref(link)}
-                          onClick={() => setIsMenuOpen(false)}
-                          className={`group flex items-center gap-3 px-4 py-3 rounded-lg font-semibold transition-all duration-200 ${
-                            activeSection === link.href || (link.isExternal && window.location.pathname === link.href)
-                              ? "bg-primary/20 text-primary border-l-2 border-primary"
-                              : "text-foreground hover:bg-primary/10 hover:text-primary"
-                          }`}
-                          aria-label={link.ariaLabel}
-                          aria-current={activeSection === link.href ? "page" : undefined}
-                        >
-                          {IconComponent && <IconComponent className="w-4 h-4 transition-transform group-hover:scale-110 duration-300" />}
-                          {link.label}
-                        </a>
-                      );
-                    })}
-
                     <div>
                       <button
                         type="button"
                         onClick={() => setIsSolutionsMobileOpen((prev) => !prev)}
-                        className="w-full flex items-center justify-between px-4 py-3 text-foreground font-semibold hover:bg-primary/10 rounded-lg transition-colors duration-200"
+                        className={`w-full flex items-center justify-between px-4 py-3 font-semibold rounded-lg border transition-colors duration-200 ${
+                          isSolutionActive
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-primary/10 text-primary border-primary/20 hover:bg-primary/15"
+                        }`}
                         aria-label="Expandir menu Soluções"
                         aria-expanded={isSolutionsMobileOpen}
                         aria-controls="mobile-solucoes-submenu"
@@ -299,6 +285,27 @@ export const Header = () => {
                         })}
                       </div>
                     </div>
+
+                    {menuLinks.map((link) => {
+                      const IconComponent = link.icon;
+                      return (
+                        <a 
+                          key={link.href}
+                          href={getLinkHref(link)}
+                          onClick={() => setIsMenuOpen(false)}
+                          className={`group flex items-center gap-3 px-4 py-3 rounded-lg font-semibold transition-all duration-200 ${
+                            activeSection === link.href || (link.isExternal && window.location.pathname === link.href)
+                              ? "bg-primary/20 text-primary border-l-2 border-primary"
+                              : "text-foreground hover:bg-primary/10 hover:text-primary"
+                          }`}
+                          aria-label={link.ariaLabel}
+                          aria-current={activeSection === link.href ? "page" : undefined}
+                        >
+                          {IconComponent && <IconComponent className="w-4 h-4 transition-transform group-hover:scale-110 duration-300" />}
+                          {link.label}
+                        </a>
+                      );
+                    })}
 
                     <a 
                       href="mailto:contato@tagit.com.br"

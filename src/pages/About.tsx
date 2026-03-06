@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Zap, Users, Globe, Award, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { ContactModal } from "@/components/ContactModal";
-import josyImage from "@/assets/josy.jpeg";
+import founderImage from "@/assets/executivo.jpeg";
 
 const About = () => {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -109,18 +109,10 @@ const About = () => {
                         Unimos inovação, tecnologia e conhecimento para desenvolver soluções de 
                         localização que tragam mais segurança, controle e tranquilidade aos nossos clientes.
                       </p>
-                      <p className="text-lg text-muted-foreground leading-relaxed">
-                        <span className="font-semibold">Josy Dizaro</span> é uma empreendedora 
-                        que iniciou sua trajetória no setor da estética, onde o contato direto com as 
-                        clientes revelou dores reais relacionadas à segurança, controle e organização. 
-                        A partir dessas necessidades e opiniões, surgiu a motivação para expandir sua 
-                        atuação para o ramo da tecnologia, transformando experiências práticas em 
-                        soluções inovadoras, unindo sensibilidade ao mercado, visão empreendedora e tecnologia.
-                      </p>
                     </div>
                   </div>
 
-                  {/* Card da Josy - Melhorado */}
+                  {/* Card do fundador - Melhorado */}
                   <motion.div
                     initial={{ opacity: 0, x: -30 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -131,13 +123,13 @@ const About = () => {
                     <button
                       onClick={() => setIsContactModalOpen(true)}
                       className="group w-full max-w-xs text-left transition-all duration-300"
-                      aria-label="Conheça a fundadora - Josy Dizaro"
+                      aria-label="Conheça o fundador da Tag IT"
                     >
                       {/* Imagem com Overlay */}
                       <div className="relative overflow-hidden rounded-lg mb-4 h-auto bg-muted/20 flex items-center justify-center min-h-64 shadow-md group-hover:shadow-lg transition-shadow duration-300">
                         <img
-                          src={josyImage}
-                          alt="Josy Dizaro - Fundadora da Tag IT Localização"
+                          src={founderImage}
+                          alt="Fundador da Tag IT Localização"
                           className="w-full h-auto object-contain transition-opacity duration-500"
                           loading="lazy"
                         />
@@ -157,8 +149,8 @@ const About = () => {
                         
                         {/* Nome e Cargo */}
                         <div>
-                          <h3 className="text-2xl font-bold text-foreground">Josy Dizaro</h3>
-                          <p className="text-xs font-semibold uppercase tracking-wide text-primary mt-1">Fundadora & CEO</p>
+                          <h3 className="text-2xl font-bold text-foreground">Fundador da Tag IT</h3>
+                          <p className="text-xs font-semibold uppercase tracking-wide text-primary mt-1">Fundador & CEO</p>
                         </div>
 
                         {/* Quote */}

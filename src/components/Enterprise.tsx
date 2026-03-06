@@ -68,6 +68,28 @@ export const Enterprise = () => {
           >
             Transforme a forma como sua empresa gerencia ativos com tecnologia de localização inteligente.
           </p>
+
+          <div className="max-w-4xl mx-auto mt-8 text-left space-y-5">
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+              A Tag IT é uma plataforma avançada de localização e segurança de ativos baseada em tecnologia crowdsourced, desenvolvida para gerar dados globais de posicionamento com alta confiabilidade e escala.
+            </p>
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+              Projetada para ambientes corporativos que exigem controle, segurança e eficiência operacional, a solução permite ampliar significativamente a visibilidade sobre ativos críticos dentro de operações complexas.
+            </p>
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+              A tecnologia foi desenvolvida para atender organizações que precisam proteger e gerir ativos móveis e bens fixos de alto valor como:
+            </p>
+            <ul className="list-disc pl-6 space-y-2 text-base md:text-lg text-muted-foreground leading-relaxed" role="list" aria-label="Ativos de alto valor atendidos pela Tag IT">
+              <li>recursos logísticos estratégicos</li>
+              <li>equipamentos médicos hospitalares</li>
+              <li>ferramentas operacionais</li>
+              <li>dispositivos técnicos</li>
+              <li>equipamentos de alta tecnologia</li>
+            </ul>
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+              Com uma arquitetura escalável e adaptável a diferentes setores, a plataforma posiciona-se como uma nova infraestrutura tecnológica para gestão e proteção de ativos no ambiente corporativo moderno.
+            </p>
+          </div>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-16 items-center max-w-7xl mx-auto">
