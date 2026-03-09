@@ -106,6 +106,12 @@ const About = () => {
                         eficiente e adaptada à realidade do mercado.
                       </p>
                       <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+                        <span className="font-semibold">José Luiz</span> começou sua trajetória com uma experiência vasta em tecnologia. Tenho 12 anos de experiência técnica no segmento de eletrônicos, com um vasto conhecimento em multifuncionais, impressoras, sistemas digitais e GED (gerenciamento eletrônico), além de um conhecimento sólido em computação e áreas afins.
+                      </p>
+                      <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+                        Após esses 12 anos, transicionei para a área comercial, onde aprofundei meus conhecimentos em análise de desempenho, gestão de projetos, demandas e workflow. Hoje, atuo representando grandes empresas, com foco em inovação, agilidade e transformação digital. Meu propósito é impulsionar negócios, transformando-os em grandes projetos tecnológicos e trazendo tecnologia para o dia a dia.
+                      </p>
+                      <p className="text-lg text-muted-foreground leading-relaxed mb-4">
                         Unimos inovação, tecnologia e conhecimento para desenvolver soluções de 
                         localização que tragam mais segurança, controle e tranquilidade aos nossos clientes.
                       </p>
@@ -123,7 +129,7 @@ const About = () => {
                     <button
                       onClick={() => setIsContactModalOpen(true)}
                       className="group w-full max-w-xs text-left transition-all duration-300"
-                      aria-label="Conheça o fundador da Tag IT"
+                      aria-label="Conheça José Luiz"
                     >
                       {/* Imagem com Overlay */}
                       <div className="relative overflow-hidden rounded-lg mb-4 h-auto bg-muted/20 flex items-center justify-center min-h-64 shadow-md group-hover:shadow-lg transition-shadow duration-300">
@@ -149,7 +155,7 @@ const About = () => {
                         
                         {/* Nome e Cargo */}
                         <div>
-                          <h3 className="text-2xl font-bold text-foreground">Fundador da Tag IT</h3>
+                          <h3 className="text-2xl font-bold text-foreground">José Luiz</h3>
                           <p className="text-xs font-semibold uppercase tracking-wide text-primary mt-1">Fundador & CEO</p>
                         </div>
 
