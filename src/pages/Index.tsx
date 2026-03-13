@@ -4,6 +4,7 @@ import { Hero } from "@/components/Hero";
 import { SocialProof } from "@/components/SocialProof";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Features } from "@/components/Features";
+import { Dispositivo } from "@/components/Dispositivo";
 import { BeforeAfter } from "@/components/BeforeAfter";
 import { EducationalTips } from "@/components/EducationalTips";
 import { HomeFaq } from "@/components/HomeFaq";
@@ -31,6 +32,9 @@ const Index = () => {
       
       {/* Casos reais por segmento */}
       <Features />
+
+      {/* Seção Dispositivo */}
+      <Dispositivo />
 
       {/* Antes e Depois */}
       <BeforeAfter />
