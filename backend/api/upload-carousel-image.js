@@ -44,6 +44,9 @@ export default async function handler(req, res) {
       imageUrl: imageProxyUrl,
       rawImageUrl: upload.imageUrl,
       filePath: upload.filePath,
+      width: upload.width,
+      height: upload.height,
+      mimeType: upload.mimeType,
     });
   } catch (error) {
     if (error instanceof z.ZodError) {

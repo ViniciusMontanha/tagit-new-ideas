@@ -28,6 +28,15 @@ const fileToBase64 = (file: File): Promise<string> => {
   });
 };
 
+const appendCacheBuster = (url: string): string => {
+  if (!url) {
+    return url;
+  }
+
+  const separator = url.includes("?") ? "&" : "?";
+  return `${url}${separator}v=${Date.now()}`;
+};
+
 const AdminCarousel = () => {
   const [slides, setSlides] = useState<HeroSlide[]>(defaultHeroSlides);
   const [statusMessage, setStatusMessage] = useState<string>("");
@@ -137,7 +146,7 @@ const AdminCarousel = () => {
 
     try {
       setUploadingSlideId(slideId);
-      setStatusMessage("Enviando imagem para o GitHub...");
+      setStatusMessage("Enviando imagem para o GitHub e padronizando para 500x500...");
 
       const fileBase64 = await fileToBase64(file);
       const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3001";
@@ -163,7 +172,7 @@ const AdminCarousel = () => {
 
       const uploadResult = await response.json();
       const nextSlides = slides.map((slide) =>
-        slide.id === slideId ? { ...slide, image: uploadResult.imageUrl } : slide,
+        slide.id === slideId ? { ...slide, image: appendCacheBuster(uploadResult.imageUrl) } : slide,
       );
 
       setSlides(nextSlides);
@@ -174,7 +183,7 @@ const AdminCarousel = () => {
         throw new Error(saveResult.errorMessage || "Falha ao persistir slide no Supabase");
       }
 
-      setStatusMessage("Imagem enviada para o GitHub e slide atualizado no Supabase.");
+      setStatusMessage("Imagem enviada, redimensionada para 500x500 e slide atualizado no Supabase.");
     } catch (error) {
       const message = error instanceof Error ? error.message : "Falha no upload da imagem";
       setStatusMessage(`Erro ao enviar imagem: ${message}`);
@@ -334,6 +343,7 @@ const AdminCarousel = () => {
                               disabled={isSavingSlides || uploadingSlideId === slide.id}
                             />
                           </div>
+                          <p className="text-xs text-muted-foreground">As imagens enviadas são convertidas automaticamente para 500x500.</p>
                           {uploadingSlideId === slide.id ? (
                             <p className="text-xs text-muted-foreground">Enviando imagem...</p>
                           ) : null}

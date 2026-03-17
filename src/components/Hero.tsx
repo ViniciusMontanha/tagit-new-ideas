@@ -66,7 +66,7 @@ export const Hero = () => {
         >
           <CarouselContent>
             {slides.map((slide, index) => (
-              <CarouselItem key={slide.id}>
+              <CarouselItem key={`${slide.id}:${slide.image}`}>
                 <div className="grid md:grid-cols-2 gap-12 items-center md:translate-x-8">
                   <motion.div
                     initial={{ opacity: 0, x: -30 }}

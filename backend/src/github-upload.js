@@ -1,3 +1,5 @@
+import { normalizeCarouselImageUpload } from "./carousel-image.js";
+
 const GITHUB_API_URL = "https://api.github.com";
 
 const normalizeBase64Content = (value) => {
@@ -37,11 +39,12 @@ export const uploadCarouselImageToGitHub = async ({ fileName, fileBase64, slideI
     throw new Error("Configuração GitHub ausente. Defina GITHUB_TOKEN, GITHUB_OWNER e GITHUB_REPO.");
   }
 
-  const cleanName = sanitizeFileName(fileName || "imagem");
+  const normalizedImage = await normalizeCarouselImageUpload({ fileName, fileBase64 });
+  const cleanName = sanitizeFileName(normalizedImage.fileName || "imagem.webp");
   const timestamp = Date.now();
   const safeSlideId = sanitizeFileName(slideId || "slide");
   const path = `${uploadPath}/${safeSlideId}-${timestamp}-${cleanName}`;
-  const content = normalizeBase64Content(fileBase64);
+  const content = normalizeBase64Content(normalizedImage.fileBase64);
 
   if (!content) {
     throw new Error("Arquivo base64 inválido.");
@@ -70,5 +73,8 @@ export const uploadCarouselImageToGitHub = async ({ fileName, fileBase64, slideI
   return {
     filePath: path,
     imageUrl: createRawGithubUrl({ owner, repo, branch, filePath: path }),
+    width: normalizedImage.width,
+    height: normalizedImage.height,
+    mimeType: normalizedImage.mimeType,
   };
 };

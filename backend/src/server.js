@@ -123,6 +123,9 @@ function setupRoutes() {
         success: true,
         imageUrl: upload.imageUrl,
         filePath: upload.filePath,
+        width: upload.width,
+        height: upload.height,
+        mimeType: upload.mimeType,
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
