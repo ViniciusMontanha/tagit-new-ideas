@@ -1,5 +1,4 @@
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
-import { defaultHeroSlides } from "@/lib/hero-default-slides";
 
 export type HeroSlide = {
   id: string;
@@ -35,8 +34,6 @@ type SaveHeroSlidesResult = {
 export const HERO_SLIDES_STORAGE_KEY = "tagit.heroSlides";
 const HERO_SLIDES_TABLE = "hero_slides";
 const apiBaseUrl = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
-const BLOCKED_LEGACY_IMAGE_NAME = "tag_branca_logo-DWxQQMC9.png";
-const defaultSlidesById = new Map(defaultHeroSlides.map((slide) => [slide.id, slide]));
 
 const appendCacheBuster = (url: string, token: string): string => {
   if (!url) {
@@ -92,15 +89,6 @@ const normalizeGithubImageUrl = (url: string): string => {
     .replace("/blob/", "/");
 };
 
-const sanitizeLegacyImage = (slideId: string, imageUrl: string): string => {
-  if (!imageUrl.includes(BLOCKED_LEGACY_IMAGE_NAME)) {
-    return imageUrl;
-  }
-
-  const fallbackById = defaultSlidesById.get(slideId)?.image;
-  return fallbackById || defaultHeroSlides[0]?.image || imageUrl;
-};
-
 export const loadHeroSlidesFromStorage = (): HeroSlide[] | null => {
   if (typeof window === "undefined") {
     return null;
@@ -139,13 +127,11 @@ export const getHeroSlidesPersistenceMode = (): "supabase" | "localStorage" => {
 };
 
 const mapRowToHeroSlide = (row: HeroSlideRow): HeroSlide => {
-  const normalizedImage = normalizeGithubImageUrl(row.image);
-
   return {
     id: row.id,
     title: row.title,
     description: row.description,
-    image: sanitizeLegacyImage(row.id, normalizedImage),
+    image: normalizeGithubImageUrl(row.image),
     imageAlt: row.image_alt,
     primaryCtaLabel: row.primary_cta_label,
     primaryCtaHref: row.primary_cta_href,
