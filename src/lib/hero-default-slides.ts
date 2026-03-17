@@ -1,4 +1,4 @@
-import tagProduct from "@/assets/tag_branca_logo.png";
+import tagProduct from "@/assets/tag-product-new.png";
 import type { HeroSlide } from "@/lib/hero-slides";
 
 export const defaultHeroSlides: HeroSlide[] = [
