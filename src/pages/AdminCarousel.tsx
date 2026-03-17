@@ -10,7 +10,6 @@ import { loadHeroSlides, saveHeroSlides, type HeroSlide } from "@/lib/hero-slide
 
 const ADMIN_AUTH_STORAGE_KEY = "tagit.admin.carousel.auth";
 const ADMIN_TOKEN_STORAGE_KEY = "tagit.admin.carousel.token";
-const API_BASE_URL = String(import.meta.env.VITE_API_URL || "").trim().replace(/\/$/, "");
 
 const fileToBase64 = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -85,7 +84,8 @@ const AdminCarousel = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/admin-session`, {
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3001";
+      const response = await fetch(`${apiUrl}/api/admin-session`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -149,7 +149,9 @@ const AdminCarousel = () => {
       setStatusMessage("Enviando imagem para o GitHub e padronizando para 500x500...");
 
       const fileBase64 = await fileToBase64(file);
-      const response = await fetch(`${API_BASE_URL}/api/upload-carousel-image`, {
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3001";
+
+      const response = await fetch(`${apiUrl}/api/upload-carousel-image`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

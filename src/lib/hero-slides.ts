@@ -33,21 +33,7 @@ type SaveHeroSlidesResult = {
 
 export const HERO_SLIDES_STORAGE_KEY = "tagit.heroSlides";
 const HERO_SLIDES_TABLE = "hero_slides";
-const resolveApiBaseUrl = (): string => {
-  const envValue = String(import.meta.env.VITE_API_URL || "").trim().replace(/\/$/, "");
-
-  if (envValue) {
-    return envValue;
-  }
-
-  if (typeof window !== "undefined") {
-    return window.location.origin.replace(/\/$/, "");
-  }
-
-  return "";
-};
-
-const apiBaseUrl = resolveApiBaseUrl();
+const apiBaseUrl = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
 
 const appendCacheBuster = (url: string, token: string): string => {
   if (!url) {
