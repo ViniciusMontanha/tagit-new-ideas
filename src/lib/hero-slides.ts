@@ -149,7 +149,7 @@ const mapHeroSlideToRow = (slide: HeroSlide, position: number): HeroSlideRow => 
 export const loadHeroSlides = async (): Promise<HeroSlide[] | null> => {
   if (apiBaseUrl) {
     try {
-      const response = await fetch(`${apiBaseUrl}/api/hero-slides`);
+      const response = await fetch(`${apiBaseUrl}/api/hero-slides`, { cache: "no-store" });
 
       if (response.ok) {
         const payload = await response.json();
