@@ -33,7 +33,30 @@ type SaveHeroSlidesResult = {
 
 export const HERO_SLIDES_STORAGE_KEY = "tagit.heroSlides";
 const HERO_SLIDES_TABLE = "hero_slides";
-const apiBaseUrl = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
+const resolveApiBaseUrl = (): string => {
+  const envValue = String(import.meta.env.VITE_API_URL || "").trim().replace(/\/$/, "");
+
+  if (envValue) {
+    return envValue;
+  }
+
+  if (typeof window !== "undefined") {
+    return window.location.origin.replace(/\/$/, "");
+  }
+
+  return "";
+};
+
+const apiBaseUrl = resolveApiBaseUrl();
+
+const appendCacheBuster = (url: string, token: string): string => {
+  if (!url) {
+    return url;
+  }
+
+  const separator = url.includes("?") ? "&" : "?";
+  return `${url}${separator}v=${encodeURIComponent(token)}`;
+};
 
 export const isValidHeroSlide = (value: unknown): value is HeroSlide => {
   if (!value || typeof value !== "object") {
@@ -131,6 +154,13 @@ const mapRowToHeroSlide = (row: HeroSlideRow): HeroSlide => {
   };
 };
 
+const withImageCacheBuster = (slides: HeroSlide[], token: string): HeroSlide[] => {
+  return slides.map((slide) => ({
+    ...slide,
+    image: appendCacheBuster(slide.image, `${token}-${slide.id}`),
+  }));
+};
+
 const mapHeroSlideToRow = (slide: HeroSlide, position: number): HeroSlideRow => {
   return {
     id: slide.id,
@@ -149,7 +179,8 @@ const mapHeroSlideToRow = (slide: HeroSlide, position: number): HeroSlideRow => 
 export const loadHeroSlides = async (): Promise<HeroSlide[] | null> => {
   if (apiBaseUrl) {
     try {
-      const response = await fetch(`${apiBaseUrl}/api/hero-slides`, { cache: "no-store" });
+      const cacheToken = String(Date.now());
+      const response = await fetch(`${apiBaseUrl}/api/hero-slides?v=${cacheToken}`, { cache: "no-store" });
 
       if (response.ok) {
         const payload = await response.json();
@@ -159,8 +190,9 @@ export const loadHeroSlides = async (): Promise<HeroSlide[] | null> => {
         const validSlides = mappedSlides.filter(isValidHeroSlide);
 
         if (validSlides.length > 0) {
-          saveHeroSlidesToStorage(validSlides);
-          return validSlides;
+          const freshSlides = withImageCacheBuster(validSlides, cacheToken);
+          saveHeroSlidesToStorage(freshSlides);
+          return freshSlides;
         }
       }
     } catch {
@@ -181,8 +213,10 @@ export const loadHeroSlides = async (): Promise<HeroSlide[] | null> => {
       const validSlides = mappedSlides.filter(isValidHeroSlide);
 
       if (validSlides.length > 0) {
-        saveHeroSlidesToStorage(validSlides);
-        return validSlides;
+        const cacheToken = String(Date.now());
+        const freshSlides = withImageCacheBuster(validSlides, cacheToken);
+        saveHeroSlidesToStorage(freshSlides);
+        return freshSlides;
       }
     }
 
