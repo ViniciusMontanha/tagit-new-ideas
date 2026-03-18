@@ -67,20 +67,25 @@ export default async function handler(req, res) {
 
   const arrayBuffer = await response.arrayBuffer();
   const sourceBuffer = Buffer.from(arrayBuffer);
-  const resizedBuffer = await sharp(sourceBuffer, {
+  const transformer = sharp(sourceBuffer, {
     animated: false,
     density: 300,
     failOn: "none",
     pages: 1,
-  })
-    .rotate()
-    .resize(CAROUSEL_IMAGE_SIZE, CAROUSEL_IMAGE_SIZE, {
+  }).rotate();
+
+  const metadata = await transformer.metadata();
+  const shouldContain = metadata.width !== CAROUSEL_IMAGE_SIZE || metadata.height !== CAROUSEL_IMAGE_SIZE;
+
+  if (shouldContain) {
+    transformer.resize(CAROUSEL_IMAGE_SIZE, CAROUSEL_IMAGE_SIZE, {
       fit: "contain",
       position: "centre",
       background: { r: 0, g: 0, b: 0, alpha: 0 },
-    })
-    .webp({ quality: 90 })
-    .toBuffer();
+    });
+  }
+
+  const resizedBuffer = await transformer.webp({ quality: 90 }).toBuffer();
 
   res.setHeader("Content-Type", "image/webp");
   res.setHeader("X-Image-Size", `${CAROUSEL_IMAGE_SIZE}x${CAROUSEL_IMAGE_SIZE}`);

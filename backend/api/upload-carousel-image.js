@@ -47,6 +47,7 @@ export default async function handler(req, res) {
       width: upload.width,
       height: upload.height,
       mimeType: upload.mimeType,
+      resizeMode: upload.resizeMode,
     });
   } catch (error) {
     if (error instanceof z.ZodError) {

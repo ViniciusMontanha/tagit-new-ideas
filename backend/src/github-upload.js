@@ -76,5 +76,6 @@ export const uploadCarouselImageToGitHub = async ({ fileName, fileBase64, slideI
     width: normalizedImage.width,
     height: normalizedImage.height,
     mimeType: normalizedImage.mimeType,
+    resizeMode: normalizedImage.resizeMode,
   };
 };

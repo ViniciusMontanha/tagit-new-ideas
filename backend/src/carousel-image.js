@@ -48,20 +48,26 @@ export const normalizeCarouselImageUpload = async ({ fileName, fileBase64 }) => 
     throw new Error("Não foi possível ler o conteúdo da imagem.");
   }
 
-  const outputBuffer = await sharp(inputBuffer, {
+  const transformer = sharp(inputBuffer, {
     animated: false,
     density: 300,
     failOn: "none",
     pages: 1,
-  })
-    .rotate()
-    .resize(CAROUSEL_IMAGE_SIZE, CAROUSEL_IMAGE_SIZE, {
+  }).rotate();
+
+  const metadata = await transformer.metadata();
+  const shouldContain = metadata.width !== CAROUSEL_IMAGE_SIZE || metadata.height !== CAROUSEL_IMAGE_SIZE;
+  const resizeMode = shouldContain ? "contain" : "original";
+
+  if (shouldContain) {
+    transformer.resize(CAROUSEL_IMAGE_SIZE, CAROUSEL_IMAGE_SIZE, {
       fit: "contain",
       position: "centre",
       background: { r: 0, g: 0, b: 0, alpha: 0 },
-    })
-    .webp({ quality: 90 })
-    .toBuffer();
+    });
+  }
+
+  const outputBuffer = await transformer.webp({ quality: 90 }).toBuffer();
 
   return {
     fileName: createOutputFileName(fileName),
@@ -69,5 +75,6 @@ export const normalizeCarouselImageUpload = async ({ fileName, fileBase64 }) => 
     width: CAROUSEL_IMAGE_SIZE,
     height: CAROUSEL_IMAGE_SIZE,
     mimeType: "image/webp",
+    resizeMode,
   };
 };

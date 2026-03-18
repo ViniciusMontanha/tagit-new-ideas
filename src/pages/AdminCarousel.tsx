@@ -39,6 +39,7 @@ const appendCacheBuster = (url: string): string => {
 
 const AdminCarousel = () => {
   const [slides, setSlides] = useState<HeroSlide[]>(defaultHeroSlides);
+  const [slideResizeModes, setSlideResizeModes] = useState<Record<string, "contain" | "original">>({});
   const [statusMessage, setStatusMessage] = useState<string>("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoadingSlides, setIsLoadingSlides] = useState(false);
@@ -171,11 +172,16 @@ const AdminCarousel = () => {
       }
 
       const uploadResult = await response.json();
+      const resizeMode = uploadResult?.resizeMode === "contain" ? "contain" : "original";
       const nextSlides = slides.map((slide) =>
         slide.id === slideId ? { ...slide, image: appendCacheBuster(uploadResult.imageUrl) } : slide,
       );
 
       setSlides(nextSlides);
+      setSlideResizeModes((prev) => ({
+        ...prev,
+        [slideId]: resizeMode,
+      }));
 
       const saveResult = await saveHeroSlides(nextSlides, adminToken);
 
@@ -183,7 +189,12 @@ const AdminCarousel = () => {
         throw new Error(saveResult.errorMessage || "Falha ao persistir slide no Supabase");
       }
 
-      setStatusMessage("Imagem enviada, redimensionada para 500x500 e slide atualizado no Supabase.");
+      const resizeMessage =
+        resizeMode === "contain"
+          ? "Imagem enviada com contain em 500x500 e slide atualizado no Supabase."
+          : "Imagem enviada em 500x500 (sem contain) e slide atualizado no Supabase.";
+
+      setStatusMessage(resizeMessage);
     } catch (error) {
       const message = error instanceof Error ? error.message : "Falha no upload da imagem";
       setStatusMessage(`Erro ao enviar imagem: ${message}`);
@@ -343,6 +354,9 @@ const AdminCarousel = () => {
                               disabled={isSavingSlides || uploadingSlideId === slide.id}
                             />
                           </div>
+                          <p className="text-xs text-muted-foreground">
+                            Modo do último upload: {slideResizeModes[slide.id] === "contain" ? "contain" : slideResizeModes[slide.id] === "original" ? "original" : "ainda não enviado"}
+                          </p>
                           <p className="text-xs text-muted-foreground">As imagens enviadas são convertidas automaticamente para 500x500.</p>
                           {uploadingSlideId === slide.id ? (
                             <p className="text-xs text-muted-foreground">Enviando imagem...</p>
