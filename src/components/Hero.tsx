@@ -144,7 +144,7 @@ export const Hero = () => {
                       </picture>
                     ) : (
                       <div
-                        className="w-full h-auto max-w-md mx-auto"
+                        className="w-full h-auto max-w-md mx-auto rounded-3xl bg-primary-foreground/20 animate-pulse"
                         style={{ aspectRatio: "1 / 1" }}
                         aria-hidden="true"
                       />
