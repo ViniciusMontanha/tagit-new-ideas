@@ -222,7 +222,7 @@ export const Dispositivo = () => {
               </span>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {technicalSections.map((section, sectionIndex) => (
                 <motion.div
                   key={section.title}
@@ -230,6 +230,13 @@ export const Dispositivo = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.45, delay: sectionIndex * 0.08 }}
                   viewport={{ once: true }}
+                  className={
+                    section.title === "Parâmetros Gerais"
+                      ? "lg:row-span-2"
+                      : section.title === "Desempenho e Operação"
+                        ? "lg:row-start-2 lg:col-start-2"
+                        : ""
+                  }
                 >
                   <Card className="h-full p-5 border-border/70 bg-background/85">
                     <div className="flex items-center gap-2 mb-4">
