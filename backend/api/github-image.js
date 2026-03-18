@@ -75,8 +75,9 @@ export default async function handler(req, res) {
   })
     .rotate()
     .resize(CAROUSEL_IMAGE_SIZE, CAROUSEL_IMAGE_SIZE, {
-      fit: "cover",
+      fit: "contain",
       position: "centre",
+      background: { r: 0, g: 0, b: 0, alpha: 0 },
     })
     .webp({ quality: 90 })
     .toBuffer();
