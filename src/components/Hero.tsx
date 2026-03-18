@@ -7,6 +7,7 @@ import { loadHeroSlides, type HeroSlide } from "@/lib/hero-slides";
 
 export const Hero = () => {
   const [slides, setSlides] = useState<HeroSlide[]>(defaultHeroSlides);
+  const [isSlidesLoaded, setIsSlidesLoaded] = useState(false);
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -21,6 +22,7 @@ export const Hero = () => {
       }
 
       setSlides(remoteSlides ?? defaultHeroSlides);
+      setIsSlidesLoaded(true);
     };
 
     fetchSlides();
@@ -74,37 +76,52 @@ export const Hero = () => {
                     transition={{ duration: 0.8 }}
                     className="text-primary-foreground w-full max-w-xl mx-auto translate-x-[6px]"
                   >
-                    <h1
-                      className="text-5xl md:text-6xl font-bold mb-6 leading-tight"
-                      itemProp={index === 0 ? "headline" : undefined}
-                    >
-                      {slide.title}
-                    </h1>
+                    {isSlidesLoaded ? (
+                      <>
+                        <h1
+                          className="text-5xl md:text-6xl font-bold mb-6 leading-tight"
+                          itemProp={index === 0 ? "headline" : undefined}
+                        >
+                          {slide.title}
+                        </h1>
 
-                    <p
-                      className="text-xl md:text-2xl mb-8 font-light leading-relaxed opacity-95"
-                      itemProp={index === 0 ? "description" : undefined}
-                    >
-                      {slide.description}
-                    </p>
+                        <p
+                          className="text-xl md:text-2xl mb-8 font-light leading-relaxed opacity-95"
+                          itemProp={index === 0 ? "description" : undefined}
+                        >
+                          {slide.description}
+                        </p>
 
-                    <div className="flex flex-wrap gap-4">
-                      <Button
-                        size="lg"
-                        className="text-lg px-8 py-6 rounded-full font-bold shadow-lg hover:scale-105 transition-transform bg-primary-foreground text-primary hover:bg-primary-foreground/90"
-                        asChild
-                      >
-                        <a href={slide.primaryCtaHref}>{slide.primaryCtaLabel}</a>
-                      </Button>
-                      <Button
-                        size="lg"
-                        variant="outline"
-                        className="text-lg px-8 py-6 rounded-full font-bold border-2 border-primary-foreground text-primary-foreground bg-transparent hover:bg-primary-foreground hover:text-primary transition-all"
-                        asChild
-                      >
-                        <a href={slide.secondaryCtaHref}>{slide.secondaryCtaLabel}</a>
-                      </Button>
-                    </div>
+                        <div className="flex flex-wrap gap-4">
+                          <Button
+                            size="lg"
+                            className="text-lg px-8 py-6 rounded-full font-bold shadow-lg hover:scale-105 transition-transform bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+                            asChild
+                          >
+                            <a href={slide.primaryCtaHref}>{slide.primaryCtaLabel}</a>
+                          </Button>
+                          <Button
+                            size="lg"
+                            variant="outline"
+                            className="text-lg px-8 py-6 rounded-full font-bold border-2 border-primary-foreground text-primary-foreground bg-transparent hover:bg-primary-foreground hover:text-primary transition-all"
+                            asChild
+                          >
+                            <a href={slide.secondaryCtaHref}>{slide.secondaryCtaLabel}</a>
+                          </Button>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="space-y-5" aria-hidden="true">
+                        <div className="h-14 md:h-16 w-11/12 bg-primary-foreground/25 rounded-md" />
+                        <div className="h-14 md:h-16 w-10/12 bg-primary-foreground/25 rounded-md" />
+                        <div className="h-10 w-full bg-primary-foreground/20 rounded-md" />
+                        <div className="h-10 w-4/5 bg-primary-foreground/20 rounded-md" />
+                        <div className="flex flex-wrap gap-4 pt-1">
+                          <div className="h-14 w-52 bg-primary-foreground/25 rounded-full" />
+                          <div className="h-14 w-52 bg-primary-foreground/20 rounded-full" />
+                        </div>
+                      </div>
+                    )}
                   </motion.div>
 
                   <motion.div
@@ -113,17 +130,25 @@ export const Hero = () => {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="relative flex flex-col gap-8 items-center w-full max-w-xl mx-auto"
                   >
-                    <picture>
-                      <img
-                        src={slide.image}
-                        alt={slide.imageAlt}
-                        className="w-full h-auto max-w-md mx-auto drop-shadow-2xl"
-                        loading="eager"
-                        itemProp={index === 0 ? "image" : undefined}
-                        width={400}
-                        height={400}
+                    {isSlidesLoaded ? (
+                      <picture>
+                        <img
+                          src={slide.image}
+                          alt={slide.imageAlt}
+                          className="w-full h-auto max-w-md mx-auto drop-shadow-2xl"
+                          loading="eager"
+                          itemProp={index === 0 ? "image" : undefined}
+                          width={400}
+                          height={400}
+                        />
+                      </picture>
+                    ) : (
+                      <div
+                        className="w-full h-auto max-w-md mx-auto"
+                        style={{ aspectRatio: "1 / 1" }}
+                        aria-hidden="true"
                       />
-                    </picture>
+                    )}
                   </motion.div>
                 </div>
               </CarouselItem>
