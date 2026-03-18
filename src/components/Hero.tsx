@@ -53,13 +53,13 @@ export const Hero = () => {
 
   return (
     <section 
-      className="relative flex items-center pt-20 pb-32 overflow-hidden bg-gradient-to-br from-cyan-light via-blue-medium to-purple-medium"
+      className="relative flex items-center pt-24 md:pt-20 pb-20 sm:pb-24 md:pb-32 overflow-hidden bg-gradient-to-br from-cyan-light via-blue-medium to-purple-medium"
       role="region"
       aria-label="Seção principal - Hero"
       itemScope 
       itemType="https://schema.org/WebPage"
     >
-      <div className="container mx-auto px-4 py-20">
+      <div className="container mx-auto px-4 py-10 sm:py-14 md:py-20">
         <Carousel
           setApi={setCarouselApi}
           opts={{ loop: true }}
@@ -69,24 +69,24 @@ export const Hero = () => {
           <CarouselContent>
             {slides.map((slide, index) => (
               <CarouselItem key={`${slide.id}:${slide.image}`}>
-                <div className="grid md:grid-cols-2 gap-12 items-center md:translate-x-8">
+                <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center md:translate-x-4 lg:translate-x-8">
                   <motion.div
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="text-primary-foreground w-full max-w-xl mx-auto translate-x-[6px]"
+                    className="text-primary-foreground w-full max-w-xl mx-auto"
                   >
                     {isSlidesLoaded ? (
                       <>
                         <h1
-                          className="text-5xl md:text-6xl font-bold mb-6 leading-tight"
+                          className="text-3xl sm:text-4xl md:text-6xl font-bold mb-5 md:mb-6 leading-tight"
                           itemProp={index === 0 ? "headline" : undefined}
                         >
                           {slide.title}
                         </h1>
 
                         <p
-                          className="text-xl md:text-2xl mb-8 font-light leading-relaxed opacity-95"
+                          className="text-lg sm:text-xl md:text-2xl mb-6 md:mb-8 font-light leading-relaxed opacity-95"
                           itemProp={index === 0 ? "description" : undefined}
                         >
                           {slide.description}
@@ -95,7 +95,7 @@ export const Hero = () => {
                         <div className="flex flex-wrap gap-4">
                           <Button
                             size="lg"
-                            className="text-lg px-8 py-6 rounded-full font-bold shadow-lg hover:scale-105 transition-transform bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+                            className="w-full sm:w-auto justify-center text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 rounded-full font-bold shadow-lg hover:scale-105 transition-transform bg-primary-foreground text-primary hover:bg-primary-foreground/90"
                             asChild
                           >
                             <a href={slide.primaryCtaHref}>{slide.primaryCtaLabel}</a>
@@ -103,7 +103,7 @@ export const Hero = () => {
                           <Button
                             size="lg"
                             variant="outline"
-                            className="text-lg px-8 py-6 rounded-full font-bold border-2 border-primary-foreground text-primary-foreground bg-transparent hover:bg-primary-foreground hover:text-primary transition-all"
+                            className="w-full sm:w-auto justify-center text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 rounded-full font-bold border-2 border-primary-foreground text-primary-foreground bg-transparent hover:bg-primary-foreground hover:text-primary transition-all"
                             asChild
                           >
                             <a href={slide.secondaryCtaHref}>{slide.secondaryCtaLabel}</a>
@@ -112,13 +112,13 @@ export const Hero = () => {
                       </>
                     ) : (
                       <div className="space-y-5" aria-hidden="true">
-                        <div className="h-14 md:h-16 w-11/12 bg-primary-foreground/25 rounded-md" />
-                        <div className="h-14 md:h-16 w-10/12 bg-primary-foreground/25 rounded-md" />
-                        <div className="h-10 w-full bg-primary-foreground/20 rounded-md" />
-                        <div className="h-10 w-4/5 bg-primary-foreground/20 rounded-md" />
+                        <div className="h-10 sm:h-12 md:h-16 w-11/12 bg-primary-foreground/25 rounded-md" />
+                        <div className="h-10 sm:h-12 md:h-16 w-10/12 bg-primary-foreground/25 rounded-md" />
+                        <div className="h-8 sm:h-9 md:h-10 w-full bg-primary-foreground/20 rounded-md" />
+                        <div className="h-8 sm:h-9 md:h-10 w-4/5 bg-primary-foreground/20 rounded-md" />
                         <div className="flex flex-wrap gap-4 pt-1">
-                          <div className="h-14 w-52 bg-primary-foreground/25 rounded-full" />
-                          <div className="h-14 w-52 bg-primary-foreground/20 rounded-full" />
+                          <div className="h-12 sm:h-14 w-40 sm:w-52 bg-primary-foreground/25 rounded-full" />
+                          <div className="h-12 sm:h-14 w-40 sm:w-52 bg-primary-foreground/20 rounded-full" />
                         </div>
                       </div>
                     )}
@@ -135,7 +135,7 @@ export const Hero = () => {
                         <img
                           src={slide.image}
                           alt={slide.imageAlt}
-                          className="w-full h-auto max-w-md mx-auto drop-shadow-2xl"
+                          className="w-full h-auto max-w-[260px] sm:max-w-sm md:max-w-md mx-auto drop-shadow-2xl"
                           loading="eager"
                           itemProp={index === 0 ? "image" : undefined}
                           width={400}
@@ -144,7 +144,7 @@ export const Hero = () => {
                       </picture>
                     ) : (
                       <div
-                        className="w-full h-auto max-w-md mx-auto rounded-3xl bg-primary-foreground/20 animate-pulse"
+                        className="w-full h-auto max-w-[260px] sm:max-w-sm md:max-w-md mx-auto rounded-3xl bg-primary-foreground/20 animate-pulse"
                         style={{ aspectRatio: "1 / 1" }}
                         aria-hidden="true"
                       />
@@ -155,10 +155,10 @@ export const Hero = () => {
             ))}
           </CarouselContent>
 
-          <CarouselPrevious className="left-3 md:-left-4 lg:-left-14 bg-primary-foreground text-primary border-primary-foreground hover:bg-primary-foreground/90" />
-          <CarouselNext className="right-3 md:right-0 lg:-right-10 bg-primary-foreground text-primary border-primary-foreground hover:bg-primary-foreground/90" />
+          <CarouselPrevious className="hidden sm:inline-flex left-2 md:-left-4 lg:-left-14 bg-primary-foreground text-primary border-primary-foreground hover:bg-primary-foreground/90" />
+          <CarouselNext className="hidden sm:inline-flex right-2 md:right-0 lg:-right-10 bg-primary-foreground text-primary border-primary-foreground hover:bg-primary-foreground/90" />
 
-          <div className="mt-8 flex justify-center items-center gap-2" aria-label="Indicadores do carrossel">
+          <div className="mt-6 sm:mt-8 flex justify-center items-center gap-2" aria-label="Indicadores do carrossel">
             {slides.map((slide, index) => (
               <button
                 key={slide.id}
@@ -179,7 +179,7 @@ export const Hero = () => {
 
       {/* Banda animada com benefícios - ARIA Live Region */}
       <div 
-        className="absolute bottom-0 left-0 right-0 overflow-hidden h-16"
+        className="absolute bottom-0 left-0 right-0 overflow-hidden h-12 sm:h-16"
         role="region"
         aria-live="polite"
         aria-label="Destaques: Localização, Bateria de longa duração, Criptografia ponta a ponta"
@@ -192,7 +192,7 @@ export const Hero = () => {
           aria-hidden="true"
         >
           {[...Array(20)].map((_, i) => (
-            <div key={i} className="flex items-center gap-2 whitespace-nowrap text-primary-foreground font-bold text-sm">
+            <div key={i} className="flex items-center gap-2 whitespace-nowrap text-primary-foreground font-bold text-xs sm:text-sm">
               <span>✓ Localização</span>
               <span className="mx-4">•</span>
               <span>✓ Bateria de Longa Duração</span>

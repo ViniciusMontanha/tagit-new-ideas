@@ -87,7 +87,7 @@ export const Header = () => {
       >
         <div className="container mx-auto px-4">
           <nav 
-            className="flex items-center justify-between h-24"
+            className="flex items-center justify-between h-20 sm:h-24"
             role="navigation"
             aria-label="Navegação principal"
           >
@@ -101,7 +101,7 @@ export const Header = () => {
               <img 
                 src={logo} 
                 alt="Tag It - Localização Inteligente de Ativos"
-                className="h-[104px] w-auto object-contain"
+                className="h-[82px] sm:h-[96px] lg:h-[104px] w-auto object-contain"
                 loading="eager"
               />
             </a>
@@ -231,7 +231,7 @@ export const Header = () => {
                   <Menu className="h-6 w-6 transition-transform duration-300" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-64 p-0">
+              <SheetContent side="right" className="w-[86vw] max-w-xs p-0">
                 <div className="flex flex-col h-full bg-background">
                   {/* Header do Menu Mobile */}
                   <div className="p-4 border-b border-border">
