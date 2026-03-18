@@ -53,13 +53,13 @@ export const Hero = () => {
 
   return (
     <section 
-      className="relative flex items-center pt-24 md:pt-20 pb-20 sm:pb-24 md:pb-32 overflow-hidden bg-gradient-to-br from-cyan-light via-blue-medium to-purple-medium"
+      className="hero-section relative flex items-center pt-24 max-[400px]:pt-20 md:pt-20 pb-20 max-[400px]:pb-12 sm:pb-24 md:pb-32 overflow-hidden bg-gradient-to-br from-cyan-light via-blue-medium to-purple-medium"
       role="region"
       aria-label="Seção principal - Hero"
       itemScope 
       itemType="https://schema.org/WebPage"
     >
-      <div className="container mx-auto px-4 py-10 sm:py-14 md:py-20">
+      <div className="container mx-auto px-4 py-10 max-[400px]:py-6 sm:py-14 md:py-20">
         <Carousel
           setApi={setCarouselApi}
           opts={{ loop: true }}
@@ -69,7 +69,7 @@ export const Hero = () => {
           <CarouselContent>
             {slides.map((slide, index) => (
               <CarouselItem key={`${slide.id}:${slide.image}`}>
-                <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center md:translate-x-4 lg:translate-x-8">
+                <div className="grid md:grid-cols-2 gap-8 max-[400px]:gap-6 md:gap-12 items-center md:translate-x-4 lg:translate-x-8">
                   <motion.div
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -79,14 +79,14 @@ export const Hero = () => {
                     {isSlidesLoaded ? (
                       <>
                         <h1
-                          className="text-3xl sm:text-4xl md:text-6xl font-bold mb-5 md:mb-6 leading-tight"
+                          className="text-3xl max-[400px]:text-2xl sm:text-4xl md:text-6xl font-bold mb-5 max-[400px]:mb-4 md:mb-6 leading-tight"
                           itemProp={index === 0 ? "headline" : undefined}
                         >
                           {slide.title}
                         </h1>
 
                         <p
-                          className="text-lg sm:text-xl md:text-2xl mb-6 md:mb-8 font-light leading-relaxed opacity-95"
+                          className="text-lg max-[400px]:text-base sm:text-xl md:text-2xl mb-6 max-[400px]:mb-5 md:mb-8 font-light leading-relaxed opacity-95"
                           itemProp={index === 0 ? "description" : undefined}
                         >
                           {slide.description}
@@ -95,7 +95,7 @@ export const Hero = () => {
                         <div className="flex flex-wrap gap-4">
                           <Button
                             size="lg"
-                            className="w-full sm:w-auto justify-center text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 rounded-full font-bold shadow-lg hover:scale-105 transition-transform bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+                            className="w-full sm:w-auto justify-center text-base max-[400px]:text-sm sm:text-lg px-6 sm:px-8 py-4 max-[400px]:py-3.5 sm:py-6 rounded-full font-bold shadow-lg hover:scale-105 transition-transform bg-primary-foreground text-primary hover:bg-primary-foreground/90"
                             asChild
                           >
                             <a href={slide.primaryCtaHref}>{slide.primaryCtaLabel}</a>
@@ -103,7 +103,7 @@ export const Hero = () => {
                           <Button
                             size="lg"
                             variant="outline"
-                            className="w-full sm:w-auto justify-center text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 rounded-full font-bold border-2 border-primary-foreground text-primary-foreground bg-transparent hover:bg-primary-foreground hover:text-primary transition-all"
+                            className="w-full sm:w-auto justify-center text-base max-[400px]:text-sm sm:text-lg px-6 sm:px-8 py-4 max-[400px]:py-3.5 sm:py-6 rounded-full font-bold border-2 border-primary-foreground text-primary-foreground bg-transparent hover:bg-primary-foreground hover:text-primary transition-all"
                             asChild
                           >
                             <a href={slide.secondaryCtaHref}>{slide.secondaryCtaLabel}</a>
@@ -135,7 +135,7 @@ export const Hero = () => {
                         <img
                           src={slide.image}
                           alt={slide.imageAlt}
-                          className="w-full h-auto max-w-[260px] sm:max-w-sm md:max-w-md mx-auto drop-shadow-2xl"
+                          className="w-full h-auto max-w-[260px] max-[400px]:max-w-[220px] sm:max-w-sm md:max-w-md mx-auto drop-shadow-2xl"
                           loading="eager"
                           itemProp={index === 0 ? "image" : undefined}
                           width={400}
@@ -144,7 +144,7 @@ export const Hero = () => {
                       </picture>
                     ) : (
                       <div
-                        className="w-full h-auto max-w-[260px] sm:max-w-sm md:max-w-md mx-auto rounded-3xl bg-primary-foreground/20 animate-pulse"
+                        className="w-full h-auto max-w-[260px] max-[400px]:max-w-[220px] sm:max-w-sm md:max-w-md mx-auto rounded-3xl bg-primary-foreground/20 animate-pulse"
                         style={{ aspectRatio: "1 / 1" }}
                         aria-hidden="true"
                       />
@@ -179,7 +179,7 @@ export const Hero = () => {
 
       {/* Banda animada com benefícios - ARIA Live Region */}
       <div 
-        className="absolute bottom-0 left-0 right-0 overflow-hidden h-12 sm:h-16"
+        className="hero-ticker absolute bottom-0 left-0 right-0 overflow-hidden h-12 sm:h-16"
         role="region"
         aria-live="polite"
         aria-label="Destaques: Localização, Bateria de longa duração, Criptografia ponta a ponta"

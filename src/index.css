@@ -136,11 +136,28 @@ New Palette:
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 0rem;
+  }
+
+  @media (min-width: 768px) {
+    html {
+      scroll-padding-top: 6.5rem;
+    }
+  }
+
   * {
     @apply border-border;
   }
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@media (max-width: 420px) and (max-height: 700px) {
+  .hero-ticker {
+    display: none;
   }
 }

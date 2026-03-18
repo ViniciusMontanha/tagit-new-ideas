@@ -22,7 +22,7 @@ const steps = [
 
 export const HowItWorks = () => {
   return (
-    <section id="como-funciona" className="py-20 bg-gradient-to-b from-primary/5 to-background" role="region" aria-labelledby="como-funciona-heading">
+    <section id="como-funciona" className="pt-12 pb-20 bg-gradient-to-b from-primary/5 to-background" role="region" aria-labelledby="como-funciona-heading">
       <div className="container mx-auto px-6 md:px-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

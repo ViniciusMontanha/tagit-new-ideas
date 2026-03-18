@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
+import tagCarrossel from "@/assets/tagcarrosel.png";
+import tagLado from "@/assets/tag_lado.png";
 import {
-  Activity,
   BarChart3,
   BatteryMedium,
   Bluetooth,
+  Image as ImageIcon,
   Briefcase,
   Building2,
   Cpu,
@@ -107,12 +109,8 @@ const technicalSections = [
       { label: "Frequência de Transmissão", value: "A cada 2 segundos" },
       { label: "Protocolo de Comunicação", value: "Bluetooth + Transmissão" },
       { label: "Sistema Suportado", value: "iOS" },
-    ],
-  },
-  {
-    icon: Activity,
-    title: "Desempenho e Operação",
-    rows: [
+      { label: "", value: "" },
+      { label: "Desempenho e Operação", value: "", icon: Thermometer },
       { label: "Alcance em ambientes internos", value: "15 a 25 m" },
       { label: "Alcance ao ar livre", value: "50 a 70 m" },
       { label: "Temperatura de Trabalho", value: "-20°C a +60°C", icon: Thermometer },
@@ -222,7 +220,7 @@ export const Dispositivo = () => {
               </span>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {technicalSections.map((section, sectionIndex) => (
                 <motion.div
                   key={section.title}
@@ -230,13 +228,6 @@ export const Dispositivo = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.45, delay: sectionIndex * 0.08 }}
                   viewport={{ once: true }}
-                  className={
-                    section.title === "Parâmetros Gerais"
-                      ? "lg:row-span-2"
-                      : section.title === "Desempenho e Operação"
-                        ? "lg:row-start-2 lg:col-start-2"
-                        : ""
-                  }
                 >
                   <Card className="h-full p-5 border-border/70 bg-background/85">
                     <div className="flex items-center gap-2 mb-4">
@@ -245,19 +236,61 @@ export const Dispositivo = () => {
                     </div>
 
                     <div className="divide-y divide-border/70">
-                      {section.rows.map((row) => (
-                        <div key={row.label} className="py-2.5 flex flex-col gap-1">
-                          <div className="text-sm text-muted-foreground flex items-center gap-1.5">
-                            {row.icon ? <row.icon className="h-3.5 w-3.5" aria-hidden="true" /> : null}
-                            <span>{row.label}</span>
-                          </div>
-                          <p className="text-sm md:text-base font-semibold text-foreground leading-snug">{row.value}</p>
+                      {section.rows.map((row, rowIndex) => (
+                        <div key={`${section.title}-${row.label || "linha"}-${rowIndex}`} className="py-2.5 flex flex-col gap-1">
+                          {row.label ? (
+                            <div className="text-sm text-muted-foreground flex items-center gap-1.5">
+                              {row.icon ? <row.icon className="h-3.5 w-3.5" aria-hidden="true" /> : null}
+                              <span>{row.label}</span>
+                            </div>
+                          ) : null}
+                          {row.value ? (
+                            <p className="text-sm md:text-base font-semibold text-foreground leading-snug">{row.value}</p>
+                          ) : null}
                         </div>
                       ))}
                     </div>
                   </Card>
                 </motion.div>
               ))}
+
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <Card className="h-full p-5 border-border/70 bg-background/85">
+                  <div className="flex items-center gap-2 mb-4">
+                    <ImageIcon className="h-5 w-5 text-primary" aria-hidden="true" />
+                    <h4 className="text-lg font-semibold text-foreground">Imagens do Dispositivo</h4>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-4">
+                    <div className="p-1">
+                      <img
+                        src={tagCarrossel}
+                        alt="Tag IT em vista frontal"
+                        className="w-full h-auto max-h-52 object-contain mx-auto"
+                        loading="lazy"
+                        width={800}
+                        height={800}
+                      />
+                    </div>
+
+                    <div className="p-1">
+                      <img
+                        src={tagLado}
+                        alt="Tag IT em vista lateral"
+                        className="w-full h-auto max-h-52 object-contain mx-auto"
+                        loading="lazy"
+                        width={800}
+                        height={800}
+                      />
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
             </div>
           </Card>
         </motion.div>
