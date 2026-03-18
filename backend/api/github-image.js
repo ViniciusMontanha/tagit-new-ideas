@@ -1,4 +1,7 @@
+import sharp from "sharp";
+
 const GITHUB_API_URL = "https://api.github.com";
+const CAROUSEL_IMAGE_SIZE = 500;
 
 const contentTypeFromFileName = (fileName = "") => {
   const lower = fileName.toLowerCase();
@@ -63,14 +66,28 @@ export default async function handler(req, res) {
   }
 
   const arrayBuffer = await response.arrayBuffer();
-  const buffer = Buffer.from(arrayBuffer);
-  const responseContentType = response.headers.get("content-type") || contentTypeFromFileName(normalizedPath);
+  const sourceBuffer = Buffer.from(arrayBuffer);
+  const resizedBuffer = await sharp(sourceBuffer, {
+    animated: false,
+    density: 300,
+    failOn: "none",
+    pages: 1,
+  })
+    .rotate()
+    .resize(CAROUSEL_IMAGE_SIZE, CAROUSEL_IMAGE_SIZE, {
+      fit: "cover",
+      position: "centre",
+    })
+    .webp({ quality: 90 })
+    .toBuffer();
 
-  res.setHeader("Content-Type", responseContentType);
+  res.setHeader("Content-Type", "image/webp");
+  res.setHeader("X-Image-Size", `${CAROUSEL_IMAGE_SIZE}x${CAROUSEL_IMAGE_SIZE}`);
+  res.setHeader("X-Source-Content-Type", response.headers.get("content-type") || contentTypeFromFileName(normalizedPath));
   res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0, s-maxage=0");
   res.setHeader("Pragma", "no-cache");
   res.setHeader("Expires", "0");
   res.setHeader("Access-Control-Allow-Origin", "https://tagit.com.br");
 
-  return res.status(200).send(buffer);
+  return res.status(200).send(resizedBuffer);
 }
