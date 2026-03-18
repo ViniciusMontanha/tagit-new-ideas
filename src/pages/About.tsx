@@ -102,11 +102,11 @@ const About = () => {
                         da necessidade de oferecer soluções inteligentes, acessíveis e confiáveis 
                         para localização e gestão de ativos, veículos e pessoas. Observando as 
                         dificuldades enfrentadas por empresas e usuários no controle, segurança e 
-                        localização em tempo real, surgiu a ideia de criar uma tecnologia prática, 
+                        localização, surgiu a ideia de criar uma tecnologia prática, 
                         eficiente e adaptada à realidade do mercado.
                       </p>
                       <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-                        <span className="font-semibold">José Luiz</span> começou sua trajetória com uma experiência vasta em tecnologia. Tenho 12 anos de experiência técnica no segmento de eletrônicos, com um vasto conhecimento em multifuncionais, impressoras, sistemas digitais e GED (gerenciamento eletrônico), além de um conhecimento sólido em computação e áreas afins.
+                        <span className="font-semibold">José Luiz</span> começou sua trajetória com uma experiência vasta em tecnologia. Tenho 12 anos de experiência técnica no segmento de eletrônicos, com um vasto conhecimento em multifuncionais, impressoras, sistemas digitais e GED (gerenciamento eletrônico), além de um conhecimento sólido em TI e áreas afins.
                       </p>
                       <p className="text-lg text-muted-foreground leading-relaxed mb-4">
                         Após esses 12 anos, transicionei para a área comercial, onde aprofundei meus conhecimentos em análise de desempenho, gestão de projetos, demandas e workflow. Hoje, atuo representando grandes empresas, com foco em inovação, agilidade e transformação digital. Meu propósito é impulsionar negócios, transformando-os em grandes projetos tecnológicos e trazendo tecnologia para o dia a dia.
