@@ -1,7 +1,7 @@
 import path from "path";
 import sharp from "sharp";
 
-export const CAROUSEL_IMAGE_SIZE = 500;
+export const CAROUSEL_IMAGE_SIZE = 800;
 const OUTPUT_FORMAT = "webp";
 
 const parseBase64Image = (value) => {

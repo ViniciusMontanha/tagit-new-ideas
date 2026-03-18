@@ -147,7 +147,7 @@ const AdminCarousel = () => {
 
     try {
       setUploadingSlideId(slideId);
-      setStatusMessage("Enviando imagem para o GitHub e padronizando para 500x500...");
+      setStatusMessage("Enviando imagem para o GitHub e padronizando para 800x800...");
 
       const fileBase64 = await fileToBase64(file);
       const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3001";
@@ -191,8 +191,8 @@ const AdminCarousel = () => {
 
       const resizeMessage =
         resizeMode === "contain"
-          ? "Imagem enviada com contain em 500x500 e slide atualizado no Supabase."
-          : "Imagem enviada em 500x500 (sem contain) e slide atualizado no Supabase.";
+          ? "Imagem enviada com contain em 800x800 e slide atualizado no Supabase."
+          : "Imagem enviada em 800x800 (sem contain) e slide atualizado no Supabase.";
 
       setStatusMessage(resizeMessage);
     } catch (error) {
@@ -357,7 +357,7 @@ const AdminCarousel = () => {
                           <p className="text-xs text-muted-foreground">
                             Modo do último upload: {slideResizeModes[slide.id] === "contain" ? "contain" : slideResizeModes[slide.id] === "original" ? "original" : "ainda não enviado"}
                           </p>
-                          <p className="text-xs text-muted-foreground">As imagens enviadas são convertidas automaticamente para 500x500.</p>
+                          <p className="text-xs text-muted-foreground">As imagens enviadas são convertidas automaticamente para 800x800.</p>
                           {uploadingSlideId === slide.id ? (
                             <p className="text-xs text-muted-foreground">Enviando imagem...</p>
                           ) : null}

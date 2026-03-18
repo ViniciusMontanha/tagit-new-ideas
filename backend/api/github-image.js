@@ -1,7 +1,7 @@
 import sharp from "sharp";
 
 const GITHUB_API_URL = "https://api.github.com";
-const CAROUSEL_IMAGE_SIZE = 500;
+const CAROUSEL_IMAGE_SIZE = 800;
 
 const contentTypeFromFileName = (fileName = "") => {
   const lower = fileName.toLowerCase();
