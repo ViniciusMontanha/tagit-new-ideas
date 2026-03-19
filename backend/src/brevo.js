@@ -311,7 +311,7 @@ function getClientEmailTemplate(data) {
             </div>
             
             <p><strong>⏳ Próximos Passos:</strong></p>
-            <p>Nossa equipe entrará em contato com você em até <strong>24 horas úteis</strong> através de:</p>
+            <p>Nossa equipe entrará em contato com você em <strong>poucos minutos</strong> através:</p>
             <ul style="margin: 10px 0;">
               <li>☎️ WhatsApp: <a href="https://wa.me/${data.telefone.replace(/\D/g, "")}" style="color: #00B4FF; text-decoration: none;">${data.telefone}</a></li>
               <li>📧 Email: ${data.email}</li>
