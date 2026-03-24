@@ -117,7 +117,7 @@ export const Personal = () => {
           className="text-center"
         >
           <Button size="lg" className="text-base px-10 py-7 rounded-full shadow-purple hover:shadow-strong transition-all bg-secondary hover:bg-secondary/90" asChild>
-            <a href="https://api.whatsapp.com/send/?phone=5516992058150&text=Ol%C3%A1%21+Gostaria+de+mais+informa%C3%A7%C3%B5es+sobre+a+Tag+It.&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
+            <a href="https://api.whatsapp.com/send/?phone=5516991295203&text=Ol%C3%A1%21+Gostaria+de+mais+informa%C3%A7%C3%B5es+sobre+a+Tag+It.&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
             Comprar Agora
             </a>
           </Button>

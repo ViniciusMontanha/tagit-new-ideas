@@ -48,12 +48,12 @@ export const Footer = () => {
                 </div>
                 <p>
                   <a
-                    href="tel:+5516996403745"
+                    href="tel:+5516991295203"
                     className="text-primary hover:underline transition-colors"
                     aria-label="Ligar para Tag It"
                     itemProp="telephone"
                   >
-                    (16) 99640-3745
+                    (16) 99129-5203
                   </a>
                 </p>
               </address>

@@ -31,7 +31,7 @@ Todos os schemas estruturados estão no `index.html` como scripts JSON-LD. **Nun
   "name": "Tag It",
   "url": "https://tagit.com.br",
   "logo": "https://tagit.com.br/logo.png",
-  "contactPoint": { "telephone": "+55-16-99753-4316" }
+  "contactPoint": { "telephone": "+55-16-99129-5203" }
 }
 
 // Product - Informações do produto
@@ -260,7 +260,7 @@ export const ContactForm = () => {
 
 ### WhatsApp Widget
 - **Localização**: Bottom-right, fixed, z-50
-- **Telefone**: `+55-16-99753-4316`
+- **Telefone**: `+55-16-99129-5203`
 - **Mensagem padrão**: "Olá! Gostaria de mais informações sobre a Tag It."
 - **Implementação**: `window.open('wa.me/{numero}')`
 - **SEO**: Sem impacto (não indexável)
