@@ -9,11 +9,12 @@ import { Button } from "@/components/ui/button";
 import { usePrivacyPolicy } from "@/contexts/PrivacyPolicyContext";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { Home, Info, Briefcase, Users, Shield, Instagram, Layers, ChevronDown, Zap, Cpu } from "lucide-react";
+import { Home, Info, Briefcase, Users, Shield, Instagram, Layers, ChevronDown, Zap, Cpu, Image as ImageIcon } from "lucide-react";
 
 export const Footer = () => {
   const { isOpen, openPrivacyPolicy, closePrivacyPolicy } = usePrivacyPolicy();
   const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
+  const [isImagePolicyOpen, setIsImagePolicyOpen] = useState(false);
 
   return (
     <>
@@ -169,6 +170,19 @@ export const Footer = () => {
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
                   </span>
                 </Button>
+
+                <Button
+                  variant="link"
+                  className="p-0 h-auto text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-3 group"
+                  aria-label="Abrir política de imagens"
+                  onClick={() => setIsImagePolicyOpen(true)}
+                >
+                  <ImageIcon className="w-4 h-4 group-hover:translate-y-0.5 transition-transform duration-300" />
+                  <span className="relative pb-0.5">
+                    Política de Imagens
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
+                  </span>
+                </Button>
               </nav>
             </div>
 
@@ -222,6 +236,28 @@ export const Footer = () => {
           </div>
           <div className="mt-6 flex justify-end">
             <Button variant="outline" onClick={closePrivacyPolicy} aria-label="Fechar modal">Fechar</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isImagePolicyOpen} onOpenChange={setIsImagePolicyOpen}>
+        <DialogContent className="max-w-lg mx-auto">
+          <DialogHeader>
+            <DialogTitle>Política de Imagens</DialogTitle>
+            <DialogDescription>
+              As imagens exibidas no site têm caráter ilustrativo e podem sofrer atualizações sem aviso prévio, conforme evolução dos produtos e materiais de comunicação.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="mt-4 space-y-2 text-sm text-foreground">
+            <p>
+              As tags podem ter variações de modelos, acabamento, tamanho e detalhes visuais de acordo com lote, disponibilidade e melhorias técnicas.
+            </p>
+            <p>
+              Essas variações não comprometem a finalidade do produto e podem diferir das imagens apresentadas nas páginas do site.
+            </p>
+          </div>
+          <div className="mt-6 flex justify-end">
+            <Button variant="outline" onClick={() => setIsImagePolicyOpen(false)} aria-label="Fechar modal de política de imagens">Fechar</Button>
           </div>
         </DialogContent>
       </Dialog>
