@@ -51,6 +51,24 @@ export const Hero = () => {
     };
   }, [carouselApi]);
 
+  useEffect(() => {
+    if (!carouselApi || slides.length <= 1) {
+      return;
+    }
+
+    const intervalId = window.setInterval(() => {
+      if (document.hidden) {
+        return;
+      }
+
+      carouselApi.scrollNext();
+    }, 10000);
+
+    return () => {
+      window.clearInterval(intervalId);
+    };
+  }, [carouselApi, slides.length]);
+
   return (
     <section 
       className="hero-section relative flex items-center pt-24 max-[400px]:pt-20 md:pt-20 pb-20 max-[400px]:pb-12 sm:pb-24 md:pb-32 overflow-hidden bg-gradient-to-br from-cyan-light via-blue-medium to-purple-medium"
