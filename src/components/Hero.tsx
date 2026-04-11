@@ -77,11 +77,11 @@ export const Hero = () => {
       itemScope 
       itemType="https://schema.org/WebPage"
     >
-      <div className="container mx-auto px-4 py-10 max-[400px]:py-6 sm:py-14 md:py-20">
+      <div className="mx-auto w-[min(96vw,1680px)] px-2 sm:px-4 py-10 max-[400px]:py-6 sm:py-14 md:py-20">
         <Carousel
           setApi={setCarouselApi}
           opts={{ loop: true }}
-          className="w-full max-w-6xl mx-auto"
+          className="w-full mx-auto"
           aria-label="Carrossel de destaques da Tag It"
         >
           <CarouselContent>
