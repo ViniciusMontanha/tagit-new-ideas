@@ -189,34 +189,41 @@ export const Header = () => {
             </div>
 
             {/* Desktop Right Section - E-mail, Demo, Login */}
-            <div className="hidden md:flex items-center gap-3">
-              <a 
-                href="mailto:contato@tagit.com.br" 
-                className="group flex items-center gap-2 px-3 py-2.5 rounded-lg bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground transition-all duration-200"
-                aria-label="Enviar e-mail para contato@tagit.com.br"
-              >
-                <Mail className="h-4 w-4 transition-transform group-hover:scale-110 duration-300" />
-                <span className="hidden lg:inline text-sm font-medium">contato@tagit.com.br</span>
-              </a>
-              <Button 
-                onClick={() => setIsContactModalOpen(true)}
-                className="bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:shadow-lg hover:shadow-primary/40 font-semibold text-sm transition-all duration-300 flex items-center gap-2"
-                aria-label="Abrir formulário de contato"
-              >
-                <Sparkles className="w-4 h-4" />
-                Solicitar Demo
-              </Button>
-              <Button 
-                variant="outline" 
-                className="text-sm font-semibold hover:bg-primary/10 hover:text-primary transition-all duration-300 flex items-center gap-2"
-                aria-label="Acessar área de login"
-                asChild
-              >
-                <a href="https://web.iatag.com.br/login" target="_blank" rel="noopener noreferrer">
-                  <LogIn className="w-4 h-4" />
-                  Login
-                </a>
-              </Button>
+            <div className="hidden md:flex items-center">
+              <div className="flex flex-col items-center gap-2 md:-translate-x-[2rem] lg:-translate-x-[2rem]">
+                <Button 
+                  onClick={() => setIsContactModalOpen(true)}
+                  className="bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:shadow-lg hover:shadow-primary/40 font-semibold text-sm transition-all duration-300 flex items-center gap-2"
+                  aria-label="Abrir formulário de contato"
+                >
+                  <Sparkles className="w-4 h-4" />
+                  Solicitar Demo
+                </Button>
+              </div>
+              <div className="flex items-center gap-3 ml-4">
+                <Button 
+                  variant="outline" 
+                  className="text-sm font-semibold hover:bg-primary/10 hover:text-primary transition-all duration-300 flex items-center gap-2"
+                  aria-label="Acessar Sistema 1"
+                  asChild
+                >
+                  <a href="https://web.iatag.com.br/login" target="_blank" rel="noopener noreferrer">
+                    <LogIn className="w-4 h-4" />
+                    Sistema 1
+                  </a>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="text-sm font-semibold hover:bg-primary/10 hover:text-primary transition-all duration-300 flex items-center gap-2"
+                  aria-label="Acessar Sistema 2"
+                  asChild
+                >
+                  <a href="https://tagit-system.vercel.app/" target="_blank" rel="noopener noreferrer">
+                    <LogIn className="w-4 h-4" />
+                    Sistema 2
+                  </a>
+                </Button>
+              </div>
             </div>
 
             {/* Mobile Menu Button */}

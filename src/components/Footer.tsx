@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { usePrivacyPolicy } from "@/contexts/PrivacyPolicyContext";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { Home, Info, Briefcase, Users, Shield, Instagram, Layers, ChevronDown, Zap, Cpu, Image as ImageIcon } from "lucide-react";
+import { Home, Info, Briefcase, Users, Shield, Instagram, Layers, ChevronDown, Zap, Cpu, Image as ImageIcon, Mail } from "lucide-react";
 
 export const Footer = () => {
   const { isOpen, openPrivacyPolicy, closePrivacyPolicy } = usePrivacyPolicy();
@@ -57,6 +57,16 @@ export const Footer = () => {
                     (16) 99640-3745
                   </a>
                 </p>
+                <div className="pt-3">
+                  <a
+                    href="mailto:contato@tagit.com.br"
+                    className="group inline-flex items-center gap-2 px-3 py-2.5 rounded-lg bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground transition-all duration-200"
+                    aria-label="Enviar e-mail para contato@tagit.com.br"
+                  >
+                    <Mail className="h-4 w-4 transition-transform group-hover:scale-110 duration-300" />
+                    <span className="text-sm font-medium">contato@tagit.com.br</span>
+                  </a>
+                </div>
               </address>
             </div>
 
