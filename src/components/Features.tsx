@@ -127,24 +127,24 @@ export const Features = ({ enableRouting = false }: FeaturesProps) => {
   };
 
   return (
-    <section id="recursos" className="scroll-mt-0 pt-8 pb-16 bg-background">
-      <div className="container mx-auto px-6 md:px-12">
+    <section id="recursos" className="scroll-mt-0 pt-8 sm:pt-10 pb-12 sm:pb-16 bg-background">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-10 sm:mb-12"
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
             Casos reais por <span className="bg-gradient-hero bg-clip-text text-transparent">segmento</span>
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
             Veja como a Tag It se adapta rápido ao seu cenário de operação.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 max-w-7xl mx-auto">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
@@ -159,12 +159,12 @@ export const Features = ({ enableRouting = false }: FeaturesProps) => {
                 aria-label={`Abrir detalhes do segmento ${feature.title}`}
                 className="w-full h-full text-left"
               >
-                <Card className="p-6 h-full hover:shadow-soft transition-all duration-500 border hover:border-primary/20 bg-card/80 backdrop-blur-sm group">
+                <Card className="p-5 sm:p-6 h-full hover:shadow-soft transition-all duration-500 border hover:border-primary/20 bg-card/80 backdrop-blur-sm group">
                   <div className="mb-4 inline-block p-3 bg-gradient-to-br from-primary/10 to-secondary/5 rounded-2xl group-hover:bg-gradient-hero transition-all duration-500">
                     <feature.icon className="w-7 h-7 text-primary group-hover:text-primary-foreground transition-colors duration-500" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-2 text-foreground">{feature.title}</h3>
-                  <p className="text-muted-foreground text-base leading-relaxed">{feature.description}</p>
+                  <h3 className="text-lg sm:text-xl font-semibold mb-2 text-foreground">{feature.title}</h3>
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{feature.description}</p>
                 </Card>
               </button>
             </motion.div>
@@ -172,7 +172,7 @@ export const Features = ({ enableRouting = false }: FeaturesProps) => {
         </div>
 
         <Dialog open={Boolean(selectedFeature)} onOpenChange={handleOpenChange}>
-          <DialogContent className="sm:max-w-[620px] max-h-[90vh] overflow-y-auto">
+          <DialogContent className="w-[95vw] sm:max-w-[620px] max-h-[90vh] overflow-y-auto">
             {selectedFeature && (
               <div className="space-y-6">
                 <DialogHeader className="text-left">

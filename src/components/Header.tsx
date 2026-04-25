@@ -107,7 +107,7 @@ export const Header = () => {
             </a>
 
             {/* Menu Desktop */}
-            <div className="hidden lg:flex items-center gap-8 flex-1 justify-center">
+            <div className="hidden lg:flex items-center gap-4 xl:gap-8 flex-1 justify-center">
               <div className="relative group">
                 <button
                   type="button"
@@ -189,8 +189,8 @@ export const Header = () => {
             </div>
 
             {/* Desktop Right Section - E-mail, Demo, Login */}
-            <div className="hidden md:flex items-center">
-              <div className="flex flex-col items-center gap-2 md:-translate-x-[2rem] lg:-translate-x-[2rem]">
+            <div className="hidden lg:flex items-center">
+              <div className="flex flex-col items-center gap-2 lg:-translate-x-[2rem]">
                 <Button 
                   onClick={() => setIsContactModalOpen(true)}
                   className="bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:shadow-lg hover:shadow-primary/40 font-semibold text-sm transition-all duration-300 flex items-center gap-2"
@@ -200,7 +200,7 @@ export const Header = () => {
                   Solicitar Demo
                 </Button>
               </div>
-              <div className="flex items-center gap-3 ml-4">
+              <div className="flex items-center gap-2 xl:gap-3 ml-4">
                 <Button 
                   variant="outline" 
                   className="text-sm font-semibold hover:bg-primary/10 hover:text-primary transition-all duration-300 flex items-center gap-2"
@@ -232,13 +232,13 @@ export const Header = () => {
                 <Button 
                   variant="ghost" 
                   size="icon"
-                  className="md:hidden hover:bg-primary/10 transition-colors duration-200"
+                  className="lg:hidden hover:bg-primary/10 transition-colors duration-200"
                   aria-label="Abrir menu de navegação"
                 >
                   <Menu className="h-6 w-6 transition-transform duration-300" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[90vw] max-w-xs p-0">
+              <SheetContent side="right" className="w-[92vw] sm:w-[80vw] max-w-sm p-0">
                 <div className="flex flex-col h-full bg-background">
                   {/* Header do Menu Mobile */}
                   <div className="p-4 border-b border-border">
@@ -340,12 +340,23 @@ export const Header = () => {
                     <Button 
                       variant="outline" 
                       className="w-full font-semibold hover:bg-primary/10 hover:text-primary hover:border-primary transition-all duration-300"
-                      aria-label="Acessar área de login"
+                      aria-label="Acessar Sistema 1"
                       asChild
                     >
                       <a href="https://web.iatag.com.br/login" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                         <LogIn className="w-4 h-4" />
-                        Login
+                        Sistema 1
+                      </a>
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      className="w-full font-semibold hover:bg-primary/10 hover:text-primary hover:border-primary transition-all duration-300"
+                      aria-label="Acessar Sistema 2"
+                      asChild
+                    >
+                      <a href="https://tagit-system.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                        <LogIn className="w-4 h-4" />
+                        Sistema 2
                       </a>
                     </Button>
                   </div>

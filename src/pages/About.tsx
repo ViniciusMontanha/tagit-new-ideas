@@ -46,11 +46,11 @@ const About = () => {
 
         {/* Seção Hero da página Sobre */}
         <section
-          className="relative flex items-center pt-40 pb-20 overflow-hidden bg-gradient-to-br from-cyan-light via-blue-medium to-purple-medium"
+          className="relative flex items-center pt-28 sm:pt-32 md:pt-36 lg:pt-40 pb-14 sm:pb-16 lg:pb-20 overflow-hidden bg-gradient-to-br from-cyan-light via-blue-medium to-purple-medium"
           role="region"
           aria-label="Seção principal - Sobre a Tag It"
         >
-          <div className="container mx-auto px-4 py-20">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-10 py-10 sm:py-14 lg:py-20">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -58,12 +58,12 @@ const About = () => {
               className="text-center text-primary-foreground max-w-4xl mx-auto"
             >
               <h1
-                className="text-5xl md:text-6xl font-bold mb-6 leading-tight"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
                 itemProp="headline"
               >
                 Conheça a Tag It
               </h1>
-              <p className="text-xl md:text-2xl font-light leading-relaxed opacity-95">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-light leading-relaxed opacity-95">
                 A melhor solução em localização inteligente de ativos do Brasil
               </p>
             </motion.div>
@@ -72,13 +72,13 @@ const About = () => {
 
         {/* Seção Nossa História */}
         <section
-          className="py-32 bg-background"
+          className="py-16 sm:py-20 lg:py-28 bg-background"
           role="region"
           aria-labelledby="historia-heading"
           itemScope
           itemType="https://schema.org/Organization"
         >
-          <div className="container mx-auto px-4 md:px-12">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-10">
             <div className="max-w-6xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
@@ -86,18 +86,18 @@ const About = () => {
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
                   {/* Conteúdo de texto */}
                   <div className="space-y-6">
                     <div>
                       <h2
                         id="historia-heading"
-                        className="text-4xl md:text-5xl font-bold mb-4"
+                        className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4"
                         itemProp="name"
                       >
                         Nossa História
                       </h2>
-                      <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+                      <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4">
                         A <span className="font-semibold">Tag IT Localização</span> nasceu 
                         da necessidade de oferecer soluções inteligentes, acessíveis e confiáveis 
                         para localização e gestão de ativos, veículos e pessoas. Observando as 
@@ -105,13 +105,13 @@ const About = () => {
                         localização, surgiu a ideia de criar uma tecnologia prática, 
                         eficiente e adaptada à realidade do mercado.
                       </p>
-                      <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+                      <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4">
                         <span className="font-semibold">José Luiz</span> começou sua trajetória com uma experiência vasta em tecnologia. Tenho 12 anos de experiência técnica no segmento de eletrônicos, com um vasto conhecimento em multifuncionais, impressoras, sistemas digitais e GED (gerenciamento eletrônico), além de um conhecimento sólido em TI e áreas afins.
                       </p>
-                      <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+                      <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4">
                         Após esses 12 anos, transicionei para a área comercial, onde aprofundei meus conhecimentos em análise de desempenho, gestão de projetos, demandas e workflow. Hoje, atuo representando grandes empresas, com foco em inovação, agilidade e transformação digital. Meu propósito é impulsionar negócios, transformando-os em grandes projetos tecnológicos e trazendo tecnologia para o dia a dia.
                       </p>
-                      <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+                      <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4">
                         Unimos inovação, tecnologia e conhecimento para desenvolver soluções de 
                         localização que tragam mais segurança, controle e tranquilidade aos nossos clientes.
                       </p>
@@ -155,7 +155,7 @@ const About = () => {
                         
                         {/* Nome e Cargo */}
                         <div>
-                          <h3 className="text-2xl font-bold text-foreground">José Luiz</h3>
+                          <h3 className="text-xl sm:text-2xl font-bold text-foreground">José Luiz</h3>
                           <p className="text-xs font-semibold uppercase tracking-wide text-primary mt-1">Fundador & CEO</p>
                         </div>
 
@@ -180,30 +180,30 @@ const About = () => {
 
         {/* Seção Valores */}
         <section
-          className="py-32 bg-gradient-to-b from-primary/5 to-background"
+          className="py-16 sm:py-20 lg:py-28 bg-gradient-to-b from-primary/5 to-background"
           role="region"
           aria-labelledby="valores-heading"
         >
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="text-center mb-16"
+              className="text-center mb-12 sm:mb-16"
             >
               <h2
                 id="valores-heading"
-                className="text-4xl md:text-5xl font-bold mb-4"
+                className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4"
               >
                 Nossos Valores
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
                 Princípios que guiam cada decisão e inovação na Tag It
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-6xl mx-auto">
               {values.map((value, index) => {
                 const Icon = value.icon;
                 return (
@@ -213,13 +213,13 @@ const About = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    className="p-6 rounded-xl bg-card border border-border hover:border-primary/50 transition-colors"
+                    className="p-5 sm:p-6 rounded-xl bg-card border border-border hover:border-primary/50 transition-colors"
                     itemScope
                     itemType="https://schema.org/Thing"
                   >
-                    <Icon className="w-12 h-12 text-primary mb-4" />
+                    <Icon className="w-10 h-10 sm:w-12 sm:h-12 text-primary mb-4" />
                     <h3
-                      className="text-xl font-bold mb-3"
+                      className="text-lg sm:text-xl font-bold mb-3"
                       itemProp="name"
                     >
                       {value.title}
@@ -239,11 +239,11 @@ const About = () => {
 
         {/* Seção CTA Final */}
         <section
-          className="py-24 bg-gradient-to-r from-primary/10 to-secondary/10 border-t border-border"
+          className="py-16 sm:py-20 lg:py-24 bg-gradient-to-r from-primary/10 to-secondary/10 border-t border-border"
           role="region"
           aria-label="Chamada para ação - Contatar Tag It"
         >
-          <div className="container mx-auto px-4 text-center">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-10 text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -251,16 +251,16 @@ const About = () => {
               viewport={{ once: true }}
               className="max-w-2xl mx-auto"
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
                 Quer conhecer melhor a Tag It?
               </h2>
-              <p className="text-lg text-muted-foreground mb-8">
+              <p className="text-base sm:text-lg text-muted-foreground mb-8">
                 Estamos prontos para conversar sobre como podemos ajudar sua empresa
                 ou proteger seus ativos pessoais.
               </p>
               <Button
                 size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold w-full sm:w-auto"
                 onClick={() => setIsContactModalOpen(true)}
               >
                 Entre em Contato

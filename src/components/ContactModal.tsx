@@ -132,7 +132,7 @@ export const ContactModal = ({ isOpen, onOpenChange }: ContactModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
+      <DialogContent className="w-[95vw] sm:max-w-[500px] max-h-[90vh] overflow-y-auto px-4 sm:px-6">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-foreground">
             Solicitar Contato
@@ -167,7 +167,7 @@ export const ContactModal = ({ isOpen, onOpenChange }: ContactModalProps) => {
             </p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
             {/* Campo Nome */}
             <div className="space-y-2">
               <label htmlFor="nome" className="text-sm font-semibold text-foreground">
@@ -254,20 +254,20 @@ export const ContactModal = ({ isOpen, onOpenChange }: ContactModalProps) => {
             )}
 
             {/* Botões */}
-            <div className="flex gap-3 pt-4">
+            <div className="flex flex-col-reverse sm:flex-row gap-3 pt-4">
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => onOpenChange(false)}
                 disabled={isSubmitting}
-                className="flex-1"
+                className="flex-1 w-full"
               >
                 Cancelar
               </Button>
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex-1 bg-primary hover:bg-primary/90"
+                className="flex-1 w-full bg-primary hover:bg-primary/90"
               >
                 {isSubmitting ? (
                   <>

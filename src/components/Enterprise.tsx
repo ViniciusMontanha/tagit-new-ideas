@@ -38,7 +38,7 @@ export const Enterprise = () => {
     <>
       <section 
         id="empresas" 
-        className="py-32 relative overflow-hidden bg-background"
+        className="py-16 sm:py-20 lg:py-28 relative overflow-hidden bg-background"
         role="region"
         aria-labelledby="empresas-heading"
       itemScope
@@ -47,29 +47,29 @@ export const Enterprise = () => {
       {/* Background accent */}
       <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
 
-      <div className="container mx-auto px-6 md:px-12 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-10 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-12 sm:mb-16 lg:mb-20"
         >
           <h2 
             id="empresas-heading"
-            className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 tracking-tight"
             itemProp="name"
           >
             Para <span className="bg-gradient-hero bg-clip-text text-transparent">Empresas</span>
           </h2>
           <p 
-            className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto font-light leading-relaxed"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto font-light leading-relaxed"
             itemProp="description"
           >
             Transforme a forma como sua empresa gerencia ativos com tecnologia de localização inteligente.
           </p>
 
-          <div className="max-w-4xl mx-auto mt-8 text-left space-y-5">
+          <div className="max-w-4xl mx-auto mt-6 sm:mt-8 text-left space-y-4 sm:space-y-5">
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
               A Tag IT é uma plataforma avançada de localização e segurança de ativos baseada em tecnologia crowdsourced, desenvolvida para gerar dados globais de posicionamento com alta confiabilidade e escala.
             </p>
@@ -92,7 +92,7 @@ export const Enterprise = () => {
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-16 items-center max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-12 sm:mb-16 items-center max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -150,7 +150,7 @@ export const Enterprise = () => {
                   itemScope
                   itemType="https://schema.org/Thing"
                 >
-                  <Card className="p-8 hover:shadow-soft transition-all duration-500 border hover:border-primary/20 bg-card/80 backdrop-blur-sm group">
+                  <Card className="p-5 sm:p-6 md:p-8 hover:shadow-soft transition-all duration-500 border hover:border-primary/20 bg-card/80 backdrop-blur-sm group">
                     <div className="flex items-start gap-5">
                       <div className="p-4 bg-gradient-accent rounded-2xl shadow-soft group-hover:scale-105 transition-transform duration-500">
                         <benefit.icon 
@@ -160,13 +160,13 @@ export const Enterprise = () => {
                       </div>
                       <div className="flex-1">
                         <h3 
-                          className="text-2xl font-semibold mb-3 text-foreground"
+                          className="text-xl sm:text-2xl font-semibold mb-3 text-foreground"
                           itemProp="name"
                         >
                           {benefit.title}
                         </h3>
                         <p 
-                          className="text-muted-foreground text-lg font-light leading-relaxed"
+                          className="text-muted-foreground text-base sm:text-lg font-light leading-relaxed"
                           itemProp="description"
                         >
                           {benefit.description}
@@ -189,7 +189,7 @@ export const Enterprise = () => {
         >
           <Button
             size="lg"
-            className="text-base px-10 py-7 rounded-full shadow-blue hover:shadow-strong transition-all bg-primary hover:bg-primary/90"
+            className="text-base px-6 sm:px-10 py-6 sm:py-7 rounded-full shadow-blue hover:shadow-strong transition-all bg-primary hover:bg-primary/90 w-full sm:w-auto"
             onClick={() => setIsContactModalOpen(true)}
           >
             Solicitar Proposta Comercial

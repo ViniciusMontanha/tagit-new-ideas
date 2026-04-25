@@ -123,19 +123,19 @@ export const Dispositivo = () => {
   return (
     <section
       id="dispositivo"
-      className="py-20 bg-gradient-to-b from-background via-primary/5 to-background"
+      className="py-14 sm:py-16 lg:py-20 bg-gradient-to-b from-background via-primary/5 to-background"
       role="region"
       aria-labelledby="dispositivo-heading"
       itemScope
       itemType="https://schema.org/Service"
     >
-      <div className="container mx-auto px-6 md:px-12">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-10 sm:mb-12"
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-medium text-primary mb-4">
             <Cpu className="h-4 w-4" />
@@ -144,18 +144,18 @@ export const Dispositivo = () => {
 
           <h2
             id="dispositivo-heading"
-            className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4"
             itemProp="name"
           >
             Dispositivo <span className="bg-gradient-hero bg-clip-text text-transparent">Tag IT</span>
           </h2>
 
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto" itemProp="description">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto" itemProp="description">
             Uma infraestrutura moderna para gestão e proteção de ativos com visibilidade contínua em operações complexas.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-6xl mx-auto">
           {dispositivoHighlights.map((item, index) => (
             <motion.div
               key={item.title}
@@ -164,15 +164,15 @@ export const Dispositivo = () => {
               transition={{ duration: 0.5, delay: index * 0.08 }}
               viewport={{ once: true }}
             >
-              <Card className="h-full p-6 md:p-7 border-border/80 bg-card/85 backdrop-blur-sm hover:border-primary/30 hover:shadow-soft transition-all duration-300">
+              <Card className="h-full p-5 sm:p-6 md:p-7 border-border/80 bg-card/85 backdrop-blur-sm hover:border-primary/30 hover:shadow-soft transition-all duration-300">
                 <div className="flex items-start gap-4">
                   <div className="mt-1 rounded-xl bg-gradient-to-br from-primary/15 to-secondary/10 p-3 shrink-0">
                     <item.icon className="h-5 w-5 text-primary" aria-hidden="true" />
                   </div>
 
                   <div>
-                    <h3 className="text-xl font-semibold text-foreground mb-2">{item.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{item.description}</p>
+                    <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2">{item.title}</h3>
+                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{item.description}</p>
                   </div>
                 </div>
               </Card>
@@ -180,7 +180,7 @@ export const Dispositivo = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto mt-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto mt-10 sm:mt-14">
           {deviceSpecs.map((spec, index) => (
             <motion.div
               key={spec.title}
@@ -195,8 +195,8 @@ export const Dispositivo = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-2xl font-semibold text-foreground leading-tight mb-2">{spec.title}</h3>
-                  <p className="text-lg text-muted-foreground leading-relaxed">{spec.description}</p>
+                  <h3 className="text-xl sm:text-2xl font-semibold text-foreground leading-tight mb-2">{spec.title}</h3>
+                  <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">{spec.description}</p>
                 </div>
               </div>
             </motion.div>
@@ -208,7 +208,7 @@ export const Dispositivo = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="max-w-6xl mx-auto mt-16"
+          className="max-w-6xl mx-auto mt-12 sm:mt-16"
         >
           <Card className="p-6 md:p-8 border-border/80 bg-card/90 backdrop-blur-sm">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
@@ -220,7 +220,7 @@ export const Dispositivo = () => {
               </span>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
               {technicalSections.map((section, sectionIndex) => (
                 <motion.div
                   key={section.title}

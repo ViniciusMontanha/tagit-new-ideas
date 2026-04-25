@@ -26,19 +26,19 @@ const faqs = [
 
 export const HomeFaq = () => {
   return (
-    <section className="py-20 bg-background" role="region" aria-labelledby="faq-heading">
-      <div className="container mx-auto px-6 md:px-12">
+    <section className="py-14 sm:py-16 lg:py-20 bg-background" role="region" aria-labelledby="faq-heading">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-10 sm:mb-12"
         >
-          <h2 id="faq-heading" className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
+          <h2 id="faq-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 tracking-tight">
             Perguntas frequentes
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
             Tire dúvidas rápidas sobre bateria, precisão, segurança e suporte.
           </p>
         </motion.div>
@@ -47,8 +47,8 @@ export const HomeFaq = () => {
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((item, index) => (
               <AccordionItem key={item.question} value={`item-${index}`}>
-                <AccordionTrigger className="text-left text-lg">{item.question}</AccordionTrigger>
-                <AccordionContent className="text-base text-muted-foreground leading-relaxed">
+                <AccordionTrigger className="text-left text-base sm:text-lg">{item.question}</AccordionTrigger>
+                <AccordionContent className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>

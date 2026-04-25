@@ -10,6 +10,9 @@ import { loadHeroSlides, saveHeroSlides, type HeroSlide } from "@/lib/hero-slide
 
 const ADMIN_AUTH_STORAGE_KEY = "tagit.admin.carousel.auth";
 const ADMIN_TOKEN_STORAGE_KEY = "tagit.admin.carousel.token";
+const ADMIN_INPUT_CLASS = "h-11 text-base sm:text-sm";
+const ADMIN_TEXTAREA_CLASS = "min-h-[120px] text-base sm:text-sm";
+const ADMIN_BUTTON_CLASS = "min-h-11";
 
 const fileToBase64 = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -255,19 +258,20 @@ const AdminCarousel = () => {
     <main className="min-h-screen" role="main" itemScope itemType="https://schema.org/WebPage">
       <Header />
 
-      <section className="pt-36 pb-16 bg-background" role="region" aria-labelledby="admin-carrossel-heading">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="max-w-6xl mx-auto">
-            <h1 id="admin-carrossel-heading" className="text-3xl md:text-4xl font-bold mb-3 text-center">
+      <section className="pt-28 sm:pt-32 lg:pt-36 pb-12 sm:pb-16 bg-background" role="region" aria-labelledby="admin-carrossel-heading">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-10">
+          <div className="max-w-7xl mx-auto">
+            <h1 id="admin-carrossel-heading" className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-center">
               Administração do Carrossel da Home
             </h1>
             {!isAuthenticated ? (
               <div className="flex justify-center">
-                <Card className="p-6 w-full max-w-md">
-                  <p className="text-muted-foreground mb-4 text-center">Digite a senha para acessar a administração do carrossel.</p>
+                <Card className="p-4 sm:p-6 w-full max-w-md">
+                  <p className="text-sm sm:text-base text-muted-foreground mb-4 text-center">Digite a senha para acessar a administração do carrossel.</p>
                   <div className="space-y-3">
                     <Input
                       type="password"
+                      className={ADMIN_INPUT_CLASS}
                       value={passwordInput}
                       onChange={(e) => setPasswordInput(e.target.value)}
                       placeholder="Senha do admin"
@@ -277,58 +281,59 @@ const AdminCarousel = () => {
                         }
                       }}
                     />
-                    <Button onClick={handleLogin} className="w-full">
+                    <Button onClick={handleLogin} className={`w-full ${ADMIN_BUTTON_CLASS}`}>
                       Entrar
                     </Button>
                   </div>
-                  {authError ? <p className="text-sm text-destructive mt-3 text-center">{authError}</p> : null}
+                  {authError ? <p className="text-xs sm:text-sm text-destructive mt-3 text-center">{authError}</p> : null}
                 </Card>
               </div>
             ) : (
               <>
-                <p className="text-muted-foreground mb-8">
+                <p className="text-sm sm:text-base text-muted-foreground mb-6 sm:mb-8 text-center sm:text-left">
                   Edite, exclua e insira slides. Depois clique em salvar para publicar na home.
                 </p>
 
-                <div className="flex flex-wrap gap-3 mb-8">
-                  <Button onClick={handleAddSlide}>Adicionar slide</Button>
-                  <Button variant="secondary" onClick={handleSave} disabled={isSavingSlides || isLoadingSlides}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap gap-3 mb-6 sm:mb-8">
+                  <Button onClick={handleAddSlide} className={`w-full lg:w-auto ${ADMIN_BUTTON_CLASS}`}>Adicionar slide</Button>
+                  <Button variant="secondary" onClick={handleSave} disabled={isSavingSlides || isLoadingSlides} className={`w-full lg:w-auto ${ADMIN_BUTTON_CLASS}`}>
                     {isSavingSlides ? "Salvando..." : "Salvar alterações"}
                   </Button>
-                  <Button variant="outline" onClick={handleResetDefaults} disabled={isSavingSlides || isLoadingSlides}>
+                  <Button variant="outline" onClick={handleResetDefaults} disabled={isSavingSlides || isLoadingSlides} className={`w-full lg:w-auto ${ADMIN_BUTTON_CLASS}`}>
                     Restaurar padrão
                   </Button>
-                  <Button variant="destructive" onClick={handleLogout}>
+                  <Button variant="destructive" onClick={handleLogout} className={`w-full lg:w-auto ${ADMIN_BUTTON_CLASS}`}>
                     Sair
                   </Button>
                 </div>
 
                 {statusMessage ? (
-                  <p className="text-sm text-muted-foreground mb-6" aria-live="polite">
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-6 break-words" aria-live="polite">
                     {statusMessage}
                   </p>
                 ) : null}
 
                 {isLoadingSlides ? (
-                  <p className="text-sm text-muted-foreground mb-6" aria-live="polite">
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-6" aria-live="polite">
                     Carregando slides salvos no Supabase...
                   </p>
                 ) : null}
 
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {slides.map((slide, index) => (
-                    <Card key={slide.id} className="p-6 border-border">
-                      <div className="flex items-center justify-between mb-4 gap-4">
-                        <h2 className="text-xl font-semibold">Slide {index + 1}</h2>
-                        <Button variant="destructive" onClick={() => handleDeleteSlide(slide.id)}>
+                    <Card key={slide.id} className="p-4 sm:p-6 border-border">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3 sm:gap-4">
+                        <h2 className="text-lg sm:text-xl font-semibold">Slide {index + 1}</h2>
+                        <Button variant="destructive" onClick={() => handleDeleteSlide(slide.id)} className={`w-full sm:w-auto ${ADMIN_BUTTON_CLASS}`}>
                           Excluir slide
                         </Button>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                         <div className="space-y-2">
-                          <label className="text-sm font-medium">Título</label>
+                          <label className="text-xs sm:text-sm font-medium">Título</label>
                           <Input
+                            className={ADMIN_INPUT_CLASS}
                             value={slide.title}
                             onChange={(e) => updateSlide(slide.id, "title", e.target.value)}
                             placeholder="Título do slide"
@@ -336,15 +341,17 @@ const AdminCarousel = () => {
                         </div>
 
                         <div className="space-y-2">
-                          <label className="text-sm font-medium">URL da imagem</label>
+                          <label className="text-xs sm:text-sm font-medium">URL da imagem</label>
                           <Input
+                            className={ADMIN_INPUT_CLASS}
                             value={slide.image}
                             onChange={(e) => updateSlide(slide.id, "image", e.target.value)}
                             placeholder="https://raw.githubusercontent.com/..."
                           />
-                          <div className="flex gap-2">
+                          <div className="flex flex-col gap-2">
                             <Input
                               type="file"
+                              className="h-11 text-sm"
                               accept="image/*"
                               onChange={(e) => {
                                 const file = e.target.files?.[0] || null;
@@ -354,18 +361,19 @@ const AdminCarousel = () => {
                               disabled={isSavingSlides || uploadingSlideId === slide.id}
                             />
                           </div>
-                          <p className="text-xs text-muted-foreground">
+                          <p className="text-[11px] sm:text-xs text-muted-foreground break-words">
                             Modo do último upload: {slideResizeModes[slide.id] === "contain" ? "contain" : slideResizeModes[slide.id] === "original" ? "original" : "ainda não enviado"}
                           </p>
-                          <p className="text-xs text-muted-foreground">As imagens enviadas são convertidas automaticamente para 800x800.</p>
+                          <p className="text-[11px] sm:text-xs text-muted-foreground">As imagens enviadas são convertidas automaticamente para 800x800.</p>
                           {uploadingSlideId === slide.id ? (
-                            <p className="text-xs text-muted-foreground">Enviando imagem...</p>
+                            <p className="text-[11px] sm:text-xs text-muted-foreground">Enviando imagem...</p>
                           ) : null}
                         </div>
 
                         <div className="space-y-2 md:col-span-2">
-                          <label className="text-sm font-medium">Descrição</label>
+                          <label className="text-xs sm:text-sm font-medium">Descrição</label>
                           <Textarea
+                            className={ADMIN_TEXTAREA_CLASS}
                             value={slide.description}
                             onChange={(e) => updateSlide(slide.id, "description", e.target.value)}
                             placeholder="Descrição do slide"
@@ -374,8 +382,9 @@ const AdminCarousel = () => {
                         </div>
 
                         <div className="space-y-2 md:col-span-2">
-                          <label className="text-sm font-medium">Texto alternativo da imagem (alt)</label>
+                          <label className="text-xs sm:text-sm font-medium">Texto alternativo da imagem (alt)</label>
                           <Input
+                            className={ADMIN_INPUT_CLASS}
                             value={slide.imageAlt}
                             onChange={(e) => updateSlide(slide.id, "imageAlt", e.target.value)}
                             placeholder="Descrição acessível da imagem"
@@ -383,8 +392,9 @@ const AdminCarousel = () => {
                         </div>
 
                         <div className="space-y-2">
-                          <label className="text-sm font-medium">Texto botão principal</label>
+                          <label className="text-xs sm:text-sm font-medium">Texto botão principal</label>
                           <Input
+                            className={ADMIN_INPUT_CLASS}
                             value={slide.primaryCtaLabel}
                             onChange={(e) => updateSlide(slide.id, "primaryCtaLabel", e.target.value)}
                             placeholder="PARA EMPRESAS"
@@ -392,8 +402,9 @@ const AdminCarousel = () => {
                         </div>
 
                         <div className="space-y-2">
-                          <label className="text-sm font-medium">Link botão principal</label>
+                          <label className="text-xs sm:text-sm font-medium">Link botão principal</label>
                           <Input
+                            className={ADMIN_INPUT_CLASS}
                             value={slide.primaryCtaHref}
                             onChange={(e) => updateSlide(slide.id, "primaryCtaHref", e.target.value)}
                             placeholder="/para-empresas"
@@ -401,8 +412,9 @@ const AdminCarousel = () => {
                         </div>
 
                         <div className="space-y-2">
-                          <label className="text-sm font-medium">Texto botão secundário</label>
+                          <label className="text-xs sm:text-sm font-medium">Texto botão secundário</label>
                           <Input
+                            className={ADMIN_INPUT_CLASS}
                             value={slide.secondaryCtaLabel}
                             onChange={(e) => updateSlide(slide.id, "secondaryCtaLabel", e.target.value)}
                             placeholder="PARA VOCÊ"
@@ -410,8 +422,9 @@ const AdminCarousel = () => {
                         </div>
 
                         <div className="space-y-2">
-                          <label className="text-sm font-medium">Link botão secundário</label>
+                          <label className="text-xs sm:text-sm font-medium">Link botão secundário</label>
                           <Input
+                            className={ADMIN_INPUT_CLASS}
                             value={slide.secondaryCtaHref}
                             onChange={(e) => updateSlide(slide.id, "secondaryCtaHref", e.target.value)}
                             placeholder="/para-voce"

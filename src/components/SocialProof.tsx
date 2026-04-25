@@ -21,24 +21,24 @@ const testimonials = [
 
 export const SocialProof = () => {
   return (
-    <section className="py-20 bg-background" role="region" aria-labelledby="prova-social-heading">
-      <div className="container mx-auto px-6 md:px-12">
+    <section className="py-14 sm:py-16 lg:py-20 bg-background" role="region" aria-labelledby="prova-social-heading">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-10 sm:mb-12"
         >
-          <h2 id="prova-social-heading" className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
+          <h2 id="prova-social-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 tracking-tight">
             Resultados que <span className="bg-gradient-hero bg-clip-text text-transparent">aparecem na rotina</span>
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
             Menos perda de tempo, mais controle operacional e decisões mais rápidas.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto mb-8 sm:mb-10">
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
@@ -47,15 +47,15 @@ export const SocialProof = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="p-8 text-center border hover:border-primary/20 transition-all duration-300">
-                <p className="text-4xl md:text-5xl font-bold text-primary mb-2">{stat.value}</p>
+              <Card className="p-5 sm:p-6 md:p-8 text-center border hover:border-primary/20 transition-all duration-300">
+                <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-2">{stat.value}</p>
                 <p className="text-muted-foreground text-sm md:text-base">{stat.label}</p>
               </Card>
             </motion.div>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto mb-8 sm:mb-10">
           {testimonials.map((item, index) => (
             <motion.div
               key={item.author}
@@ -64,8 +64,8 @@ export const SocialProof = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="p-6 h-full border hover:border-primary/20 transition-all duration-300">
-                <p className="text-foreground text-lg leading-relaxed mb-3">“{item.quote}”</p>
+              <Card className="p-5 sm:p-6 h-full border hover:border-primary/20 transition-all duration-300">
+                <p className="text-foreground text-base sm:text-lg leading-relaxed mb-3">“{item.quote}”</p>
                 <p className="text-muted-foreground text-sm font-medium">{item.author}</p>
               </Card>
             </motion.div>
@@ -73,7 +73,7 @@ export const SocialProof = () => {
         </div>
 
         <div className="flex justify-center">
-          <Button asChild className="rounded-full px-8">
+          <Button asChild className="rounded-full px-6 sm:px-8 w-full sm:w-auto">
             <a href="/para-empresas">Ver solução para minha operação</a>
           </Button>
         </div>

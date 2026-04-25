@@ -60,11 +60,11 @@ export const Footer = () => {
                 <div className="pt-3">
                   <a
                     href="mailto:contato@tagit.com.br"
-                    className="group inline-flex items-center gap-2 px-3 py-2.5 rounded-lg bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground transition-all duration-200"
+                    className="group inline-flex w-full sm:w-auto items-center gap-2 px-3 py-2.5 rounded-lg bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground transition-all duration-200"
                     aria-label="Enviar e-mail para contato@tagit.com.br"
                   >
                     <Mail className="h-4 w-4 transition-transform group-hover:scale-110 duration-300" />
-                    <span className="text-sm font-medium">contato@tagit.com.br</span>
+                    <span className="text-xs sm:text-sm font-medium break-all sm:break-normal">contato@tagit.com.br</span>
                   </a>
                 </div>
               </address>
