@@ -14,8 +14,7 @@
   ]
 */}
 {
-  "buildCommand": "npm install --legacy-peer-deps && npm run build && (mv dist/ .dist_backup || mv build/ .dist_backup || true) && mkdir -p dist && (cp -r .dist_backup/* dist/ || cp -r build/* dist/ || true)",
-  "outputDirectory": "dist",
+  "cleanUrls": true,
   "rewrites": [
     {
       "source": "/(.*)",
