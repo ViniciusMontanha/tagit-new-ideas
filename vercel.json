@@ -5,6 +5,7 @@
   "env": {
     "NODE_ENV": "production"
   },
+  "cleanUrls": true,
   "rewrites": [
     {
       "source": "/(.*)",
