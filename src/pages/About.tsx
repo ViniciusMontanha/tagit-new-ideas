@@ -6,6 +6,7 @@ import { Zap, Users, Globe, Award, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { ContactModal } from "@/components/ContactModal";
 import founderImage from "@/assets/executivo.jpeg";
+import viniciusImage from "@/assets/viniciusmedeiros.jpeg";
 
 const About = () => {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -86,7 +87,7 @@ const About = () => {
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
                   {/* Conteúdo de texto */}
                   <div className="space-y-6">
                     <div>
@@ -105,7 +106,19 @@ const About = () => {
                         localização, surgiu a ideia de criar uma tecnologia prática, 
                         eficiente e adaptada à realidade do mercado.
                       </p>
-                      <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4">
+                      <div>
+                        <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4">
+                          Executivo com sólida experiência em gestão financeira, administração estratégica e tecnologia aplicada ao rastreamento e monitoramento via satélite. Atua há mais de 13 anos no segmento de gerenciamento de veículos, cargas e frotas, desenvolvendo soluções voltadas à segurança, controle operacional, redução de custos e eficiência logística.
+                        </p>
+                        <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4">
+                          À frente da Tag It, lidera projetos de localização inteligente de ativos e patrimônios empresariais, rastreamento Global  e monitoramento em larga escala, oferecendo soluções completas e inovadoras para empresas de diversos segmentos. A empresa se destaca pela utilização de tecnologias avançadas voltadas à gestão de ativos, proteção patrimonial, controle logístico e otimização operacional, contribuindo para operações mais seguras, estratégicas e eficientes.
+                        </p>
+                        <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4">
+                          Possui ampla expertise em análise operacional, gestão de equipes, implantação de soluções tecnológicas e desenvolvimento de processos voltados ao gerenciamento via satélite, logística e mobilidade corporativa. Sua atuação é marcada pela inovação, excelência no atendimento e foco em resultados, sempre integrando tecnologia, inteligência de dados e eficiência operacional para gerar maior segurança, produtividade e performance aos clientes
+                        </p>
+                      </div>
+
+                      <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4 mt-[5rem]">
                         <span className="font-semibold">José Luiz</span> começou sua trajetória com uma experiência vasta em tecnologia. Tenho 12 anos de experiência técnica no segmento de eletrônicos, com um vasto conhecimento em multifuncionais, impressoras, sistemas digitais e GED (gerenciamento eletrônico), além de um conhecimento sólido em TI e áreas afins.
                       </p>
                       <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4">
@@ -118,60 +131,92 @@ const About = () => {
                     </div>
                   </div>
 
-                  {/* Card do fundador - Melhorado */}
-                  <motion.div
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    viewport={{ once: true }}
-                    className="flex justify-center"
-                  >
-                    <button
-                      onClick={() => setIsContactModalOpen(true)}
-                      className="group w-full max-w-xs text-left transition-all duration-300"
-                      aria-label="Conheça José Luiz"
+                  {/* Cards: Vinicius Medeiros (acima) e José Luiz (abaixo) */}
+                  <div className="relative flex flex-col items-start space-y-24">
+                    <motion.div
+                      initial={{ opacity: 0, x: -30 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                      viewport={{ once: true }}
+                      className="w-full flex justify-center mt-[7rem]"
                     >
-                      {/* Imagem com Overlay */}
-                      <div className="relative overflow-hidden rounded-lg mb-4 h-auto bg-muted/20 flex items-center justify-center min-h-64 shadow-md group-hover:shadow-lg transition-shadow duration-300">
-                        <img
-                          src={founderImage}
-                          alt="Fundador da Tag IT Localização"
-                          className="w-full h-auto object-contain transition-opacity duration-500"
-                          loading="lazy"
-                        />
-                        {/* Overlay Gradient - Só aparece no hover */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        
-                        {/* Indicador de Clique */}
-                        <div className="absolute bottom-4 right-4 bg-primary rounded-full p-2.5 transform translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-md">
-                          <ArrowRight className="w-4 h-4 text-primary-foreground" />
-                        </div>
-                      </div>
-
-                      {/* Informações */}
-                      <div className="space-y-3">
-                        {/* Divider */}
-                        <div className="h-0.5 w-10 bg-primary group-hover:w-14 transition-all duration-300" />
-                        
-                        {/* Nome e Cargo */}
-                        <div>
-                          <h3 className="text-xl sm:text-2xl font-bold text-foreground">José Luiz</h3>
-                          <p className="text-xs font-semibold uppercase tracking-wide text-primary mt-1">Fundador & CEO</p>
+                      <button
+                        onClick={() => setIsContactModalOpen(true)}
+                        className="group w-full max-w-xs text-left transition-all duration-300"
+                        aria-label="Conheça Vinicius Medeiros"
+                      >
+                        <div className="relative overflow-hidden rounded-lg mb-4 h-auto bg-muted/20 flex items-center justify-center min-h-64 shadow-md group-hover:shadow-lg transition-shadow duration-300">
+                          <img
+                            src={viniciusImage}
+                            alt="Vinicius Medeiros - Fundador e CEO"
+                            className="w-full h-auto object-contain transition-opacity duration-500"
+                            loading="lazy"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          <div className="absolute bottom-4 right-4 bg-primary rounded-full p-2.5 transform translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-md">
+                            <ArrowRight className="w-4 h-4 text-primary-foreground" />
+                          </div>
                         </div>
 
-                        {/* Quote */}
-                        <p className="text-sm text-muted-foreground italic leading-relaxed border-l-2 border-primary/30 pl-3">
-                          "Transformando experiências práticas em soluções inovadoras"
-                        </p>
-
-                        {/* CTA */}
-                        <div className="pt-2 flex items-center gap-2 text-primary text-sm font-semibold group-hover:gap-3 transition-all duration-300">
-                          <span>Conheça a história</span>
-                          <ArrowRight className="w-4 h-4" />
+                        <div className="space-y-3">
+                          <div className="h-0.5 w-10 bg-primary group-hover:w-14 transition-all duration-300" />
+                          <div>
+                            <h3 className="text-xl sm:text-2xl font-bold text-foreground">Vinicius Medeiros</h3>
+                            <p className="text-xs font-semibold uppercase tracking-wide text-primary mt-1">Funder & CEO</p>
+                          </div>
+                          <p className="text-sm text-muted-foreground italic leading-relaxed border-l-2 border-primary/30 pl-3">
+                            "Liderando inovação em localização inteligente de ativos"
+                          </p>
+                          <div className="pt-2 flex items-center gap-2 text-primary text-sm font-semibold group-hover:gap-3 transition-all duration-300">
+                            <span>Conheça a história</span>
+                            <ArrowRight className="w-4 h-4" />
+                          </div>
                         </div>
-                      </div>
-                    </button>
-                  </motion.div>
+                      </button>
+                    </motion.div>
+
+                    <motion.div
+                      initial={{ opacity: 0, x: -30 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.6, delay: 0.35 }}
+                      viewport={{ once: true }}
+                      className="absolute right-0 w-full flex justify-center top-[55rem] md:top-[55rem] lg:top-[55rem]"
+                    >
+                      <button
+                        onClick={() => setIsContactModalOpen(true)}
+                        className="group w-full max-w-xs text-left transition-all duration-300"
+                        aria-label="Conheça José Luiz"
+                      >
+                        <div className="relative overflow-hidden rounded-lg mb-4 h-auto bg-muted/20 flex items-center justify-center min-h-64 shadow-md group-hover:shadow-lg transition-shadow duration-300">
+                          <img
+                            src={founderImage}
+                            alt="José Luiz - Equipe Tag It"
+                            className="w-full h-auto object-contain transition-opacity duration-500"
+                            loading="lazy"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          <div className="absolute bottom-4 right-4 bg-primary rounded-full p-2.5 transform translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-md">
+                            <ArrowRight className="w-4 h-4 text-primary-foreground" />
+                          </div>
+                        </div>
+
+                        <div className="space-y-3">
+                          <div className="h-0.5 w-10 bg-primary group-hover:w-14 transition-all duration-300" />
+                          <div>
+                            <h3 className="text-xl sm:text-2xl font-bold text-foreground">José Luiz</h3>
+                            <p className="text-xs font-semibold uppercase tracking-wide text-primary mt-1">CCO</p>
+                          </div>
+                          <p className="text-sm text-muted-foreground italic leading-relaxed border-l-2 border-primary/30 pl-3">
+                            "Transformando experiências práticas em soluções inovadoras"
+                          </p>
+                          <div className="pt-2 flex items-center gap-2 text-primary text-sm font-semibold group-hover:gap-3 transition-all duration-300">
+                            <span>Conheça a história</span>
+                            <ArrowRight className="w-4 h-4" />
+                          </div>
+                        </div>
+                      </button>
+                    </motion.div>
+                  </div>
                 </div>
               </motion.div>
             </div>
