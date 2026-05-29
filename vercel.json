@@ -1,4 +1,4 @@
-{
+/*{
   "buildCommand": "npm install && npm run build 2>&1 || true && ls -la dist/ || echo 'dist folder not found'",
   "outputDirectory": "dist",
   "framework": "vite",
@@ -6,6 +6,17 @@
     "NODE_ENV": "production"
   },
   "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+*/}
+
+{
+  "buildCommand": "npm install --legacy-peer-deps && npm run build && (mv dist/ .dist_backup || mv build/ .dist_backup || true) && mkdir -p dist && (cp -r .dist_backup/* dist/ || cp -r build/* dist/ || true)",
+  "outputDirectory": "dist",
   "rewrites": [
     {
       "source": "/(.*)",
