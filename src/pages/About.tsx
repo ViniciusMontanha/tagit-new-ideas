@@ -165,7 +165,7 @@ const About = () => {
                             <p className="text-xs font-semibold uppercase tracking-wide text-primary mt-1">Funder & CEO</p>
                           </div>
                           <p className="text-sm text-muted-foreground italic leading-relaxed border-l-2 border-primary/30 pl-3">
-                            "Liderando inovação em localização inteligente de ativos"
+                            "Liderando inovação em localização inteligente de ativos."
                           </p>
                           <div className="pt-2 flex items-center gap-2 text-primary text-sm font-semibold group-hover:gap-3 transition-all duration-300">
                             <span>Conheça a história</span>
