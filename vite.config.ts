@@ -17,5 +17,6 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     outDir: "dist",
+    chunkSizeWarningLimit: 1000, //Aumenta o limite do aviso para 1000kb para evitar travamentos por avisos
 },
 }));
