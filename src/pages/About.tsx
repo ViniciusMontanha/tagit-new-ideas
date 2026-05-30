@@ -108,7 +108,7 @@ const About = () => {
                       </p>
                       <div>
                         <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4">
-                          Executivo com sólida experiência em gestão financeira, administração estratégica e tecnologia aplicada ao rastreamento e monitoramento via satélite. Atua há mais de 13 anos no segmento de gerenciamento de veículos, cargas e frotas, desenvolvendo soluções voltadas à segurança, controle operacional, redução de custos e eficiência logística.
+                          <span className="font-semibold">Vinicius Medeiros</span> executivo com sólida experiência em gestão financeira, administração estratégica e tecnologia aplicada ao rastreamento e monitoramento via satélite. Atua há mais de 13 anos no segmento de gerenciamento de veículos, cargas e frotas, desenvolvendo soluções voltadas à segurança, controle operacional, redução de custos e eficiência logística.
                         </p>
                         <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4">
                           À frente da Tag It, lidera projetos de localização inteligente de ativos e patrimônios empresariais, rastreamento Global  e monitoramento em larga escala, oferecendo soluções completas e inovadoras para empresas de diversos segmentos. A empresa se destaca pela utilização de tecnologias avançadas voltadas à gestão de ativos, proteção patrimonial, controle logístico e otimização operacional, contribuindo para operações mais seguras, estratégicas e eficientes.
@@ -162,7 +162,7 @@ const About = () => {
                           <div className="h-0.5 w-10 bg-primary group-hover:w-14 transition-all duration-300" />
                           <div>
                             <h3 className="text-xl sm:text-2xl font-bold text-foreground">Vinicius Medeiros</h3>
-                            <p className="text-xs font-semibold uppercase tracking-wide text-primary mt-1">Funder & CEO</p>
+                            <p className="text-xs font-semibold uppercase tracking-wide text-primary mt-1">Founder & CEO</p>
                           </div>
                           <p className="text-sm text-muted-foreground italic leading-relaxed border-l-2 border-primary/30 pl-3">
                             "Liderando inovação em localização inteligente de ativos"
@@ -204,7 +204,7 @@ const About = () => {
                           <div className="h-0.5 w-10 bg-primary group-hover:w-14 transition-all duration-300" />
                           <div>
                             <h3 className="text-xl sm:text-2xl font-bold text-foreground">José Luiz</h3>
-                            <p className="text-xs font-semibold uppercase tracking-wide text-primary mt-1">CCO</p>
+                            <p className="text-xs font-semibold uppercase tracking-wide text-primary mt-1">CCO & Co-Founder</p>
                           </div>
                           <p className="text-sm text-muted-foreground italic leading-relaxed border-l-2 border-primary/30 pl-3">
                             "Transformando experiências práticas em soluções inovadoras"
