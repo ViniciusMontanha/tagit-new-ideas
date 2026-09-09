@@ -22,7 +22,7 @@
 | OG Image | Comentada | ✅ Ativa: https://tagit.com.br/og-image.png |
 | Canonical | Comentada | ✅ Ativa: https://tagit.com.br/ |
 | Email | Verificado | ✅ contato@tagit.com.br |
-| Telefone | Verificado | ✅ +5516991295203 |
+| Telefone | Verificado | ✅ +5516996403745 |
 | Schema.org | Dados falsos | ✅ Atualizado com dados reais |
 
 ### 3. **Verificações Finais**
@@ -68,7 +68,7 @@
    └─ URL: https://tagit.com.br/logo.png
 
 3. Testar acesso
-   └─ https://wa.me/5516991295203 (deve abrir WhatsApp)
+   └─ https://wa.me/5516996403745 (deve abrir WhatsApp)
    └─ Enviar para contato@tagit.com.br (deve chegar)
    └─ https://tagit.com.br/og-image.png (deve retornar imagem)
 ```
@@ -109,7 +109,7 @@
 
 **Domínio**: https://tagit.com.br/  
 **Email**: contato@tagit.com.br  
-**Telefone**: +5516991295203  
+**Telefone**: +5516996403745
 **Redes Sociais**: A adicionar quando existentes  
 
 ---

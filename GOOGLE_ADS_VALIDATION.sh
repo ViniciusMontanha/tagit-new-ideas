@@ -99,7 +99,7 @@ fi
 
 echo ""
 echo "6️⃣  Verificando Telefone WhatsApp..."
-if grep -q '5516991295203\|+5516991295203\|+55-16-99129-5203' index.html; then
+if grep -q '5516996403745\|+5516996403745\|+55-16-99640-3745' index.html; then
   add_success "Telefone WhatsApp configurado e verificado"
 elif grep -q 'telephone.*placeholder' index.html; then
   add_warning "Telefone ainda é placeholder"
@@ -123,7 +123,7 @@ fi
 
 echo ""
 echo "9️⃣  Verificando WhatsApp Widget..."
-if grep -q '"5516991295203"' src/components/WhatsAppWidget.tsx; then
+if grep -q '"5516996403745"' src/components/WhatsAppWidget.tsx; then
   add_success "WhatsApp Widget configurado com número verificado"
 elif grep -q 'phoneNumber.*placeholder' src/components/WhatsAppWidget.tsx; then
   add_warning "WhatsApp Widget ainda usa número placeholder"
