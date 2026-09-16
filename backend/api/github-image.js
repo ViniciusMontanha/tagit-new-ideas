@@ -90,9 +90,9 @@ export default async function handler(req, res) {
   res.setHeader("Content-Type", "image/webp");
   res.setHeader("X-Image-Size", `${CAROUSEL_IMAGE_SIZE}x${CAROUSEL_IMAGE_SIZE}`);
   res.setHeader("X-Source-Content-Type", response.headers.get("content-type") || contentTypeFromFileName(normalizedPath));
-  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0, s-maxage=0");
-  res.setHeader("Pragma", "no-cache");
-  res.setHeader("Expires", "0");
+  res.setHeader("Cache-Control", "public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400");
+
+
   res.setHeader("Access-Control-Allow-Origin", "https://tagit.com.br");
 
   return res.status(200).send(resizedBuffer);

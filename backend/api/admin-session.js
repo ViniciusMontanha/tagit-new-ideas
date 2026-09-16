@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { guardRequest } from "../src/request-guard.js";
 import { createAdminToken, verifyAdminPassword } from "../src/admin-auth.js";
 
 const corsHeaders = {
@@ -8,7 +9,7 @@ const corsHeaders = {
 };
 
 const payloadSchema = z.object({
-  password: z.string().min(1),
+  password: z.string().min(1).max(256),
 });
 
 export default async function handler(req, res) {
@@ -21,6 +22,8 @@ export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Método não permitido" });
   }
+
+  if (!guardRequest(req, res, { scope: "admin-login", limit: 5, windowMs: 900000 })) return;
 
   try {
     const payload = payloadSchema.parse(req.body || {});
