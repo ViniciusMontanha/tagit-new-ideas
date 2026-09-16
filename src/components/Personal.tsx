@@ -48,7 +48,7 @@ export const Personal = () => {
           </p>
         </motion.div>
 
-        <p className="max-w-3xl mx-auto mb-8 text-center text-muted-foreground">A Mini Tag desta ficha é compatível com iOS. Antes da compra, confirme com nossa equipe o aplicativo e as condições de uso do modelo escolhido.</p>
+        <p className="max-w-3xl mx-auto mb-8 text-center text-muted-foreground">A Mini Tag desta ficha é compatível com iOS / Android. Antes da compra, confirme com nossa equipe o aplicativo e as condições de uso do modelo escolhido.</p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-12 sm:mb-16 items-center max-w-7xl mx-auto">
           <motion.div
