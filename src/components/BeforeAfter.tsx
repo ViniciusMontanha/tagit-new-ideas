@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 
 export const BeforeAfter = () => {
   return (
-    <section className="py-14 sm:py-16 lg:py-20 bg-background" role="region" aria-labelledby="antes-depois-heading">
+    <section className="py-14 sm:py-16 lg:py-20 bg-background overflow-hidden" role="region" aria-labelledby="antes-depois-heading">
       <div className="container mx-auto px-4 sm:px-6 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -13,10 +13,10 @@ export const BeforeAfter = () => {
           className="text-center mb-10 sm:mb-12"
         >
           <h2 id="antes-depois-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 tracking-tight">
-            Da incerteza ao <span className="bg-gradient-hero bg-clip-text text-transparent">controle total</span>
+            Da incerteza à <span className="bg-gradient-hero bg-clip-text text-transparent">visibilidade dos ativos</span>
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-            Economize tempo, reduza perdas e tenha visibilidade total da operação.
+            Economize tempo, reduza perdas e acompanhe melhor sua operação.
           </p>
         </motion.div>
 
@@ -46,8 +46,8 @@ export const BeforeAfter = () => {
             <Card className="p-5 sm:p-6 md:p-8 h-full border-primary/20 bg-primary/5">
               <h3 className="text-xl sm:text-2xl font-semibold mb-4">Depois</h3>
               <ul className="space-y-3 text-muted-foreground text-base sm:text-lg leading-relaxed">
-                <li>Localização rápida e precisa dos ativos.</li>
-                <li>Resposta imediata com alertas inteligentes.</li>
+                <li>Consulta à última localização disponível dos ativos.</li>
+                <li>Alertas para apoiar a resposta da equipe.</li>
                 <li>Operação mais previsível e eficiente.</li>
               </ul>
             </Card>

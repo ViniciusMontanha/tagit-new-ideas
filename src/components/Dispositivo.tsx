@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
-import tagCarrossel from "@/assets/tagcarrosel.png";
-import tagLado from "@/assets/tag_lado.png";
+import tagCarrossel from "@/assets/tagcarrosel.webp";
+import tagLado from "@/assets/tag_lado.webp";
 import {
   BarChart3,
   BatteryMedium,
@@ -23,18 +23,18 @@ const deviceSpecs = [
   {
     icon: BatteryMedium,
     title: "Baixo Consumo de Energia",
-    description: "A bateria interna pode alimentar o dispositivo para operar por até 30 meses.",
+    description: "A Mini Tag utiliza bateria CR2032 substituível, com autonomia de até 12 meses em standby. A duração varia conforme o uso.",
   },
   {
     icon: Globe,
-    title: "Disponibilidade Global",
+    title: "Condições de cobertura",
     description:
-      "O dispositivo pode ser usado em qualquer lugar do mundo, pois não depende de redes celulares para comunicação e as diferentes bandas de frequência não são mais um problema.",
+      "A localização remota depende da disponibilidade de dispositivos e redes compatíveis na região. A atualização pode variar conforme o ambiente.",
   },
   {
     icon: Thermometer,
     title: "Ampla Faixa de Temperatura de Operação",
-    description: "O dispositivo pode operar corretamente entre -20°C e +70°C.",
+    description: "A faixa de trabalho da Mini Tag é de -20°C a +60°C. Para armazenamento, a ficha informa -20°C a +70°C.",
   },
   {
     icon: Wrench,
@@ -90,7 +90,7 @@ const technicalSections = [
     rows: [
       { label: "Modelo", value: "Mini Tag" },
       { label: "Versão", value: "V1.0" },
-      { label: "Tipo de Produto", value: "Localizador antifurto" },
+      { label: "Tipo de Produto", value: "Localizador de objetos" },
       { label: "Estilo de Uso", value: "Discreto / Oculto" },
       { label: "Material", value: "ABS" },
       { label: "Dimensões", value: "31,9 x 9 mm (diâmetro x espessura)", icon: Ruler },
@@ -106,7 +106,7 @@ const technicalSections = [
     rows: [
       { label: "Versão Bluetooth", value: "5.2" },
       { label: "Antena", value: "Integrada" },
-      { label: "Frequência de Transmissão", value: "A cada 2 segundos" },
+      { label: "Intervalo de emissão Bluetooth", value: "A cada 2 segundos (não equivale à atualização remota)" },
       { label: "Protocolo de Comunicação", value: "Bluetooth + Transmissão" },
       { label: "Sistema Suportado", value: "iOS" },
       { label: "", value: "" },
@@ -139,7 +139,7 @@ export const Dispositivo = () => {
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-medium text-primary mb-4">
             <Cpu className="h-4 w-4" />
-            Tecnologia do Dispositivo
+            Mini Tag — especificações do modelo
           </div>
 
           <h2
@@ -151,7 +151,7 @@ export const Dispositivo = () => {
           </h2>
 
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto" itemProp="description">
-            Uma infraestrutura moderna para gestão e proteção de ativos com visibilidade contínua em operações complexas.
+            Mini Tag: localizador compacto com Bluetooth e bateria substituível. Conheça as especificações e as condições de uso deste modelo.
           </p>
         </motion.div>
 

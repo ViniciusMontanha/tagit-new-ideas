@@ -1,3 +1,5 @@
+import { COMPANY } from "@/lib/contact";
+import { openCookiePreferences } from "@/lib/consent";
 import {
   Dialog,
   DialogContent,
@@ -49,12 +51,12 @@ export const Footer = () => {
                 </div>
                 <p>
                   <a
-                    href="tel:+5516996403745"
+                    href={`tel:${COMPANY.phone}`}
                     className="text-primary hover:underline transition-colors"
                     aria-label="Ligar para Tag It"
                     itemProp="telephone"
                   >
-                    (16) 99640-3745
+                    {COMPANY.phoneDisplay}
                   </a>
                 </p>
                 <div className="pt-3">
@@ -75,7 +77,7 @@ export const Footer = () => {
               <h3 className="font-semibold text-sm text-foreground">Navegação</h3>
               <nav aria-label="Links do rodapé" className="space-y-3">
                 <a
-                  href="#root"
+                  href="/"
                   className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors group"
                 >
                   <Home className="w-4 h-4 group-hover:translate-y-0.5 transition-transform duration-300" />
@@ -193,7 +195,8 @@ export const Footer = () => {
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
                   </span>
                 </Button>
-              </nav>
+              <button type="button" onClick={openCookiePreferences} className="text-sm text-muted-foreground hover:text-primary text-left">Preferências de cookies</button>
+                </nav>
             </div>
 
             {/* Redes Sociais */}
@@ -233,16 +236,18 @@ export const Footer = () => {
 
       {/* Modal de Política de Privacidade - Controlada pelo Context */}
       <Dialog open={isOpen} onOpenChange={closePrivacyPolicy}>
-        <DialogContent className="max-w-lg mx-auto">
+        <DialogContent className="w-[95vw] max-w-lg mx-auto max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Política de Privacidade</DialogTitle>
             <DialogDescription>
-              Esta política descreve como coletamos, usamos e protegemos suas informações pessoais ao utilizar o site Tag It. Não compartilhamos seus dados com terceiros sem consentimento. Para dúvidas, entre em contato pelo e-mail contato@tagit.com.br.
+              A Tag IT Tecnologia em Localização LTDA utiliza os dados enviados neste site para responder às solicitações e prestar atendimento. Para dúvidas ou solicitações sobre seus dados, escreva para contato@tagit.com.br.
             </DialogDescription>
           </DialogHeader>
           <div className="mt-4 space-y-2 text-sm text-foreground">
-            <p>Coletamos apenas informações necessárias para contato e prestação de serviços. Você pode solicitar a exclusão dos seus dados a qualquer momento.</p>
-            <p>Ao utilizar nossos formulários, você concorda com esta política.</p>
+            <p>O formulário solicita nome, e-mail, telefone e mensagem. Evite incluir informações sensíveis no campo de mensagem.</p>
+            <p>Utilizamos Vercel para hospedagem e Brevo para enviar as mensagens de contato e confirmação. Esses prestadores processam os dados necessários à operação do serviço.</p>
+            <p>Com sua aceitação no aviso de cookies, ativamos o Google Ads para medição de publicidade. A rejeição mantém essa ferramenta desativada. Você pode alterar sua escolha em “Preferências de cookies”, no rodapé.</p>
+            <p>Você pode solicitar acesso, correção ou exclusão de seus dados pelo e-mail de contato. Os dados são mantidos conforme a necessidade de atendimento e as obrigações aplicáveis.</p>
           </div>
           <div className="mt-6 flex justify-end">
             <Button variant="outline" onClick={closePrivacyPolicy} aria-label="Fechar modal">Fechar</Button>
@@ -251,7 +256,7 @@ export const Footer = () => {
       </Dialog>
 
       <Dialog open={isImagePolicyOpen} onOpenChange={setIsImagePolicyOpen}>
-        <DialogContent className="max-w-lg mx-auto">
+        <DialogContent className="w-[95vw] max-w-lg mx-auto max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Política de Imagens</DialogTitle>
             <DialogDescription>

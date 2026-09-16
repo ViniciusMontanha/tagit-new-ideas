@@ -1,15 +1,16 @@
+import { companyWhatsApp } from "@/lib/contact";
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { User, Bell, Heart, PawPrint } from "lucide-react";
-import tagProduct from "@/assets/tag_branca_logo.png";
-import coleirGolden from "@/assets/Coleira_golden.png";
+import tagProduct from "@/assets/tag_branca_logo.webp";
+import coleirGolden from "@/assets/Coleira_golden.webp";
 
 const benefits = [
   {
     icon: Heart,
-    title: "Nunca mais perca seus pertences",
-    description: "Localize suas chaves, mochila, carteira e muito mais em segundos através do app.",
+    title: "Ajuda para encontrar seus pertences",
+    description: "Consulte a localização disponível de chaves, mochila e outros objetos pelo aplicativo compatível.",
   },
   {
     icon: Bell,
@@ -19,7 +20,7 @@ const benefits = [
   {
     icon: Heart,
     title: "Monitore seu Pet com conforto e tecnologia",
-    description: "Saiba exatamente onde está seu pet.",
+    description: "Um apoio à localização do seu pet, sujeito às condições da rede e sem substituir a supervisão.",
   },
   {
     icon: PawPrint,
@@ -30,7 +31,7 @@ const benefits = [
 
 export const Personal = () => {
   return (
-    <section id="para-voce" className="py-16 sm:py-20 lg:py-28 relative overflow-hidden bg-gradient-to-b from-primary/5 to-secondary/5">
+    <section id="para-voce" className="pt-28 sm:pt-32 lg:pt-36 pb-16 sm:pb-20 lg:pb-28 relative overflow-hidden bg-gradient-to-b from-primary/5 to-secondary/5">
       <div className="container mx-auto px-4 sm:px-6 lg:px-10 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -39,13 +40,15 @@ export const Personal = () => {
           viewport={{ once: true }}
           className="text-center mb-12 sm:mb-16 lg:mb-20"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 tracking-tight">
             Para <span className="bg-gradient-purple bg-clip-text text-transparent">Você</span>
-          </h2>
+          </h1>
           <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto font-light leading-relaxed">
-            Proteja o que é importante com tecnologia inteligente.
+            Encontre objetos do dia a dia com tecnologia de localização inteligente.
           </p>
         </motion.div>
+
+        <p className="max-w-3xl mx-auto mb-8 text-center text-muted-foreground">A Mini Tag desta ficha é compatível com iOS. Antes da compra, confirme com nossa equipe o aplicativo e as condições de uso do modelo escolhido.</p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-12 sm:mb-16 items-center max-w-7xl mx-auto">
           <motion.div
@@ -89,18 +92,18 @@ export const Personal = () => {
           >
             <div className="relative">
               <div className="absolute inset-0"></div>
-              <motion.img 
-                src={tagProduct} 
-                alt="Tag It - Dispositivo de localização inteligente" 
+              <motion.img
+                src={tagProduct}
+                alt="Tag It - Dispositivo de localização inteligente"
                 className="relative w-full max-w-md mx-auto drop-shadow-2xl"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
               />
             </div>
             <div className="relative">
-              <motion.img 
-                src={coleirGolden} 
-                alt="Coleira Golden - Rastreador para pets Tag It" 
+              <motion.img
+                src={coleirGolden}
+                alt="Coleira Golden - Rastreador para pets Tag It"
                 className="relative w-full max-w-md mx-auto rounded-2xl shadow-strong"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
@@ -117,8 +120,8 @@ export const Personal = () => {
           className="text-center"
         >
           <Button size="lg" className="text-base px-6 sm:px-10 py-6 sm:py-7 rounded-full shadow-purple hover:shadow-strong transition-all bg-secondary hover:bg-secondary/90 w-full sm:w-auto" asChild>
-            <a href="https://api.whatsapp.com/send/?phone=5516991295203&text=Ol%C3%A1%21+Gostaria+de+mais+informa%C3%A7%C3%B5es+sobre+a+Tag+It.&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
-            Comprar Agora
+            <a href={companyWhatsApp()} target="_blank" rel="noopener noreferrer">
+            Consultar compra pelo WhatsApp
             </a>
           </Button>
         </motion.div>

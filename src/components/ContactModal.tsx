@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -7,277 +7,128 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Loader2 } from "lucide-react";
+import { companyWhatsApp, normalizeBrazilianPhone, isValidBrazilianPhone } from "@/lib/contact";
+import { usePrivacyPolicy } from "@/contexts/PrivacyPolicyContext";
 
-// Função para formatar telefone enquanto digita
-const formatPhoneNumber = (value: string): string => {
-  // Se já está formatado (começa com +55), não formata novamente
-  if (value.startsWith("+55")) {
-    return value;
-  }
-
-  // Remove tudo que não é número
-  const cleaned = value.replace(/\D/g, "");
-  
-  // Se está vazio, retorna vazio
-  if (!cleaned) return "";
-  
-  // Se começa com 0, remove (para evitar formatação incorreta)
-  let number = cleaned.startsWith("0") ? cleaned.slice(1) : cleaned;
-  
-  // Se tem menos de 10 dígitos, retorna como está
-  if (number.length < 10) {
-    return number;
-  }
-  
-  // Se tem 10 ou 11 dígitos (sem o 55)
-  if (number.length <= 11) {
-    // Adiciona +55 na frente
-    const withCountryCode = "55" + number;
-    return "+" + withCountryCode;
-  }
-  
-  // Se tem 12 ou mais dígitos (55 + número), já tem código de país
-  if (number.length >= 12) {
-    // Garante que começa com 55
-    if (!number.startsWith("55")) {
-      number = "55" + number;
-    }
-    return "+" + number.slice(0, 12); // Limita a 12 dígitos
-  }
-  
-  return value;
-};
-
-// Schema de validação com Zod
 const contactFormSchema = z.object({
-  nome: z.string()
-    .min(3, "Nome deve ter pelo menos 3 caracteres")
-    .max(100, "Nome não pode exceder 100 caracteres"),
-  email: z.string()
-    .email("Email inválido"),
-  telefone: z.string()
-    .regex(/^\+?55?\d{10,11}$/, "Telefone inválido. Digite um número brasileiro válido"),
-  mensagem: z.string()
-    .min(10, "Mensagem deve ter pelo menos 10 caracteres")
-    .max(1000, "Mensagem não pode exceder 1000 caracteres"),
+  nome: z.string().trim().min(3, "Informe seu nome, com pelo menos 3 caracteres").max(100),
+  email: z.string().trim().email("Informe um e-mail válido").max(254),
+  telefone: z.string().transform(normalizeBrazilianPhone).refine(isValidBrazilianPhone, "Informe um telefone brasileiro válido com DDD"),
+  mensagem: z.string().trim().min(10, "Escreva pelo menos 10 caracteres").max(1000, "Use no máximo 1.000 caracteres"),
+  website: z.string().max(0).optional(),
 });
-
 type ContactFormData = z.infer<typeof contactFormSchema>;
-
-interface ContactModalProps {
-  isOpen: boolean;
-  onOpenChange: (open: boolean) => void;
-}
+interface ContactModalProps { isOpen: boolean; onOpenChange: (open: boolean) => void; }
 
 export const ContactModal = ({ isOpen, onOpenChange }: ContactModalProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-    setValue,
-    watch,
-  } = useForm<ContactFormData>({
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const attempt = useRef<{ payload: string; id: string } | null>(null);
+  const sending = useRef(false);
+  const { openPrivacyPolicy } = usePrivacyPolicy();
+  const { register, handleSubmit, formState: { errors }, reset, setValue, setError, watch } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
+    defaultValues: { nome: "", email: "", telefone: "", mensagem: "", website: "" },
   });
-
-  // Observar o campo de telefone
-  const phoneValue = watch("telefone");
-
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const formatted = formatPhoneNumber(e.target.value);
-    setValue("telefone", formatted);
-  };
+  const phone = watch("telefone");
 
   const onSubmit = async (data: ContactFormData) => {
+    if (sending.current) return;
+    sending.current = true;
     setIsSubmitting(true);
     setSubmitError(null);
-
+    const payload = JSON.stringify(data);
+    if (attempt.current?.payload !== payload) attempt.current = { payload, id: crypto.randomUUID() };
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 30000);
     try {
-      // Usar URL do backend (desenvolvido em localhost:3001)
-      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3001";
-      
+      const apiUrl = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
       const response = await fetch(`${apiUrl}/api/send-contact`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, requestId: attempt.current.id }),
+        signal: controller.signal,
       });
-
-      if (!response.ok) {
-        throw new Error("Erro ao enviar mensagem. Tente novamente.");
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result?.success) {
+        if (response.status === 400 && Array.isArray(result?.details)) {
+          for (const item of result.details) {
+            if (["nome", "email", "telefone", "mensagem"].includes(item.field)) {
+              setError(item.field as keyof ContactFormData, { message: item.message });
+            }
+          }
+        }
+        throw new Error(response.status === 429
+          ? "Muitas tentativas em pouco tempo. Aguarde alguns minutos ou fale conosco pelo WhatsApp."
+          : response.status === 400
+            ? "Confira os campos indicados e tente novamente."
+            : "Não foi possível confirmar o envio. Tente novamente ou fale conosco pelo WhatsApp.");
       }
-
-      setSubmitSuccess(true);
+      setSuccessMessage(result.confirmationSent === false
+        ? "Nossa equipe recebeu sua solicitação. Não foi possível enviar a confirmação para seu e-mail, mas você não precisa reenviar o formulário."
+        : "Nossa equipe recebeu sua solicitação. Enviamos uma confirmação para seu e-mail; confira também a pasta de spam.");
       reset();
-
-      // Fechar modal após 2 segundos de sucesso
-      setTimeout(() => {
-        onOpenChange(false);
-        setSubmitSuccess(false);
-      }, 2000);
+      attempt.current = null;
     } catch (error) {
-      setSubmitError(
-        error instanceof Error ? error.message : "Erro ao enviar mensagem"
-      );
+      setSubmitError(error instanceof DOMException && error.name === "AbortError"
+        ? "O envio demorou mais que o esperado. Você pode tentar novamente ou falar pelo WhatsApp."
+        : error instanceof Error ? error.message : "Não foi possível confirmar o envio. Tente novamente.");
     } finally {
+      clearTimeout(timeout);
+      sending.current = false;
       setIsSubmitting(false);
     }
   };
+  const close = (open: boolean) => {
+    if (sending.current) return;
+    onOpenChange(open);
+    if (!open) { setSuccessMessage(null); setSubmitError(null); }
+  };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+    <Dialog open={isOpen} onOpenChange={close}>
       <DialogContent className="w-[95vw] sm:max-w-[500px] max-h-[90vh] overflow-y-auto px-4 sm:px-6">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-foreground">
-            Solicitar Contato
-          </DialogTitle>
-          <DialogDescription className="text-muted-foreground">
-            Preencha o formulário abaixo e nossa equipe entrará em contato em breve.
-          </DialogDescription>
+          <DialogTitle className="text-2xl font-bold">Solicitar Contato</DialogTitle>
+          <DialogDescription>Conte o que você precisa. Nossa equipe entrará em contato.</DialogDescription>
         </DialogHeader>
-
-        {submitSuccess ? (
-          <div className="flex flex-col items-center justify-center py-12 gap-4">
-            <div className="flex items-center justify-center w-16 h-16 rounded-full bg-green-100">
-              <svg
-                className="w-8 h-8 text-green-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M5 13l4 4L19 7"
-                />
-              </svg>
-            </div>
-            <h3 className="text-lg font-semibold text-foreground">
-              Mensagem Enviada!
-            </h3>
-            <p className="text-center text-muted-foreground">
-              Obrigado pelo seu interesse. Nossa equipe entrará em contato em breve.
-            </p>
+        {successMessage ? (
+          <div className="space-y-5 py-6" role="status">
+            <h3 className="text-xl font-semibold">Solicitação recebida!</h3>
+            <p>{successMessage}</p>
+            <Button className="w-full" onClick={() => close(false)}>Fechar</Button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
-            {/* Campo Nome */}
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate aria-busy={isSubmitting}>
             <div className="space-y-2">
-              <label htmlFor="nome" className="text-sm font-semibold text-foreground">
-                Nome <span className="text-destructive">*</span>
-              </label>
-              <Input
-                id="nome"
-                placeholder="Seu nome completo"
-                className="bg-background/50 border-muted-foreground/20 focus:border-primary focus:ring-1 focus:ring-primary"
-                {...register("nome")}
-                disabled={isSubmitting}
-              />
-              {errors.nome && (
-                <p className="text-sm text-destructive">{errors.nome.message}</p>
-              )}
+              <label htmlFor="nome" className="text-sm font-semibold">Nome *</label>
+              <Input id="nome" autoComplete="name" placeholder="Seu nome completo" {...register("nome")} disabled={isSubmitting} aria-invalid={!!errors.nome} aria-describedby={errors.nome ? "nome-error" : undefined} />
+              {errors.nome && <p id="nome-error" role="alert" className="text-sm text-destructive">{errors.nome.message}</p>}
             </div>
-
-            {/* Campo Email */}
             <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-semibold text-foreground">
-                Email <span className="text-destructive">*</span>
-              </label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="seu.email@empresa.com.br"
-                className="bg-background/50 border-muted-foreground/20 focus:border-primary focus:ring-1 focus:ring-primary"
-                {...register("email")}
-                disabled={isSubmitting}
-              />
-              {errors.email && (
-                <p className="text-sm text-destructive">{errors.email.message}</p>
-              )}
+              <label htmlFor="email" className="text-sm font-semibold">E-mail *</label>
+              <Input id="email" type="email" autoComplete="email" placeholder="voce@empresa.com.br" {...register("email")} disabled={isSubmitting} aria-invalid={!!errors.email} aria-describedby={errors.email ? "email-error" : undefined} />
+              {errors.email && <p id="email-error" role="alert" className="text-sm text-destructive">{errors.email.message}</p>}
             </div>
-
-            {/* Campo Telefone */}
             <div className="space-y-2">
-              <label htmlFor="telefone" className="text-sm font-semibold text-foreground">
-                Telefone <span className="text-destructive">*</span>
-              </label>
-              <Input
-                id="telefone"
-                type="tel"
-                placeholder="Digite seu número (11) 99999-9999"
-                className="bg-background/50 border-muted-foreground/20 focus:border-primary focus:ring-1 focus:ring-primary"
-                {...register("telefone")}
-                onChange={handlePhoneChange}
-                value={phoneValue}
-                disabled={isSubmitting}
-              />
-              {phoneValue && !errors.telefone && (
-                <p className="text-xs text-muted-foreground">
-                  ✓ Formato: {phoneValue}
-                </p>
-              )}
-              {errors.telefone && (
-                <p className="text-sm text-destructive">{errors.telefone.message}</p>
-              )}
+              <label htmlFor="telefone" className="text-sm font-semibold">Telefone *</label>
+              <Input id="telefone" type="tel" inputMode="tel" autoComplete="tel" placeholder="(16) 99999-9999" {...register("telefone")} onBlur={(event) => setValue("telefone", normalizeBrazilianPhone(event.target.value), { shouldValidate: true })} disabled={isSubmitting} aria-invalid={!!errors.telefone} aria-describedby="telefone-help" />
+              <p id="telefone-help" className={`text-xs ${errors.telefone ? "text-destructive" : "text-muted-foreground"}`}>
+                {errors.telefone?.message || (phone && isValidBrazilianPhone(phone) ? `Telefone válido: ${normalizeBrazilianPhone(phone)}` : "Inclua o DDD. Aceitamos números com ou sem +55.")}
+              </p>
             </div>
-
-            {/* Campo Mensagem */}
             <div className="space-y-2">
-              <label htmlFor="mensagem" className="text-sm font-semibold text-foreground">
-                Mensagem <span className="text-destructive">*</span>
-              </label>
-              <Textarea
-                id="mensagem"
-                placeholder="Descreva sua necessidade ou dúvida..."
-                rows={5}
-                className="bg-background/50 border-muted-foreground/20 focus:border-primary focus:ring-1 focus:ring-primary resize-none"
-                {...register("mensagem")}
-                disabled={isSubmitting}
-              />
-              {errors.mensagem && (
-                <p className="text-sm text-destructive">{errors.mensagem.message}</p>
-              )}
+              <label htmlFor="mensagem" className="text-sm font-semibold">Mensagem *</label>
+              <Textarea id="mensagem" placeholder="Descreva sua necessidade ou dúvida..." rows={4} {...register("mensagem")} disabled={isSubmitting} aria-invalid={!!errors.mensagem} aria-describedby={errors.mensagem ? "mensagem-error" : undefined} />
+              {errors.mensagem && <p id="mensagem-error" role="alert" className="text-sm text-destructive">{errors.mensagem.message}</p>}
             </div>
-
-            {/* Mensagem de Erro */}
-            {submitError && (
-              <div className="p-3 bg-destructive/10 border border-destructive/20 rounded-md">
-                <p className="text-sm text-destructive">{submitError}</p>
-              </div>
-            )}
-
-            {/* Botões */}
-            <div className="flex flex-col-reverse sm:flex-row gap-3 pt-4">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => onOpenChange(false)}
-                disabled={isSubmitting}
-                className="flex-1 w-full"
-              >
-                Cancelar
-              </Button>
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="flex-1 w-full bg-primary hover:bg-primary/90"
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Enviando...
-                  </>
-                ) : (
-                  "Enviar Mensagem"
-                )}
-              </Button>
+            <div hidden aria-hidden="true"><label>Website<Input {...register("website")} tabIndex={-1} autoComplete="off" /></label></div>
+            <p className="text-xs text-muted-foreground">Usaremos seus dados para responder a esta solicitação. <button type="button" className="underline" onClick={() => { close(false); openPrivacyPolicy(); }}>Política de Privacidade</button>.</p>
+            {submitError && <div role="alert" className="p-3 bg-destructive/10 border border-destructive/20 rounded-md space-y-2"><p className="text-sm text-destructive">{submitError}</p><a className="text-sm underline" href={companyWhatsApp()} target="_blank" rel="noopener noreferrer">Falar pelo WhatsApp</a></div>}
+            <div className="flex flex-col-reverse sm:flex-row gap-3 pt-2">
+              <Button type="button" variant="outline" onClick={() => close(false)} disabled={isSubmitting} className="flex-1">Cancelar</Button>
+              <Button type="submit" disabled={isSubmitting} className="flex-1">{isSubmitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Enviando...</> : "Enviar Mensagem"}</Button>
             </div>
           </form>
         )}

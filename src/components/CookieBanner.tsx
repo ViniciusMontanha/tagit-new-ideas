@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
+import { CONSENT_EVENT, getConsent, setConsent } from "@/lib/consent";
 import { usePrivacyPolicy } from "@/contexts/PrivacyPolicyContext";
 
 export const CookieBanner = () => {
@@ -8,28 +9,20 @@ export const CookieBanner = () => {
   const { openPrivacyPolicy } = usePrivacyPolicy();
 
   useEffect(() => {
-    // Verificar se o usuário já aceitou cookies
-    const cookieConsent = localStorage.getItem("tagit-cookie-consent");
-    if (!cookieConsent) {
-      setIsVisible(true);
-    }
+    setIsVisible(getConsent() === null);
+    const open = () => setIsVisible(true);
+    window.addEventListener(CONSENT_EVENT, open);
+    return () => window.removeEventListener(CONSENT_EVENT, open);
   }, []);
 
-  const handleAccept = () => {
-    localStorage.setItem("tagit-cookie-consent", "accepted");
-    setIsVisible(false);
-  };
-
-  const handleDismiss = () => {
-    localStorage.setItem("tagit-cookie-consent", "dismissed");
-    setIsVisible(false);
-  };
+  const handleAccept = () => { setConsent("accepted"); setIsVisible(false); };
+  const handleDismiss = () => { setConsent("rejected"); setIsVisible(false); };
 
   if (!isVisible) return null;
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-sm border-t border-border shadow-[0_-4px_16px_rgba(0,0,0,0.1)]"
+      className="fixed bottom-0 left-0 right-0 z-[60] bg-background/95 backdrop-blur-sm border-t border-border shadow-[0_-4px_16px_rgba(0,0,0,0.1)]"
       role="region"
       aria-label="Aviso de cookies"
       aria-live="polite"
@@ -39,12 +32,11 @@ export const CookieBanner = () => {
           {/* Texto do aviso */}
           <div className="flex-1">
             <h3 className="font-semibold text-foreground mb-2 text-sm md:text-base">
-              Utilizamos Cookies
+              Suas preferências de cookies
             </h3>
             <p className="text-sm text-muted-foreground">
-              Usamos cookies para melhorar sua experiência no site, personalizar conteúdo e analisar tráfego. 
-              Ao continuar navegando, você concorda com nossa 
-              <button 
+              Usamos armazenamento necessário para o funcionamento do site. A publicidade do Google só é ativada se você aceitar. Você pode mudar sua escolha no rodapé. Consulte nossa
+              <button
                 onClick={openPrivacyPolicy}
                 className="text-primary hover:underline ml-1 font-semibold"
                 aria-label="Abrir política de privacidade"

@@ -1,28 +1,23 @@
-/**
- * Componente SEOHead - Gerencia Schema.org e metadados para cada seção
- * Otimizado para Google Search e indexação
- */
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { getPageMetadata, structuredData } from "@/lib/seo-data.js";
 
-interface SEOHeadProps {
-  title: string;
-  description: string;
-  structuredData?: Record<string, unknown>;
-  section?: string;
-}
-
-export const SEOHead = ({ title, description, structuredData }: SEOHeadProps) => {
-  // Este componente é informativo - em um projeto real com SSR/SSG, 
-  // você usaria react-helmet ou next/head para manipular o DOM
-  
-  return (
-    <>
-      {/* O schema estruturado deve estar no HTML principal */}
-      {structuredData && (
-        <script 
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
-      )}
-    </>
-  );
+export const SEOHead = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    const data = getPageMetadata(pathname);
+    document.title = data.title;
+    const update = (selector: string, value: string) => document.querySelector(selector)?.setAttribute("content", value);
+    update('meta[name="description"]', data.description);
+    update('meta[name="robots"]', data.noindex ? "noindex, nofollow" : "index, follow");
+    update('meta[property="og:title"]', data.title);
+    update('meta[property="og:description"]', data.description);
+    update('meta[property="og:url"]', data.canonical);
+    update('meta[name="twitter:title"]', data.title);
+    update('meta[name="twitter:description"]', data.description);
+    document.querySelector('link[rel="canonical"]')?.setAttribute("href", data.canonical);
+    const schema = document.getElementById("tagit-schema");
+    if (schema) schema.textContent = JSON.stringify(structuredData(pathname));
+  }, [pathname]);
+  return null;
 };
