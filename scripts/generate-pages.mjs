@@ -17,11 +17,15 @@ function render(path) {
     <meta property="og:url" content="${data.canonical}" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:site_name" content="Tag It" />
-    <meta property="og:image" content="https://tagit.com.br/og-image.png" />
+    <meta property="og:image" content="https://tagit.com.br/tagit-compartilhamento-2026.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Tag It — Localização inteligente" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${escapeHtml(data.title)}" />
     <meta name="twitter:description" content="${escapeHtml(data.description)}" />
-    <meta name="twitter:image" content="https://tagit.com.br/og-image.png" />
+    <meta name="twitter:image" content="https://tagit.com.br/tagit-compartilhamento-2026.png" />
+    <meta name="twitter:image:alt" content="Tag It — Localização inteligente" />
     <script id="tagit-schema" type="application/ld+json">${schema}</script>`);
 }
 for (const path of [...Object.keys(pageMetadata), "/admin/carrossel"]) {
