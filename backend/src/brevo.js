@@ -321,12 +321,12 @@ function getClientEmailTemplate(data) {
             <p>Entre em contato conosco diretamente:</p>
             <ul style="margin: 10px 0;">
               <li>🌐 Website: <a href="https://tagit.com.br" style="color: #00B4FF; text-decoration: none;">tagit.com.br</a></li>
-              <li>📞 WhatsApp: <a href="https://wa.me/5516991295203" style="color: #00B4FF; text-decoration: none;">+55 16 99129-5203</a></li>
+              <li>📞 WhatsApp: <a href="https://wa.me/5516996403745" style="color: #00B4FF; text-decoration: none;">+55 16 99640-3745</a></li>
               <li>⏰ Horário: Segunda a Sexta, 9h-18h (Brasília)</li>
             </ul>
             
             <center>
-              <a href="https://wa.me/5516991295203" class="button">Fale Conosco via WhatsApp</a>
+              <a href="https://wa.me/5516996403745" class="button">Fale Conosco via WhatsApp</a>
             </center>
           </div>
           
