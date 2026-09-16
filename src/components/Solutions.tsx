@@ -1,8 +1,9 @@
+import { companyWhatsApp } from "@/lib/contact";
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ContactModal } from "@/components/ContactModal";
-import { PlayCircle, MessageCircle } from "lucide-react";
+import { ArrowRight, MessageCircle } from "lucide-react";
 import { useState } from "react";
 
 export const Solutions = () => {
@@ -37,15 +38,15 @@ export const Solutions = () => {
             <Card className="p-5 sm:p-6 md:p-10 border-primary-foreground/20 bg-background/95 backdrop-blur-sm">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                 <div>
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground mb-2">Veja a Tag It em ação em 30 segundos</h3>
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground mb-2">Conheça a solução para sua empresa</h3>
                   <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-                    Simule uma localização na plataforma e entenda como reduzir perdas na prática.
+                    Veja os cenários de uso e converse com nossa equipe sobre a sua operação.
                   </p>
                 </div>
                 <Button asChild size="lg" className="rounded-full px-6 sm:px-8 w-full md:w-auto">
                   <a href="/para-empresas" className="inline-flex items-center gap-2">
-                    <PlayCircle className="w-5 h-5" />
-                    Ver demonstração
+                    <ArrowRight className="w-5 h-5" />
+                    Conhecer a solução
                   </a>
                 </Button>
               </div>
@@ -61,7 +62,7 @@ export const Solutions = () => {
               Solicitar demonstração
             </Button>
             <Button asChild size="lg" className="rounded-full px-6 sm:px-8 w-full sm:w-auto bg-primary-foreground text-primary hover:bg-primary-foreground/90">
-              <a href="https://api.whatsapp.com/send/?phone=5516991295203&text=Ol%C3%A1%21+Gostaria+de+mais+informa%C3%A7%C3%B5es+sobre+a+Tag+It.&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
+              <a href={companyWhatsApp()} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
                 <MessageCircle className="w-5 h-5" />
                 Falar no WhatsApp
               </a>

@@ -1,14 +1,14 @@
-import tagProduct from "@/assets/tag-product-new.png";
+import tagProduct from "@/assets/tag-product-new.webp";
 import type { HeroSlide } from "@/lib/hero-slides";
 
 export const defaultHeroSlides: HeroSlide[] = [
   {
     id: "slide-1",
-    title: "Localize e proteja seus ativos em segundos",
+    title: "Mais visibilidade sobre seus ativos",
     description:
       "Mais controle, menos perdas e decisões mais rápidas para empresas e para você com tecnologia de localização inteligente.",
     image: tagProduct,
-    imageAlt: "Produto Tag It - Localizador de Ativos com Tecnologia GPS Avançada",
+    imageAlt: "Mini Tag para localização de objetos",
     primaryCtaLabel: "PARA EMPRESAS",
     primaryCtaHref: "/para-empresas",
     secondaryCtaLabel: "PARA VOCÊ",
@@ -16,7 +16,7 @@ export const defaultHeroSlides: HeroSlide[] = [
   },
   {
     id: "slide-2",
-    title: "Tenha visibilidade total dos seus ativos na plataforma",
+    title: "Consulte seus ativos na plataforma",
     description:
       "Acompanhe movimentações, receba alertas e aja rápido para reduzir perdas e atrasos na operação.",
     image: tagProduct,

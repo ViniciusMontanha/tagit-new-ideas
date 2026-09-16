@@ -6,7 +6,7 @@ import { Zap, Users, Globe, Award, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { ContactModal } from "@/components/ContactModal";
 import founderImage from "@/assets/executivo.jpeg";
-import viniciusImage from "@/assets/viniciusmedeiros.jpeg";
+import viniciusImage from "@/assets/viniciusmedeiros.webp";
 
 const About = () => {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -99,11 +99,11 @@ const About = () => {
                         Nossa História
                       </h2>
                       <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4">
-                        A <span className="font-semibold">Tag IT Localização</span> nasceu 
-                        da necessidade de oferecer soluções inteligentes, acessíveis e confiáveis 
-                        para localização e gestão de ativos, veículos e pessoas. Observando as 
-                        dificuldades enfrentadas por empresas e usuários no controle, segurança e 
-                        localização, surgiu a ideia de criar uma tecnologia prática, 
+                        A <span className="font-semibold">Tag IT Localização</span> nasceu
+                        da necessidade de oferecer soluções inteligentes, acessíveis e confiáveis
+                        para localização e gestão de ativos, veículos e pessoas. Observando as
+                        dificuldades enfrentadas por empresas e usuários no controle, segurança e
+                        localização, surgiu a ideia de criar uma tecnologia prática,
                         eficiente e adaptada à realidade do mercado.
                       </p>
                       <div>
@@ -125,7 +125,7 @@ const About = () => {
                         Após esses 12 anos, transicionei para a área comercial, onde aprofundei meus conhecimentos em análise de desempenho, gestão de projetos, demandas e workflow. Hoje, atuo representando grandes empresas, com foco em inovação, agilidade e transformação digital. Meu propósito é impulsionar negócios, transformando-os em grandes projetos tecnológicos e trazendo tecnologia para o dia a dia.
                       </p>
                       <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4">
-                        Unimos inovação, tecnologia e conhecimento para desenvolver soluções de 
+                        Unimos inovação, tecnologia e conhecimento para desenvolver soluções de
                         localização que tragam mais segurança, controle e tranquilidade aos nossos clientes.
                       </p>
                     </div>

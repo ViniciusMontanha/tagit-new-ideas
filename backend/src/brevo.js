@@ -1,21 +1,28 @@
 import * as brevo from "@getbrevo/brevo";
 import { z } from "zod";
+import { COMPANY, normalizeBrazilianPhone, isValidBrazilianPhone, escapeHtml } from "./contact-utils.js";
+import { deliverContactEmails } from "./email-delivery.js";
+import { randomUUID } from "node:crypto";
 
 // Schema de validação
 export const contactFormSchema = z.object({
-  nome: z.string().min(3, "Nome deve ter no mínimo 3 caracteres").max(100),
+  nome: z.string().trim().min(3, "Nome deve ter no mínimo 3 caracteres").max(100),
   email: z
     .string()
-    .email("Email inválido")
+    .trim()
+    .email("Email inválido").max(254)
     .min(1, "Email é obrigatório"),
   telefone: z
     .string()
-    .regex(/^\+?55?\d{10,11}$/, "Telefone inválido")
-    .min(1, "Telefone é obrigatório"),
+    .transform(normalizeBrazilianPhone)
+    .refine(isValidBrazilianPhone, "Telefone brasileiro inválido"),
   mensagem: z
     .string()
+    .trim()
     .min(10, "Mensagem deve ter no mínimo 10 caracteres")
     .max(1000, "Mensagem não pode exceder 1000 caracteres"),
+  requestId: z.string().uuid().optional(),
+  website: z.string().max(0).optional(),
 });
 
 // Configurar Brevo - CORRETO PARA v3.0.0+
@@ -37,10 +44,11 @@ if (apiKey) {
 /**
  * Template de email para a empresa
  */
-function getAdminEmailTemplate(data) {
+export function getAdminEmailTemplate(input) {
+  const data = Object.fromEntries(Object.entries(input).map(([key, value]) => [key, escapeHtml(value)]));
   const whatsappNumber = data.telefone.replace(/\D/g, "");
   const whatsappUrl = `https://wa.me/${whatsappNumber}`;
-  
+
   return `
     <!DOCTYPE html>
     <html>
@@ -48,29 +56,29 @@ function getAdminEmailTemplate(data) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
-          body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; 
-            color: #333; 
+          body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: #333;
             line-height: 1.6;
             background: #f5f5f5;
           }
-          .container { 
-            max-width: 600px; 
-            margin: 20px auto; 
+          .container {
+            max-width: 600px;
+            margin: 20px auto;
             padding: 0;
             background: white;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
           }
-          .header { 
-            background: linear-gradient(135deg, #00B4FF 0%, #7B3EFF 100%); 
-            color: white; 
-            padding: 40px 20px; 
+          .header {
+            background: linear-gradient(135deg, #00B4FF 0%, #7B3EFF 100%);
+            color: white;
+            padding: 40px 20px;
             text-align: center;
           }
-          .header h1 { 
-            margin: 0 0 10px 0; 
+          .header h1 {
+            margin: 0 0 10px 0;
             font-size: 26px;
             font-weight: 700;
           }
@@ -79,22 +87,22 @@ function getAdminEmailTemplate(data) {
             font-size: 14px;
             opacity: 0.9;
           }
-          .content { 
+          .content {
             padding: 40px 20px;
           }
-          .field { 
+          .field {
             margin-bottom: 30px;
           }
-          .label { 
-            font-weight: 600; 
-            color: #00B4FF; 
+          .label {
+            font-weight: 600;
+            color: #00B4FF;
             margin-bottom: 8px;
             font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             display: block;
           }
-          .value { 
+          .value {
             color: #333;
             font-size: 15px;
             word-wrap: break-word;
@@ -165,11 +173,11 @@ function getAdminEmailTemplate(data) {
             text-decoration: none;
             color: white;
           }
-          .footer { 
+          .footer {
             background: #f5f5f5;
-            color: #666; 
-            font-size: 12px; 
-            text-align: center; 
+            color: #666;
+            font-size: 12px;
+            text-align: center;
             padding: 25px 20px;
             border-top: 1px solid #e0e0e0;
           }
@@ -184,30 +192,30 @@ function getAdminEmailTemplate(data) {
             <h1>📞 Nova Solicitação de Contato</h1>
             <p>Tag It - Sistema de Localização de Ativos</p>
           </div>
-          
+
           <div class="content">
             <div class="field">
               <label class="label">👤 Nome do Cliente</label>
               <div class="value">${data.nome}</div>
             </div>
-            
+
             <div class="field">
               <label class="label">📧 Email</label>
               <div class="value">
                 <a href="mailto:${data.email}">${data.email}</a>
               </div>
             </div>
-            
+
             <div class="field">
               <label class="label">📱 Telefone</label>
               <div class="value">
                 <a href="tel:${whatsappNumber}">${data.telefone}</a>
               </div>
             </div>
-            
+
             <div class="field">
               <label class="label">💬 Mensagem</label>
-              <div class="message-box">${data.mensagem.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
+              <div class="message-box">${data.mensagem}</div>
             </div>
 
             <div class="action-box">
@@ -219,7 +227,7 @@ function getAdminEmailTemplate(data) {
               <a href="mailto:${data.email}" class="email-btn">📧 Responder via Email</a>
             </div>
           </div>
-          
+
           <div class="footer">
             <p><strong>Tag It - Localização Inteligente de Ativos</strong></p>
             <p>©️ 2026 Tag It. Todos os direitos reservados.</p>
@@ -234,7 +242,8 @@ function getAdminEmailTemplate(data) {
 /**
  * Template de email para o cliente (confirmação)
  */
-function getClientEmailTemplate(data) {
+export function getClientEmailTemplate(input) {
+  const data = Object.fromEntries(Object.entries(input).map(([key, value]) => [key, escapeHtml(value)]));
   return `
     <!DOCTYPE html>
     <html>
@@ -243,25 +252,25 @@ function getClientEmailTemplate(data) {
         <style>
           body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; line-height: 1.6; }
           .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-          .header { 
-            background: linear-gradient(135deg, #00B4FF 0%, #7B3EFF 100%); 
-            color: white; 
-            padding: 30px 20px; 
+          .header {
+            background: linear-gradient(135deg, #00B4FF 0%, #7B3EFF 100%);
+            color: white;
+            padding: 30px 20px;
             border-radius: 8px 8px 0 0;
             text-align: center;
           }
           .header h1 { margin: 0; font-size: 24px; }
-          .content { 
-            background: #f9f9f9; 
+          .content {
+            background: #f9f9f9;
             padding: 30px 20px;
             border: 1px solid #e0e0e0;
             border-top: none;
           }
-          .footer { 
+          .footer {
             background: #f0f0f0;
-            color: #666; 
-            font-size: 12px; 
-            text-align: center; 
+            color: #666;
+            font-size: 12px;
+            text-align: center;
             padding: 20px;
             border-radius: 0 0 8px 8px;
             border: 1px solid #e0e0e0;
@@ -293,14 +302,14 @@ function getClientEmailTemplate(data) {
           <div class="header">
             <h1>✅ Recebemos sua Mensagem!</h1>
           </div>
-          
+
           <div class="content">
             <p>Olá <span class="highlight">${data.nome}</span>,</p>
-            
+
             <p>Agradecemos muito pelo seu interesse na <span class="highlight">Tag It</span>! 🎉</p>
-            
+
             <p>Sua solicitação foi recebida com sucesso e nossa equipe de especialistas já foi notificada sobre seu interesse.</p>
-            
+
             <div class="info-box">
               <p style="margin: 0 0 10px 0;"><strong>📋 Informações da sua solicitação:</strong></p>
               <ul style="margin: 0; padding-left: 20px; font-size: 14px;">
@@ -309,27 +318,27 @@ function getClientEmailTemplate(data) {
                 <li>Email: ${data.email}</li>
               </ul>
             </div>
-            
+
             <p><strong>⏳ Próximos Passos:</strong></p>
             <p>Nossa equipe entrará em contato com você em <strong>poucos minutos</strong> através:</p>
             <ul style="margin: 10px 0;">
               <li>☎️ WhatsApp: <a href="https://wa.me/${data.telefone.replace(/\D/g, "")}" style="color: #00B4FF; text-decoration: none;">${data.telefone}</a></li>
               <li>📧 Email: ${data.email}</li>
             </ul>
-            
+
             <p><strong>💡 Dúvidas Urgentes?</strong></p>
             <p>Entre em contato conosco diretamente:</p>
             <ul style="margin: 10px 0;">
               <li>🌐 Website: <a href="https://tagit.com.br" style="color: #00B4FF; text-decoration: none;">tagit.com.br</a></li>
-              <li>📞 WhatsApp: <a href="https://wa.me/5516996403745" style="color: #00B4FF; text-decoration: none;">+55 16 99640-3745</a></li>
+              <li>📞 WhatsApp: <a href="https://wa.me/${COMPANY.phone.slice(1)}" style="color: #00B4FF; text-decoration: none;">${COMPANY.phoneDisplay}</a></li>
               <li>⏰ Horário: Segunda a Sexta, 9h-18h (Brasília)</li>
             </ul>
-            
+
             <center>
-              <a href="https://wa.me/5516996403745" class="button">Fale Conosco via WhatsApp</a>
+              <a href="https://wa.me/${COMPANY.phone.slice(1)}" class="button">Fale Conosco via WhatsApp</a>
             </center>
           </div>
-          
+
           <div class="footer">
             <p style="margin: 0 0 10px 0;">
               <strong>Tag It - Localização Inteligente de Ativos</strong>
@@ -357,9 +366,9 @@ export async function sendContactEmailBrevo(data) {
     }
 
     console.log("📧 Iniciando envio de email via Brevo...");
-    console.log(`   API Key: ${apiKey.substring(0, 10)}...`);
+
     console.log(`   Destinatário Admin: contato@tagit.com.br`);
-    console.log(`   Destinatário Cliente: ${data.email}`);
+
 
     // Email para a empresa
     const adminEmailData = new brevo.SendSmtpEmail();
@@ -399,42 +408,19 @@ export async function sendContactEmailBrevo(data) {
       },
     ];
 
-    // Enviar ambos os emails
-    console.log("🔄 Enviando email para administrador...");
-    const adminResponse = await apiInstance.sendTransacEmail(adminEmailData);
-    console.log("✅ Email para administrador enviado!");
-    console.log(`   Message ID: ${adminResponse.body?.messageId || "N/A"}`);
-
-    console.log("🔄 Enviando email de confirmação para cliente...");
-    const clientResponse = await apiInstance.sendTransacEmail(clientEmailData);
-    console.log("✅ Email de confirmação enviado!");
-    console.log(`   Message ID: ${clientResponse.body?.messageId || "N/A"}`);
-
-    console.log(`✅ Email enviado com sucesso para ${data.email}`);
-    console.log(`👤 Cliente: ${data.nome} | 📱 Telefone: ${data.telefone}`);
-
-    return {
-      success: true,
-      adminMessageId: adminResponse.body?.messageId,
-      clientMessageId: clientResponse.body?.messageId,
-    };
-  } catch (error) {
-    console.error(`❌ Erro bruto:`, error);
-    
-    let errorMessage = "Erro desconhecido";
-    
-    if (error.response && error.response.body) {
-      console.error(`❌ Resposta da Brevo:`, error.response.body);
-      errorMessage = error.response.body.message || error.response.body.error || JSON.stringify(error.response.body);
-    } else if (error instanceof Error) {
-      errorMessage = error.message;
-    }
-    
-    console.error(`❌ Erro ao enviar email via Brevo: ${errorMessage}`);
-
-    return {
-      success: false,
-      error: errorMessage,
-    };
+    const requestId = data.requestId || randomUUID();
+    const { nome, email, telefone, mensagem } = data;
+    const result = await deliverContactEmails({
+      send: (message) => apiInstance.sendTransacEmail(message),
+      admin: adminEmailData,
+      client: clientEmailData,
+      requestId,
+      data: { nome, email, telefone, mensagem },
+    });
+    console.info(JSON.stringify({ event: "contact_delivery", requestId, ...result }));
+    return { ...result, requestId };
+  } catch {
+    console.error("Falha ao preparar o envio de contato");
+    return { success: false, adminAccepted: false, confirmationSent: false };
   }
 }

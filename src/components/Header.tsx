@@ -1,15 +1,9 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { ContactModal } from "@/components/ContactModal";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.webp";
 import { Menu, Info, Briefcase, Users, Zap, Sparkles, Mail, LogIn, Layers, ChevronDown, Cpu } from "lucide-react";
-
-export const Header = () => {
-  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isSolutionsMobileOpen, setIsSolutionsMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>("");
 
   const solutionLinks = [
     { href: "/para-empresas", label: "Para Empresas", ariaLabel: "Ir para página Para Empresas", isExternal: true, icon: Briefcase },
@@ -21,6 +15,13 @@ export const Header = () => {
     { href: "#dispositivo", label: "Dispositivo", ariaLabel: "Ir para seção do Dispositivo", isExternal: false, icon: Cpu },
     { href: "/quem-somos", label: "Quem Somos", ariaLabel: "Ir para página Quem Somos da Tag It", isExternal: true, icon: Info },
   ];
+
+
+export const Header = () => {
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSolutionsMobileOpen, setIsSolutionsMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
 
   const isSolutionActive = solutionLinks.some((link) => window.location.pathname === link.href);
 
@@ -42,7 +43,7 @@ export const Header = () => {
       // Filtrar apenas os links que começam com # (âncoras internas)
       const internalLinks = [...menuLinks, ...solutionLinks].filter(link => link.href.startsWith("#"));
       const sections = internalLinks.map(link => link.href.substring(1)); // Remove o #
-      
+
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -62,7 +63,7 @@ export const Header = () => {
       setActiveSection(window.location.hash);
     };
     window.addEventListener("hashchange", handleHashChange);
-    
+
     // Detectar mudança de página
     const handlePathChange = () => {
       if (window.location.pathname !== "/") {
@@ -70,7 +71,7 @@ export const Header = () => {
       }
     };
     window.addEventListener("popstate", handlePathChange);
-    
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("hashchange", handleHashChange);
@@ -80,26 +81,26 @@ export const Header = () => {
 
   return (
     <>
-      <header 
+      <header
         className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm shadow-soft"
         role="banner"
         aria-label="Cabeçalho principal do site"
       >
         <div className="container mx-auto px-4">
-          <nav 
+          <nav
             className="flex items-center justify-between h-20 max-[400px]:h-16 sm:h-24"
             role="navigation"
             aria-label="Navegação principal"
           >
             {/* Logo - Link para Home */}
-            <a 
+            <a
               href="/"
               className="flex items-center transition-opacity hover:opacity-80 flex-shrink-0"
               aria-label="Tag It - Ir para a página inicial"
               title="Tag It - Localização de Ativos"
             >
-              <img 
-                src={logo} 
+              <img
+                src={logo}
                 alt="Tag It - Localização Inteligente de Ativos"
                 className="h-[82px] max-[400px]:h-14 sm:h-[96px] lg:h-[104px] w-auto object-contain"
                 loading="eager"
@@ -163,12 +164,12 @@ export const Header = () => {
               {menuLinks.map((link) => {
                 const IconComponent = link.icon;
                 return (
-                  <a 
+                  <a
                     key={link.href}
                     href={getLinkHref(link)}
                     className={`group flex items-center gap-2 font-semibold transition-all duration-200 relative ${
                       activeSection === link.href || (link.isExternal && window.location.pathname === link.href)
-                        ? "text-primary" 
+                        ? "text-primary"
                         : "text-foreground hover:text-primary"
                     }`}
                     aria-label={link.ariaLabel}
@@ -179,7 +180,7 @@ export const Header = () => {
                       {link.label}
                       <span className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${
                         activeSection === link.href || (link.isExternal && window.location.pathname === link.href)
-                          ? "w-full" 
+                          ? "w-full"
                           : "w-0 group-hover:w-full"
                       }`} />
                     </span>
@@ -191,7 +192,7 @@ export const Header = () => {
             {/* Desktop Right Section - E-mail, Demo, Login */}
             <div className="hidden lg:flex items-center">
               <div className="flex flex-col items-center gap-2 lg:-translate-x-[2rem]">
-                <Button 
+                <Button
                   onClick={() => setIsContactModalOpen(true)}
                   className="bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:shadow-lg hover:shadow-primary/40 font-semibold text-sm transition-all duration-300 flex items-center gap-2"
                   aria-label="Abrir formulário de contato"
@@ -201,8 +202,8 @@ export const Header = () => {
                 </Button>
               </div>
               <div className="flex items-center gap-2 xl:gap-3 ml-4">
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   className="text-sm font-semibold hover:bg-primary/10 hover:text-primary transition-all duration-300 flex items-center gap-2"
                   aria-label="Acessar Sistema 1"
                   asChild
@@ -212,8 +213,8 @@ export const Header = () => {
                     Sistema 1
                   </a>
                 </Button>
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   className="text-sm font-semibold hover:bg-primary/10 hover:text-primary transition-all duration-300 flex items-center gap-2"
                   aria-label="Acessar Sistema 2"
                   asChild
@@ -229,8 +230,8 @@ export const Header = () => {
             {/* Mobile Menu Button */}
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger asChild>
-                <Button 
-                  variant="ghost" 
+                <Button
+                  variant="ghost"
                   size="icon"
                   className="lg:hidden hover:bg-primary/10 transition-colors duration-200"
                   aria-label="Abrir menu de navegação"
@@ -239,6 +240,8 @@ export const Header = () => {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-[92vw] sm:w-[80vw] max-w-sm p-0">
+                <SheetTitle className="sr-only">Menu de navegação</SheetTitle>
+                <SheetDescription className="sr-only">Acesse as soluções, informações e canais de contato da Tag It.</SheetDescription>
                 <div className="flex flex-col h-full bg-background">
                   {/* Header do Menu Mobile */}
                   <div className="p-4 border-b border-border">
@@ -296,7 +299,7 @@ export const Header = () => {
                     {menuLinks.map((link) => {
                       const IconComponent = link.icon;
                       return (
-                        <a 
+                        <a
                           key={link.href}
                           href={getLinkHref(link)}
                           onClick={() => setIsMenuOpen(false)}
@@ -314,7 +317,7 @@ export const Header = () => {
                       );
                     })}
 
-                    <a 
+                    <a
                       href="mailto:contato@tagit.com.br"
                       className="flex items-center gap-3 px-4 py-3 rounded-lg bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground font-semibold transition-all duration-200"
                       aria-label="Enviar e-mail para contato@tagit.com.br"
@@ -326,7 +329,7 @@ export const Header = () => {
 
                   {/* Buttons do Menu Mobile */}
                   <div className="mt-auto p-4 border-t border-border flex flex-col gap-3">
-                    <Button 
+                    <Button
                       onClick={() => {
                         setIsContactModalOpen(true);
                         setIsMenuOpen(false);
@@ -337,8 +340,8 @@ export const Header = () => {
                       <Sparkles className="w-4 h-4" />
                       Solicitar Demo
                     </Button>
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       className="w-full font-semibold hover:bg-primary/10 hover:text-primary hover:border-primary transition-all duration-300"
                       aria-label="Acessar Sistema 1"
                       asChild
@@ -348,8 +351,8 @@ export const Header = () => {
                         Sistema 1
                       </a>
                     </Button>
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       className="w-full font-semibold hover:bg-primary/10 hover:text-primary hover:border-primary transition-all duration-300"
                       aria-label="Acessar Sistema 2"
                       asChild
@@ -368,9 +371,9 @@ export const Header = () => {
       </header>
 
       {/* Modal de Contato */}
-      <ContactModal 
-        isOpen={isContactModalOpen} 
-        onOpenChange={setIsContactModalOpen} 
+      <ContactModal
+        isOpen={isContactModalOpen}
+        onOpenChange={setIsContactModalOpen}
       />
     </>
   );

@@ -2,26 +2,12 @@ import { motion } from "framer-motion";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const faqs = [
-  {
-    question: "A bateria dura quanto tempo?",
-    answer: "A autonomia varia conforme uso e frequência de atualização, mas o dispositivo é otimizado para longa duração e operação contínua.",
-  },
-  {
-    question: "Qual o nível de precisão da localização?",
-    answer: "A plataforma combina tecnologia de localização para oferecer alta precisão e resposta rápida na visualização de ativos.",
-  },
-  {
-    question: "Meus dados estão seguros?",
-    answer: "Sim. A Tag It utiliza criptografia e boas práticas de segurança para proteger dados e acessos da sua conta.",
-  },
-  {
-    question: "A instalação é simples?",
-    answer: "Sim. A ativação é rápida e o processo foi pensado para facilitar o início sem necessidade de configuração complexa.",
-  },
-  {
-    question: "Existe suporte para empresas e pessoa física?",
-    answer: "Sim. Há fluxos e atendimento para cenários empresariais e também para uso pessoal.",
-  },
+  { question: "A bateria dura quanto tempo?", answer: "A Mini Tag usa uma bateria CR2032 substituível e tem autonomia de até 12 meses em standby, conforme a ficha do modelo. O uso e as condições de operação podem reduzir essa duração." },
+  { question: "Como a localização é atualizada?", answer: "A Mini Tag utiliza Bluetooth e uma rede compatível de dispositivos para obter atualizações de localização. A disponibilidade e a frequência variam conforme o ambiente; a emissão Bluetooth não significa atualização remota a cada dois segundos." },
+  { question: "Qual aplicativo e celular devo usar?", answer: "A ficha desta Mini Tag informa compatibilidade com iOS. Antes da compra, confirme com nossa equipe o aplicativo, a versão do sistema e a conta necessários ao seu modelo. O acesso à plataforma é orientado durante a ativação." },
+  { question: "Posso usar a Mini Tag para acompanhar meu pet?", answer: "O dispositivo pode ajudar na localização, respeitando as condições da rede compatível. Ele não garante acompanhamento contínuo ou localização imediata em qualquer ambiente e não substitui supervisão e identificação do animal." },
+  { question: "Como começo a usar?", answer: "Nossa equipe orienta sobre ativação, aplicativo e fixação da tag. Confirme a compatibilidade do seu celular e o cenário de uso antes de adquirir o dispositivo." },
+  { question: "Existe suporte para empresas e uso pessoal?", answer: "Sim. Entre em contato pelo formulário ou WhatsApp para receber orientação sobre o modelo e o uso adequado à sua necessidade." },
 ];
 
 export const HomeFaq = () => {

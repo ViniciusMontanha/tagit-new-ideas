@@ -32,9 +32,9 @@ const features: FeatureItem[] = [
     modalDescription:
       "Acompanhe ativos em rota, organize entregas e tenha visão rápida dos pontos críticos da operação.",
     highlights: [
-      "Localização contínua de cargas e equipamentos",
+      "Consulta da localização disponível de cargas e equipamentos",
       "Menos atrasos em coletas e entregas",
-      "Decisão mais rápida com dados em tempo real",
+      "Decisões apoiadas nas atualizações disponíveis",
     ],
   },
   {
@@ -126,8 +126,9 @@ export const Features = ({ enableRouting = false }: FeaturesProps) => {
     setSelectedFeature(null);
   };
 
+  const Heading = enableRouting ? "h1" : "h2";
   return (
-    <section id="recursos" className="scroll-mt-0 pt-8 sm:pt-10 pb-12 sm:pb-16 bg-background">
+    <section id="recursos" className={`${enableRouting ? "pt-28 sm:pt-32" : "pt-8 sm:pt-10"} scroll-mt-24 pb-12 sm:pb-16 bg-background`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -136,9 +137,9 @@ export const Features = ({ enableRouting = false }: FeaturesProps) => {
           viewport={{ once: true }}
           className="text-center mb-10 sm:mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
-            Casos reais por <span className="bg-gradient-hero bg-clip-text text-transparent">segmento</span>
-          </h2>
+          <Heading className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
+            Aplicações por <span className="bg-gradient-hero bg-clip-text text-transparent">segmento</span>
+          </Heading>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
             Veja como a Tag It se adapta rápido ao seu cenário de operação.
           </p>

@@ -1,181 +1,26 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import path from "path";
-import { fileURLToPath } from "url";
-import { uploadCarouselImageToGitHub } from "./github-upload.js";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-// Configurar paths para ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// ⚠️ CARREGAR VARIÁVEIS DE AMBIENTE PRIMEIRO
-dotenv.config({ path: path.resolve(__dirname, "../.env") });
-
-// Importar Zod de forma estática (não depende de env vars)
-import { z } from "zod";
-
-// Criar app e variáveis de forma síncrona
+const directory = path.dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: path.resolve(directory, "../.env") });
 const app = express();
-const PORT = process.env.PORT || 3001;
-
-// Importar brevo de forma dinâmica DEPOIS das env vars carregarem
-let contactFormSchema;
-let sendContactEmailBrevo;
-
-// Função para inicializar o brevo
-async function initBrevo() {
-  const brevoModule = await import("./brevo.js");
-  contactFormSchema = brevoModule.contactFormSchema;
-  sendContactEmailBrevo = brevoModule.sendContactEmailBrevo;
+app.use(cors({ origin: ["http://localhost:8080", "http://localhost:8081", "http://127.0.0.1:8081", "https://tagit.com.br", "https://www.tagit.com.br", process.env.FRONTEND_URL].filter(Boolean) }));
+// Imports explícitos permitem que a hospedagem inclua todos os handlers no pacote.
+const handlers = {
+  "send-contact": (await import("../api/send-contact.js")).default,
+  "admin-session": (await import("../api/admin-session.js")).default,
+  "hero-slides": (await import("../api/hero-slides.js")).default,
+  "upload-carousel-image": (await import("../api/upload-carousel-image.js")).default,
+  "github-image": (await import("../api/github-image.js")).default,
+  health: (await import("../api/health.js")).default,
+};
+// Reutiliza os mesmos handlers em produção e desenvolvimento, incluindo autenticação.
+for (const [name, handler] of Object.entries(handlers)) {
+  app.all(`/api/${name}`, express.json({ limit: name === "upload-carousel-image" ? "15mb" : "32kb" }), handler);
 }
-
-// Middleware
-app.use(express.json({ limit: "15mb" }));
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173", // Vite dev
-      "http://localhost:3000",
-      "http://localhost:8080",
-      "http://localhost:8081",
-      "http://127.0.0.1:8081", // Frontend em dev
-      "https://tagit.com.br", // Produção (domínio principal)
-      "https://tagit-new-ideas.vercel.app", // Vercel deployment
-      process.env.FRONTEND_URL || "",
-    ].filter(Boolean),
-    credentials: true,
-  })
-);
-
-// Função para configurar rotas (chamada após inicializar Brevo)
-function setupRoutes() {
-  // Health check
-  app.get("/api/health", (req, res) => {
-    res.json({
-      status: "OK",
-      timestamp: new Date().toISOString(),
-      brevoConfigured: !!process.env.BREVO_API_KEY,
-    });
-  });
-
-  // Rota de envio de email
-  app.post("/api/send-contact", async (req, res) => {
-    try {
-      // Validar dados com Zod
-      const validatedData = contactFormSchema.parse(req.body);
-
-      // Enviar email via Brevo
-      const result = await sendContactEmailBrevo(validatedData);
-
-      if (result.success) {
-        return res.status(200).json({
-          success: true,
-          message: "Email enviado com sucesso!",
-          timestamp: new Date().toISOString(),
-        });
-      } else {
-        return res.status(500).json({
-          error: "Erro ao enviar email",
-          details: result.error,
-        });
-      }
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      console.error("❌ Erro na API de contato:", errorMessage);
-
-      if (error instanceof z.ZodError) {
-        return res.status(400).json({
-          error: "Dados inválidos",
-          details: error.errors.map((e) => ({
-            field: e.path.join("."),
-            message: e.message,
-          })),
-        });
-      }
-
-      if (error instanceof Error) {
-        return res.status(500).json({
-          error: "Erro ao enviar email",
-          message: error.message,
-        });
-      }
-
-      return res.status(500).json({
-        error: "Erro desconhecido ao enviar email",
-      });
-    }
-  });
-
-  // Upload de imagem do carrossel para GitHub
-  app.post("/api/upload-carousel-image", async (req, res) => {
-    try {
-      const schema = z.object({
-        fileName: z.string().min(1),
-        fileBase64: z.string().min(1),
-        slideId: z.string().min(1),
-      });
-
-      const payload = schema.parse(req.body);
-      const upload = await uploadCarouselImageToGitHub(payload);
-
-      return res.status(200).json({
-        success: true,
-        imageUrl: upload.imageUrl,
-        filePath: upload.filePath,
-        width: upload.width,
-        height: upload.height,
-        mimeType: upload.mimeType,
-        resizeMode: upload.resizeMode,
-      });
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        return res.status(400).json({
-          error: "Dados inválidos",
-          details: error.errors.map((e) => ({
-            field: e.path.join("."),
-            message: e.message,
-          })),
-        });
-      }
-
-      const errorMessage = error instanceof Error ? error.message : "Erro desconhecido";
-      return res.status(500).json({
-        error: "Falha ao enviar imagem para o GitHub",
-        message: errorMessage,
-      });
-    }
-  });
-
-  // 404 handler
-  app.use((req, res) => {
-    res.status(404).json({
-      error: "Rota não encontrada",
-      path: req.path,
-      method: req.method,
-    });
-  });
-}
-
-// Iniciar servidor
-(async () => {
-  await initBrevo();
-  setupRoutes();  // Configurar rotas DEPOIS de inicializar Brevo
-  
-  app.listen(PORT, () => {
-    console.log(`\n🚀 Backend Tag It rodando em http://localhost:${PORT}`);
-    console.log(`📧 API de contato: http://localhost:${PORT}/api/send-contact`);
-    console.log(`✅ Health check: http://localhost:${PORT}/api/health`);
-    console.log(`\n🔑 Brevo API Key: ${process.env.BREVO_API_KEY ? "✓ Configurada" : "❌ Não configurada"}\n`);
-  });
-})();
-
-// Tratamento de erros não capturados
-process.on("unhandledRejection", (reason, promise) => {
-  console.error("❌ Promise rejeitada não tratada:", reason);
-});
-
-process.on("uncaughtException", (error) => {
-  console.error("❌ Exceção não capturada:", error);
-  process.exit(1);
-});
+app.use((_req, res) => res.status(404).json({ error: "Rota não encontrada" }));
+app.use((error, _req, res, _next) => res.status(error.status === 413 ? 413 : 400).json({ error: "Requisição inválida" }));
+app.listen(process.env.PORT || 3001, () => console.info("Backend Tag It iniciado"));

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { guardRequest } from "../src/request-guard.js";
 import { contactFormSchema, sendContactEmailBrevo } from "../src/brevo.js";
 
 const corsHeaders = {
@@ -18,6 +19,9 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Método não permitido" });
   }
 
+  if (!guardRequest(req, res, { scope: "contact", limit: 5 })) return;
+  if (JSON.stringify(req.body || {}).length > 8000) return res.status(413).json({ error: "Mensagem muito grande" });
+
   try {
     const validatedData = contactFormSchema.parse(req.body || {});
     const result = await sendContactEmailBrevo(validatedData);
@@ -25,13 +29,15 @@ export default async function handler(req, res) {
     if (!result.success) {
       return res.status(500).json({
         error: "Erro ao enviar email",
-        details: result.error,
+        message: "Não foi possível confirmar o envio. Tente novamente ou entre em contato pelo WhatsApp.",
       });
     }
 
     return res.status(200).json({
       success: true,
-      message: "Email enviado com sucesso!",
+      message: "Solicitação recebida pela equipe!",
+      confirmationSent: result.confirmationSent,
+      requestId: result.requestId,
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
@@ -45,10 +51,9 @@ export default async function handler(req, res) {
       });
     }
 
-    const message = error instanceof Error ? error.message : "Erro desconhecido";
     return res.status(500).json({
       error: "Erro ao enviar email",
-      message,
+      message: "Não foi possível confirmar o envio.",
     });
   }
 }

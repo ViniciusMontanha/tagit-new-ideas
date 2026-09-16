@@ -4,15 +4,15 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ContactModal } from "@/components/ContactModal";
 import { Building2, TrendingUp, Users, Lock } from "lucide-react";
-import tagPossibilities from "@/assets/tag-possibilities.png";
-import professionalTool from "@/assets/tag_preta_cm.png";
+import tagPossibilities from "@/assets/tag-possibilities.webp";
+import professionalTool from "@/assets/tag_preta_cm.webp";
 
 const benefits = [
   {
     icon: Lock,
     title: "Proteja seus ativos",
     description:
-      "Gerencie e localize equipamentos de alto valor, ferramentas e inventário da empresa com segurança total.",
+      "Gerencie e localize equipamentos de alto valor, ferramentas e inventário da empresa em uma única plataforma.",
   },
   {
     icon: TrendingUp,
@@ -36,9 +36,9 @@ export const Enterprise = () => {
 
   return (
     <>
-      <section 
-        id="empresas" 
-        className="py-16 sm:py-20 lg:py-28 relative overflow-hidden bg-background"
+      <section
+        id="empresas"
+        className="pt-28 sm:pt-32 lg:pt-36 pb-16 sm:pb-20 lg:pb-28 relative overflow-hidden bg-background"
         role="region"
         aria-labelledby="empresas-heading"
       itemScope
@@ -55,40 +55,24 @@ export const Enterprise = () => {
           viewport={{ once: true }}
           className="text-center mb-12 sm:mb-16 lg:mb-20"
         >
-          <h2 
+          <h1
             id="empresas-heading"
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 tracking-tight"
             itemProp="name"
           >
             Para <span className="bg-gradient-hero bg-clip-text text-transparent">Empresas</span>
-          </h2>
-          <p 
+          </h1>
+          <p
             className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-4xl mx-auto font-light leading-relaxed"
             itemProp="description"
           >
             Transforme a forma como sua empresa gerencia ativos com tecnologia de localização inteligente.
           </p>
 
-          <div className="max-w-4xl mx-auto mt-6 sm:mt-8 text-left space-y-4 sm:space-y-5">
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-              A Tag IT é uma plataforma avançada de localização e segurança de ativos baseada em tecnologia crowdsourced, desenvolvida para gerar dados globais de posicionamento com alta confiabilidade e escala.
-            </p>
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-              Projetada para ambientes corporativos que exigem controle, segurança e eficiência operacional, a solução permite ampliar significativamente a visibilidade sobre ativos críticos dentro de operações complexas.
-            </p>
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-              A tecnologia foi desenvolvida para atender organizações que precisam proteger e gerir ativos móveis e bens fixos de alto valor como:
-            </p>
-            <ul className="list-disc pl-6 space-y-2 text-base md:text-lg text-muted-foreground leading-relaxed" role="list" aria-label="Ativos de alto valor atendidos pela Tag IT">
-              <li>recursos logísticos estratégicos</li>
-              <li>equipamentos médicos hospitalares</li>
-              <li>ferramentas operacionais</li>
-              <li>dispositivos técnicos</li>
-              <li>equipamentos de alta tecnologia</li>
-            </ul>
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-              Com uma arquitetura escalável e adaptável a diferentes setores, a plataforma posiciona-se como uma nova infraestrutura tecnológica para gestão e proteção de ativos no ambiente corporativo moderno.
-            </p>
+          <div className="max-w-4xl mx-auto mt-6 text-left space-y-4 text-base md:text-lg text-muted-foreground leading-relaxed">
+            <p>Localize ferramentas, equipamentos e outros ativos móveis em uma plataforma de consulta. A Tag It ajuda sua equipe a organizar informações e agir quando um item precisa ser encontrado.</p>
+            <p>Aplicações incluem operações logísticas, construção e equipamentos técnicos. A equipe avalia com você o modelo, a compatibilidade e as condições de cobertura do local.</p>
+            <p>A localização remota utiliza uma rede de dispositivos compatíveis. A disponibilidade e o intervalo entre atualizações variam conforme o ambiente.</p>
           </div>
         </motion.div>
 
@@ -104,7 +88,7 @@ export const Enterprise = () => {
               <div className="absolute inset-0 bg-gradient-accent opacity-10 blur-[100px] rounded-full"></div>
               <motion.img
                 src={professionalTool}
-                alt="Ferramenta profissional de alto valor sendo rastreada com Tag It GPS"
+                alt="Mini Tag ao lado de uma régua, para referência de tamanho"
                 className="relative w-full max-w-lg mx-auto drop-shadow-2xl rounded-2xl"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
@@ -135,7 +119,7 @@ export const Enterprise = () => {
             className="order-1 lg:order-2"
           >
             {/* Lista de benefícios com microdata */}
-            <div 
+            <div
               className="grid grid-cols-1 gap-6"
               role="list"
             >
@@ -153,19 +137,19 @@ export const Enterprise = () => {
                   <Card className="p-5 sm:p-6 md:p-8 hover:shadow-soft transition-all duration-500 border hover:border-primary/20 bg-card/80 backdrop-blur-sm group">
                     <div className="flex items-start gap-5">
                       <div className="p-4 bg-gradient-accent rounded-2xl shadow-soft group-hover:scale-105 transition-transform duration-500">
-                        <benefit.icon 
-                          className="w-8 h-8 text-primary-foreground" 
+                        <benefit.icon
+                          className="w-8 h-8 text-primary-foreground"
                           aria-hidden="true"
                         />
                       </div>
                       <div className="flex-1">
-                        <h3 
+                        <h3
                           className="text-xl sm:text-2xl font-semibold mb-3 text-foreground"
                           itemProp="name"
                         >
                           {benefit.title}
                         </h3>
-                        <p 
+                        <p
                           className="text-muted-foreground text-base sm:text-lg font-light leading-relaxed"
                           itemProp="description"
                         >
@@ -199,9 +183,9 @@ export const Enterprise = () => {
     </section>
 
     {/* Modal de Contato */}
-    <ContactModal 
-      isOpen={isContactModalOpen} 
-      onOpenChange={setIsContactModalOpen} 
+    <ContactModal
+      isOpen={isContactModalOpen}
+      onOpenChange={setIsContactModalOpen}
     />
     </>
   );

@@ -1,3 +1,4 @@
+import { companyWhatsApp } from "@/lib/contact";
 import { MessageCircle } from "lucide-react";
 
 /**
@@ -6,13 +7,8 @@ import { MessageCircle } from "lucide-react";
  * Localização: Bottom-right, z-50
  */
 export const WhatsAppWidget = () => {
-  const phoneNumber = "5516991295203";
-  const message = "Olá! Gostaria de mais informações sobre a Tag It.";
-
   const handleClick = () => {
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    // Abre em nova aba sem referrer
-    window.open(url, '_blank', 'noopener,noreferrer');
+    window.open(companyWhatsApp(), "_blank", "noopener,noreferrer");
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
@@ -33,8 +29,8 @@ export const WhatsAppWidget = () => {
       role="button"
       tabIndex={0}
     >
-      <MessageCircle 
-        className="h-6 w-6 sm:h-7 sm:w-7" 
+      <MessageCircle
+        className="h-6 w-6 sm:h-7 sm:w-7"
         aria-hidden="true"
       />
     </button>
