@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { ContactModal } from "@/components/ContactModal";
-import logo from "@/assets/logo.webp";
+import logo from "@/assets/logo-225.webp";
+import logoRetina from "@/assets/logo-450.webp";
+import logoRetina3x from "@/assets/logo-675.webp";
 import { Menu, Info, Briefcase, Users, Zap, Sparkles, Mail, LogIn, Layers, ChevronDown, Cpu } from "lucide-react";
 
   const solutionLinks = [
@@ -101,14 +103,19 @@ export const Header = () => {
             >
               <img
                 src={logo}
+                srcSet={`${logo} 225w, ${logoRetina} 450w, ${logoRetina3x} 675w`}
+                sizes="(min-width: 1024px) 203px, (min-width: 640px) 180px, 135px"
                 alt="Tag It - Localização Inteligente de Ativos"
-                className="h-[82px] max-[400px]:h-14 sm:h-[96px] lg:h-[104px] w-auto object-contain"
+                width={225}
+                height={80}
+                className="h-12 sm:h-16 lg:h-[72px] w-auto object-contain"
                 loading="eager"
+                decoding="async"
               />
             </a>
 
             {/* Menu Desktop */}
-            <div className="hidden lg:flex items-center gap-4 xl:gap-8 flex-1 justify-center">
+            <div className="hidden xl:flex items-center gap-8 flex-1 justify-center">
               <div className="relative group">
                 <button
                   type="button"
@@ -190,7 +197,7 @@ export const Header = () => {
             </div>
 
             {/* Desktop Right Section - E-mail, Demo, Login */}
-            <div className="hidden lg:flex items-center">
+            <div className="hidden xl:flex items-center">
               <div className="flex flex-col items-center gap-2 lg:-translate-x-[2rem]">
                 <Button
                   onClick={() => setIsContactModalOpen(true)}
@@ -233,7 +240,7 @@ export const Header = () => {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="lg:hidden hover:bg-primary/10 transition-colors duration-200"
+                  className="xl:hidden hover:bg-primary/10 transition-colors duration-200"
                   aria-label="Abrir menu de navegação"
                 >
                   <Menu className="h-6 w-6 transition-transform duration-300" />
