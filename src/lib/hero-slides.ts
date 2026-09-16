@@ -1,3 +1,4 @@
+import { normalizeCompanyLink } from "@/lib/contact";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 
 export type HeroSlide = {
@@ -36,13 +37,28 @@ const HERO_SLIDES_TABLE = "hero_slides";
 const apiBaseUrl = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
 
 const appendCacheBuster = (url: string, token: string): string => {
-  if (!url) {
-    return url;
-  }
-
-  const separator = url.includes("?") ? "&" : "?";
-  return `${url}${separator}v=${encodeURIComponent(token)}`;
+  try { const parsed = new URL(url, "https://tagit.com.br"); parsed.searchParams.set("v", token); return parsed.toString(); }
+  catch { return url; }
 };
+
+const normalizeSlide = (slide: HeroSlide): HeroSlide => ({
+  ...slide,
+  title: slide.title.replace("Nossas tags tem", "Nossas tags têm"),
+  primaryCtaHref: normalizeCompanyLink(slide.primaryCtaHref),
+  secondaryCtaHref: normalizeCompanyLink(slide.secondaryCtaHref),
+  image: stableImageUrl(slide.image),
+  imageAlt: /GPS|banheiros químico/i.test(slide.imageAlt) ? slide.title : slide.imageAlt,
+});
+
+// Conserva somente a versão mais recente já salva. Não muda a URL a cada visita.
+function stableImageUrl(value: string): string {
+  try {
+    const url = new URL(value, "https://tagit.com.br");
+    const versions = url.searchParams.getAll("v");
+    if (versions.length) { url.searchParams.delete("v"); url.searchParams.set("v", versions.at(-1)!); }
+    return value.startsWith("/") ? url.pathname + url.search : url.toString();
+  } catch { return value; }
+}
 
 export const isValidHeroSlide = (value: unknown): value is HeroSlide => {
   if (!value || typeof value !== "object") {
@@ -107,7 +123,7 @@ export const loadHeroSlidesFromStorage = (): HeroSlide[] | null => {
       return null;
     }
 
-    const validSlides = parsed.filter(isValidHeroSlide);
+    const validSlides = parsed.filter(isValidHeroSlide).map(normalizeSlide);
     return validSlides.length > 0 ? validSlides : null;
   } catch {
     return null;
@@ -119,7 +135,7 @@ export const saveHeroSlidesToStorage = (slides: HeroSlide[]): void => {
     return;
   }
 
-  window.localStorage.setItem(HERO_SLIDES_STORAGE_KEY, JSON.stringify(slides));
+  try { window.localStorage.setItem(HERO_SLIDES_STORAGE_KEY, JSON.stringify(slides)); } catch { /* Cache opcional. */ }
 };
 
 export const getHeroSlidesPersistenceMode = (): "supabase" | "localStorage" => {
@@ -127,7 +143,7 @@ export const getHeroSlidesPersistenceMode = (): "supabase" | "localStorage" => {
 };
 
 const mapRowToHeroSlide = (row: HeroSlideRow): HeroSlide => {
-  return {
+  return normalizeSlide({
     id: row.id,
     title: row.title,
     description: row.description,
@@ -137,7 +153,7 @@ const mapRowToHeroSlide = (row: HeroSlideRow): HeroSlide => {
     primaryCtaHref: row.primary_cta_href,
     secondaryCtaLabel: row.secondary_cta_label,
     secondaryCtaHref: row.secondary_cta_href,
-  };
+  });
 };
 
 const withImageCacheBuster = (slides: HeroSlide[], token: string): HeroSlide[] => {
@@ -165,8 +181,7 @@ const mapHeroSlideToRow = (slide: HeroSlide, position: number): HeroSlideRow => 
 export const loadHeroSlides = async (): Promise<HeroSlide[] | null> => {
   if (apiBaseUrl) {
     try {
-      const cacheToken = String(Date.now());
-      const response = await fetch(`${apiBaseUrl}/api/hero-slides?v=${cacheToken}`, { cache: "no-store" });
+      const response = await fetch(`${apiBaseUrl}/api/hero-slides`, { signal: AbortSignal.timeout(5000) });
 
       if (response.ok) {
         const payload = await response.json();
@@ -176,7 +191,7 @@ export const loadHeroSlides = async (): Promise<HeroSlide[] | null> => {
         const validSlides = mappedSlides.filter(isValidHeroSlide);
 
         if (validSlides.length > 0) {
-          const freshSlides = withImageCacheBuster(validSlides, cacheToken);
+          const freshSlides = validSlides;
           saveHeroSlidesToStorage(freshSlides);
           return freshSlides;
         }
@@ -192,15 +207,14 @@ export const loadHeroSlides = async (): Promise<HeroSlide[] | null> => {
       .select(
         "id, position, title, description, image, image_alt, primary_cta_label, primary_cta_href, secondary_cta_label, secondary_cta_href"
       )
-      .order("position", { ascending: true });
+      .order("position", { ascending: true }).abortSignal(AbortSignal.timeout(5000));
 
     if (!error && Array.isArray(data)) {
       const mappedSlides = data.map((row) => mapRowToHeroSlide(row as HeroSlideRow));
       const validSlides = mappedSlides.filter(isValidHeroSlide);
 
       if (validSlides.length > 0) {
-        const cacheToken = String(Date.now());
-        const freshSlides = withImageCacheBuster(validSlides, cacheToken);
+        const freshSlides = validSlides;
         saveHeroSlidesToStorage(freshSlides);
         return freshSlides;
       }
@@ -215,7 +229,7 @@ export const loadHeroSlides = async (): Promise<HeroSlide[] | null> => {
 };
 
 export const saveHeroSlides = async (slides: HeroSlide[], adminToken?: string): Promise<SaveHeroSlidesResult> => {
-  const validSlides = slides.filter(isValidHeroSlide);
+  const validSlides = withImageCacheBuster(slides.filter(isValidHeroSlide).map(normalizeSlide), String(Date.now()));
 
   if (validSlides.length === 0) {
     return {
