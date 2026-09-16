@@ -1,16 +1,17 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
+import { SEOHead } from "./components/SEOHead";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
-import About from "./pages/About";
-import Empresas from "./pages/Empresas";
-import ParaVoce from "./pages/ParaVoce";
-import AdminCarousel from "./pages/AdminCarousel";
-import Seguimento from "./pages/Seguimento";
-import NotFound from "./pages/NotFound";
+const About = lazy(() => import("./pages/About"));
+const Empresas = lazy(() => import("./pages/Empresas"));
+const ParaVoce = lazy(() => import("./pages/ParaVoce"));
+const AdminCarousel = lazy(() => import("./pages/AdminCarousel"));
+const Seguimento = lazy(() => import("./pages/Seguimento"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 import { WhatsAppWidget } from "./components/WhatsAppWidget";
 import { CookieBanner } from "./components/CookieBanner";
 import { PrivacyPolicyProvider } from "./contexts/PrivacyPolicyContext";
@@ -29,14 +30,16 @@ const App = () => {
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          
+
           {/* Widget de contato WhatsApp - globalmente disponível */}
           <WhatsAppWidget />
-          
+
           {/* Banner de Cookies - globalmente disponível */}
           <CookieBanner />
 
           <BrowserRouter>
+            <SEOHead />
+            <Suspense fallback={<main className="p-8 pt-28" role="status">Carregando página...</main>}>
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/quem-somos" element={<About />} />
@@ -49,6 +52,7 @@ const App = () => {
               <Route path="/admin/carrossel" element={<AdminCarousel />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
+            </Suspense>
           </BrowserRouter>
         </TooltipProvider>
       </PrivacyPolicyProvider>
