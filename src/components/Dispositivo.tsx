@@ -108,7 +108,7 @@ const technicalSections = [
       { label: "Antena", value: "Integrada" },
       { label: "Intervalo de emissão Bluetooth", value: "A cada 2 segundos (não equivale à atualização remota)" },
       { label: "Protocolo de Comunicação", value: "Bluetooth + Transmissão" },
-      { label: "Sistema Suportado", value: "iOS" },
+      { label: "Sistema Suportado", value: "iOS / Android" },
       { label: "", value: "" },
       { label: "Desempenho e Operação", value: "", icon: Thermometer },
       { label: "Alcance em ambientes internos", value: "15 a 25 m" },
