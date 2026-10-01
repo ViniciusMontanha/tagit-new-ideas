@@ -2,11 +2,12 @@ import { Button } from "@/components/ui/button";
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
-import { defaultHeroSlides } from "@/lib/hero-default-slides";
+import { prepareHeroImage } from "@/lib/hero-image";
+import { defaultHeroSlides, defaultHeroImage } from "@/lib/hero-default-slides";
 import { loadHeroSlides, type HeroSlide } from "@/lib/hero-slides";
 
 export const Hero = () => {
-  const [slides, setSlides] = useState<HeroSlide[]>(defaultHeroSlides);
+  const [slides, setSlides] = useState<HeroSlide[]>([]);
   const reducedMotion = useReducedMotion();
   const [paused, setPaused] = useState(false);
   const [interacting, setInteracting] = useState(false);
@@ -14,23 +15,30 @@ export const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
-    let isMounted = true;
+    const controller = new AbortController();
 
     const fetchSlides = async () => {
       const remoteSlides = await loadHeroSlides().catch(() => null);
+      if (controller.signal.aborted) return;
 
-      if (!isMounted) {
-        return;
+      const nextSlides = remoteSlides?.length ? remoteSlides : defaultHeroSlides;
+      const firstImageReady = await prepareHeroImage(nextSlides[0].image, controller.signal);
+      if (controller.signal.aborted) return;
+
+      if (!firstImageReady) {
+        await prepareHeroImage(defaultHeroImage, controller.signal);
       }
+      if (controller.signal.aborted) return;
 
-      setSlides(remoteSlides ?? defaultHeroSlides);
-
+      setSlides(nextSlides.map((slide, index) =>
+        index === 0 && !firstImageReady ? { ...slide, image: defaultHeroImage } : slide
+      ));
     };
 
     fetchSlides();
 
     return () => {
-      isMounted = false;
+      controller.abort();
     };
   }, []);
 
@@ -76,10 +84,24 @@ export const Hero = () => {
       className="hero-section relative flex items-center pt-24 max-[400px]:pt-20 md:pt-20 pb-16 max-[400px]:pb-12 sm:pb-20 md:pb-24 lg:pb-28 overflow-hidden bg-gradient-to-br from-cyan-light via-blue-medium to-purple-medium"
       role="region"
       aria-label="Seção principal - Hero"
+      aria-busy={slides.length === 0}
       itemScope
       itemType="https://schema.org/WebPage"
     >
       <div className="mx-auto w-[min(96vw,1680px)] px-3 sm:px-4 md:px-6 lg:px-8 py-8 max-[400px]:py-6 sm:py-12 md:py-16 lg:py-20">
+        {slides.length === 0 ? (
+          <div role="status" className="min-h-[540px] sm:min-h-[620px] md:min-h-[440px] flex flex-col justify-center">
+            <span className="sr-only">Carregando destaques da Tag It…</span>
+            <div aria-hidden="true" className="grid md:grid-cols-2 gap-8 items-center motion-safe:animate-pulse">
+              <div className="w-full max-w-xl mx-auto space-y-6">
+                <div className="h-24 sm:h-32 rounded-2xl bg-white/10" />
+                <div className="h-20 rounded-2xl bg-white/10" />
+                <div className="h-12 w-3/4 mx-auto md:mx-0 rounded-full bg-white/10" />
+              </div>
+              <div className="w-full max-w-[210px] sm:max-w-xs md:max-w-sm aspect-square rounded-full bg-white/10 mx-auto" />
+            </div>
+          </div>
+        ) : (
         <Carousel
           setApi={setCarouselApi}
           opts={{ loop: true }}
@@ -149,6 +171,10 @@ export const Hero = () => {
                           loading={index === 0 ? "eager" : "lazy"}
                           fetchPriority={index === 0 ? "high" : "low"}
                           decoding="async"
+                          onError={(event) => {
+                            const image = event.currentTarget;
+                            if (image.getAttribute("src") !== defaultHeroImage) image.src = defaultHeroImage;
+                          }}
                           itemProp={index === 0 ? "image" : undefined}
                           width={400}
                           height={400}
@@ -181,6 +207,7 @@ export const Hero = () => {
             ))}
           </div>
         </Carousel>
+        )}
       </div>
 
       <div className="absolute bottom-0 inset-x-0 flex flex-wrap justify-center gap-x-6 gap-y-1 p-3 bg-foreground/20 text-white text-xs sm:text-sm" aria-label="Destaques da Tag It">
