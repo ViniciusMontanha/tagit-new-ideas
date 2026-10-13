@@ -15,7 +15,7 @@ test('cada página pública tem canonical e título próprios; aliases preservam
 
 test('dados estruturados usam contato e endereço oficiais, sem avaliações não verificadas',()=>{
  const data=structuredData('/');const org=data['@graph'][0];
- assert.equal(org.telephone,'+5516996403745');assert.equal(org.address.addressLocality,'Ribeirão Preto');
+ assert.equal(org.telephone,'+5516997493996');assert.equal(org.address.addressLocality,'Ribeirão Preto');
  assert.equal(JSON.stringify(data).includes('aggregateRating'),false);
 });
 
