@@ -3,12 +3,18 @@ import { guardRequest } from "../src/request-guard.js";
 import { contactFormSchema, sendContactEmailBrevo } from "../src/brevo.js";
 
 const corsHeaders = {
-  "Access-Control-Allow-Origin": "https://tagit.com.br",
   "Access-Control-Allow-Methods": "POST,OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
 
 export default async function handler(req, res) {
+  // Match the request guard's explicit origins; never reflect arbitrary origins.
+  const allowedOrigins = ["https://tagit.com.br", "https://www.tagit.com.br", process.env.FRONTEND_URL].filter(Boolean);
+  if (process.env.NODE_ENV !== "production") allowedOrigins.push("http://localhost:8080", "http://localhost:8081", "http://127.0.0.1:8081");
+  const origin = req.headers?.origin;
+  res.setHeader("Vary", "Origin");
+  if (origin && !allowedOrigins.includes(origin)) return res.status(403).json({ error: "Origem não permitida" });
+  if (origin) res.setHeader("Access-Control-Allow-Origin", origin);
   Object.entries(corsHeaders).forEach(([key, value]) => res.setHeader(key, value));
 
   if (req.method === "OPTIONS") {
