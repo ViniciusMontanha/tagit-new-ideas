@@ -258,7 +258,7 @@ const AdminCarousel = () => {
     <main className="min-h-screen" role="main" itemScope itemType="https://schema.org/WebPage">
       <Header />
 
-      <section className="pt-28 sm:pt-32 lg:pt-36 pb-12 sm:pb-16 bg-background" role="region" aria-labelledby="admin-carrossel-heading">
+      <section id="conteudo" className="pt-28 sm:pt-32 lg:pt-36 pb-12 sm:pb-16 bg-background" role="region" aria-labelledby="admin-carrossel-heading">
         <div className="container mx-auto px-4 sm:px-6 lg:px-10">
           <div className="max-w-7xl mx-auto">
             <h1 id="admin-carrossel-heading" className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-center">
