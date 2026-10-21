@@ -1,5 +1,4 @@
 import { companyWhatsApp } from "@/lib/contact";
-import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ContactModal } from "@/components/ContactModal";
@@ -13,11 +12,7 @@ export const Solutions = () => {
     <>
       <section id="contato" className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-blue-medium via-primary to-secondary" role="region" aria-labelledby="cta-final-heading">
         <div className="container mx-auto px-4 sm:px-6 lg:px-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+          <div
             className="text-center mb-10 sm:mb-12"
           >
             <h2 id="cta-final-heading" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight text-primary-foreground">
@@ -26,13 +21,9 @@ export const Solutions = () => {
             <p className="text-base sm:text-xl md:text-2xl text-primary-foreground/90 max-w-3xl mx-auto font-light">
               Fale com um especialista e veja a configuração ideal para seu cenário.
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
+          <div
             className="max-w-4xl mx-auto mb-8 sm:mb-10"
           >
             <Card className="p-5 sm:p-6 md:p-10 border-primary-foreground/20 bg-background/95 backdrop-blur-sm">
@@ -51,7 +42,7 @@ export const Solutions = () => {
                 </Button>
               </div>
             </Card>
-          </motion.div>
+          </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button
@@ -74,6 +65,7 @@ export const Solutions = () => {
       <ContactModal
         isOpen={isContactModalOpen}
         onOpenChange={setIsContactModalOpen}
+        interest="Demonstração"
       />
     </>
   );

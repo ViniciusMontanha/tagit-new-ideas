@@ -2,11 +2,9 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { CONSENT_EVENT, getConsent, setConsent } from "@/lib/consent";
-import { usePrivacyPolicy } from "@/contexts/PrivacyPolicyContext";
 
 export const CookieBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const { openPrivacyPolicy } = usePrivacyPolicy();
 
   useEffect(() => {
     setIsVisible(getConsent() === null);
@@ -36,13 +34,13 @@ export const CookieBanner = () => {
             </h3>
             <p className="text-sm text-muted-foreground">
               Usamos armazenamento necessário para o funcionamento do site. A publicidade do Google só é ativada se você aceitar. Você pode mudar sua escolha no rodapé. Consulte nossa
-              <button
-                onClick={openPrivacyPolicy}
+              <a
+                href="/privacidade"
                 className="text-primary hover:underline ml-1 font-semibold"
                 aria-label="Abrir política de privacidade"
               >
                 Política de Privacidade
-              </button>
+              </a>
               .
             </p>
           </div>

@@ -1,218 +1,38 @@
-import { Button } from "@/components/ui/button";
-import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
-import { prepareHeroImage } from "@/lib/hero-image";
-import { defaultHeroSlides, defaultHeroImage } from "@/lib/hero-default-slides";
-import { loadHeroSlides, type HeroSlide } from "@/lib/hero-slides";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import type { HeroSlide } from "@/lib/hero-slides";
+import snapshot from "@/data/hero-slides.snapshot.json";
+import { normalizePublicSlide, publicSlidesFromRows } from "@/lib/hero-content.js";
+import { defaultHeroImage } from "@/lib/hero-default-slides";
 
 export const Hero = () => {
-  const [slides, setSlides] = useState<HeroSlide[]>([]);
-  const reducedMotion = useReducedMotion();
-  const [paused, setPaused] = useState(false);
+  const [slides, setSlides] = useState<HeroSlide[]>(() => snapshot.map(slide => normalizePublicSlide(slide)));
+  const [current, setCurrent] = useState(0);
+  const [rotating, setRotating] = useState(false);
   const [interacting, setInteracting] = useState(false);
-  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
-  const [currentSlide, setCurrentSlide] = useState(0);
-
   useEffect(() => {
+    const api = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
+    if (!api) return;
     const controller = new AbortController();
-
-    const fetchSlides = async () => {
-      const remoteSlides = await loadHeroSlides().catch(() => null);
-      if (controller.signal.aborted) return;
-
-      const nextSlides = remoteSlides?.length ? remoteSlides : defaultHeroSlides;
-      const firstImageReady = await prepareHeroImage(nextSlides[0].image, controller.signal);
-      if (controller.signal.aborted) return;
-
-      if (!firstImageReady) {
-        await prepareHeroImage(defaultHeroImage, controller.signal);
-      }
-      if (controller.signal.aborted) return;
-
-      setSlides(nextSlides.map((slide, index) =>
-        index === 0 && !firstImageReady ? { ...slide, image: defaultHeroImage } : slide
-      ));
-    };
-
-    fetchSlides();
-
-    return () => {
-      controller.abort();
-    };
+    const timeout = window.setTimeout(() => controller.abort(), 5000);
+    fetch(`${api}/api/hero-slides`, { signal: controller.signal }).then(response => response.ok ? response.json() : null).then(data => {
+      const next = publicSlidesFromRows(data?.slides);
+      if (!controller.signal.aborted && next.length) { setSlides(next); setCurrent(index => Math.min(index, next.length - 1)); }
+    }).catch(() => { /* Keep the configured, prerendered copy available. */ }).finally(() => clearTimeout(timeout));
+    return () => { controller.abort(); clearTimeout(timeout); };
   }, []);
-
   useEffect(() => {
-    if (!carouselApi) {
-      return;
-    }
-
-    const onSelect = () => {
-      setCurrentSlide(carouselApi.selectedScrollSnap());
-    };
-
-    onSelect();
-    carouselApi.on("select", onSelect);
-    carouselApi.on("reInit", onSelect);
-
-    return () => {
-      carouselApi.off("select", onSelect);
-      carouselApi.off("reInit", onSelect);
-    };
-  }, [carouselApi]);
-
-  useEffect(() => {
-    if (!carouselApi || slides.length <= 1 || paused || interacting || reducedMotion) {
-      return;
-    }
-
-    const intervalId = window.setInterval(() => {
-      if (document.hidden) {
-        return;
-      }
-
-      carouselApi.scrollNext();
-    }, 10000);
-
-    return () => {
-      window.clearInterval(intervalId);
-    };
-  }, [carouselApi, slides.length, paused, interacting, reducedMotion]);
-
-  return (
-    <section
-      className="hero-section relative flex items-center pt-24 max-[400px]:pt-20 md:pt-20 pb-16 max-[400px]:pb-12 sm:pb-20 md:pb-24 lg:pb-28 overflow-hidden bg-gradient-to-br from-cyan-light via-blue-medium to-purple-medium"
-      role="region"
-      aria-label="Seção principal - Hero"
-      aria-busy={slides.length === 0}
-      itemScope
-      itemType="https://schema.org/WebPage"
-    >
-      <div className="mx-auto w-[min(96vw,1680px)] px-3 sm:px-4 md:px-6 lg:px-8 py-8 max-[400px]:py-6 sm:py-12 md:py-16 lg:py-20">
-        {slides.length === 0 ? (
-          <div role="status" className="min-h-[540px] sm:min-h-[620px] md:min-h-[440px] flex flex-col justify-center">
-            <span className="sr-only">Carregando destaques da Tag It…</span>
-            <div aria-hidden="true" className="grid md:grid-cols-2 gap-8 items-center motion-safe:animate-pulse">
-              <div className="w-full max-w-xl mx-auto space-y-6">
-                <div className="h-24 sm:h-32 rounded-2xl bg-white/10" />
-                <div className="h-20 rounded-2xl bg-white/10" />
-                <div className="h-12 w-3/4 mx-auto md:mx-0 rounded-full bg-white/10" />
-              </div>
-              <div className="w-full max-w-[210px] sm:max-w-xs md:max-w-sm aspect-square rounded-full bg-white/10 mx-auto" />
-            </div>
-          </div>
-        ) : (
-        <Carousel
-          setApi={setCarouselApi}
-          opts={{ loop: true }}
-          className="w-full mx-auto"
-          aria-label="Carrossel de destaques da Tag It"
-          onMouseEnter={() => setInteracting(true)}
-          onMouseLeave={() => setInteracting(false)}
-          onFocusCapture={() => setInteracting(true)}
-          onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setInteracting(false); }}
-        >
-          <CarouselContent>
-            {slides.map((slide, index) => {
-              const Heading = index === 0 ? "h1" : "h2";
-              return (
-              <CarouselItem key={`${slide.id}:${slide.image}`} aria-hidden={index !== currentSlide}>
-                <div className="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center md:translate-x-0 xl:translate-x-4">
-                  <motion.div
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="text-primary-foreground w-full max-w-xl mx-auto text-center md:text-left"
-                  >
-                        <Heading
-                          className="text-3xl max-[400px]:text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-5 md:mb-6 leading-tight"
-                          itemProp={index === 0 ? "headline" : undefined}
-                        >
-                          {slide.title}
-                        </Heading>
-
-                        <p
-                          className="text-base max-[400px]:text-sm sm:text-lg md:text-xl lg:text-2xl mb-5 sm:mb-6 md:mb-8 font-light leading-relaxed opacity-95"
-                          itemProp={index === 0 ? "description" : undefined}
-                        >
-                          {slide.description}
-                        </p>
-
-                        <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4 md:justify-start">
-                          <Button
-                            size="lg"
-                            className="w-full sm:w-auto justify-center text-base max-[400px]:text-sm sm:text-lg px-6 sm:px-8 py-4 max-[400px]:py-3.5 sm:py-6 rounded-full font-bold shadow-lg hover:scale-105 transition-transform bg-primary-foreground text-primary hover:bg-primary-foreground/90"
-                            asChild
-                          >
-                            <a tabIndex={index === currentSlide ? 0 : -1} href={slide.primaryCtaHref}>{slide.primaryCtaLabel}</a>
-                          </Button>
-                          <Button
-                            size="lg"
-                            variant="outline"
-                            className="w-full sm:w-auto justify-center text-base max-[400px]:text-sm sm:text-lg px-6 sm:px-8 py-4 max-[400px]:py-3.5 sm:py-6 rounded-full font-bold border-2 border-primary-foreground text-primary-foreground bg-transparent hover:bg-primary-foreground hover:text-primary transition-all"
-                            asChild
-                          >
-                            <a tabIndex={index === currentSlide ? 0 : -1} href={slide.secondaryCtaHref}>{slide.secondaryCtaLabel}</a>
-                          </Button>
-                        </div>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, x: 30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    className="relative flex flex-col gap-6 sm:gap-8 items-center w-full max-w-xl mx-auto"
-                  >
-                      <picture>
-                        <img
-                          src={index === 0 || Math.abs(index - currentSlide) <= 1 ? slide.image : undefined}
-                          alt={slide.imageAlt}
-                          className="w-full h-auto max-w-[240px] max-[400px]:max-w-[210px] sm:max-w-xs md:max-w-sm lg:max-w-md mx-auto drop-shadow-2xl"
-                          loading={index === 0 ? "eager" : "lazy"}
-                          fetchPriority={index === 0 ? "high" : "low"}
-                          decoding="async"
-                          onError={(event) => {
-                            const image = event.currentTarget;
-                            if (image.getAttribute("src") !== defaultHeroImage) image.src = defaultHeroImage;
-                          }}
-                          itemProp={index === 0 ? "image" : undefined}
-                          width={400}
-                          height={400}
-                        />
-                      </picture>
-                  </motion.div>
-                </div>
-              </CarouselItem>
-            ); })}
-          </CarouselContent>
-
-          <CarouselPrevious className="hidden md:inline-flex left-2 lg:-left-6 xl:-left-10 bg-primary-foreground text-primary border-primary-foreground hover:bg-primary-foreground/90" />
-          <CarouselNext className="hidden md:inline-flex right-2 lg:-right-2 xl:-right-8 bg-primary-foreground text-primary border-primary-foreground hover:bg-primary-foreground/90" />
-
-          <div className="mt-5 sm:mt-6 md:mt-8 flex justify-center items-center gap-2" aria-label="Indicadores do carrossel">
-            {!reducedMotion && <button type="button" onClick={() => setPaused(value => !value)} aria-pressed={paused} className="rounded-full border border-white/70 px-3 py-2 text-xs text-white">{paused ? "Ativar rotação" : "Pausar rotação"}</button>}
-            {slides.map((slide, index) => (
-              <button
-                key={slide.id}
-                type="button"
-                onClick={() => carouselApi?.scrollTo(index)}
-                aria-label={`Ir para slide ${index + 1}`}
-                aria-current={currentSlide === index}
-                className={`h-2 sm:h-2.5 rounded-full transition-all duration-300 ${
-                  currentSlide === index
-                    ? "w-7 sm:w-8 bg-primary-foreground"
-                    : "w-2 sm:w-2.5 bg-primary-foreground/50 hover:bg-primary-foreground/80"
-                }`}
-              />
-            ))}
-          </div>
-        </Carousel>
-        )}
-      </div>
-
-      <div className="absolute bottom-0 inset-x-0 flex flex-wrap justify-center gap-x-6 gap-y-1 p-3 bg-foreground/20 text-white text-xs sm:text-sm" aria-label="Destaques da Tag It">
-        <span>Localização de ativos</span><span>Bateria substituível</span><span>Atendimento especializado</span>
-      </div>
-    </section>
-  );
+    if (!rotating || interacting || slides.length < 2) return;
+    const id = window.setInterval(() => { if (!document.hidden) setCurrent(index => (index + 1) % slides.length); }, 10000);
+    return () => window.clearInterval(id);
+  }, [rotating, interacting, slides.length]);
+  const slide = slides[current] || slides[0];
+  const choose = (index: number) => { setCurrent((index + slides.length) % slides.length); setRotating(false); };
+  return <section aria-label="Destaques da Tag It" className="bg-gradient-hero text-white pt-28 sm:pt-36 pb-10 sm:pb-14" onMouseEnter={() => setInteracting(true)} onMouseLeave={() => setInteracting(false)} onFocusCapture={() => setInteracting(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setInteracting(false); }}>
+    <div className="container mx-auto px-6 max-w-7xl"><div className="grid md:grid-cols-2 gap-8 lg:gap-14 items-center min-h-[430px]">
+      <div><p className="text-sm font-semibold tracking-wide mb-5">LOCALIZAÇÃO INTELIGENTE · APLICATIVO PRÓPRIO</p><h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">{slide.title}</h1><p className="text-lg sm:text-xl leading-relaxed mb-7">{slide.description}</p><div className="flex flex-col sm:flex-row flex-wrap gap-3"><Button size="lg" asChild className="bg-white text-primary hover:bg-white/90"><a href={slide.primaryCtaHref} data-contact-source="Banner principal">{slide.primaryCtaLabel}</a></Button><Button size="lg" asChild variant="outline" className="border-white bg-transparent text-white hover:bg-white hover:text-primary"><a href={slide.secondaryCtaHref} data-contact-source="Banner principal">{slide.secondaryCtaLabel}</a></Button></div><p className="text-sm leading-relaxed mt-6">Consulte a última localização disponível. A frequência de atualização depende da rede compatível e do ambiente.</p></div>
+      <div className="aspect-square w-full max-w-[340px] lg:max-w-[420px] mx-auto"><img key={slide.image} src={slide.image} alt={slide.imageAlt} width={500} height={500} loading="eager" fetchPriority={current === 0 ? "high" : "auto"} decoding="async" className="w-full h-full object-contain" onError={event=>{ if (event.currentTarget.getAttribute("src") !== defaultHeroImage) event.currentTarget.src = defaultHeroImage; }} /></div>
+    </div><div className="mt-8 flex flex-wrap justify-center items-center gap-2" aria-label="Controles dos destaques"><button type="button" className="h-11 w-11 rounded-full border border-white flex items-center justify-center" aria-label="Destaque anterior" onClick={()=>choose(current-1)}><ChevronLeft aria-hidden="true" /></button><p className="px-3 text-sm" aria-live={rotating ? "off" : "polite"}>Destaque {current+1} de {slides.length}</p><button type="button" className="h-11 w-11 rounded-full border border-white flex items-center justify-center" aria-label="Próximo destaque" onClick={()=>choose(current+1)}><ChevronRight aria-hidden="true" /></button><button type="button" className="min-h-11 px-4 underline text-sm" aria-pressed={rotating} onClick={()=>setRotating(!rotating)}>{rotating ? "Pausar rotação" : "Ativar rotação"}</button></div></div>
+  </section>;
 };

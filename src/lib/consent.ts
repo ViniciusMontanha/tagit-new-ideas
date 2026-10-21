@@ -1,7 +1,8 @@
 const STORAGE_KEY = "tagit-cookie-consent";
-const GOOGLE_ADS_ID = "AW-17854563274";
+export const GOOGLE_ADS_ID = "AW-17854563274";
 export const CONSENT_EVENT = "tagit:consent-preferences";
 type Consent = "accepted" | "rejected" | null;
+let currentChoice: Consent | undefined;
 
 declare global {
   interface Window {
@@ -11,6 +12,7 @@ declare global {
 }
 
 export function getConsent(): Consent {
+  if (currentChoice !== undefined) return currentChoice;
   try {
     const value = localStorage.getItem(STORAGE_KEY);
     return value === "accepted" ? "accepted" : ["rejected", "dismissed"].includes(value || "") ? "rejected" : null;
@@ -31,7 +33,10 @@ function applyConsent(accepted: boolean) {
   if (accepted && !configured) {
     configured = true;
     window.gtag?.("js", new Date());
-    window.gtag?.("config", GOOGLE_ADS_ID);
+    window.gtag?.("config", GOOGLE_ADS_ID, { page_location: `${location.origin}${location.pathname}` });
+    const analyticsId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
+    if (analyticsId) window.gtag?.("config", analyticsId, { page_location: `${location.origin}${location.pathname}` });
+    void import("./performance").then(module => module.initializePerformanceTracking());
     const script = document.createElement("script");
     script.id = "tagit-google-ads";
     script.async = true;
@@ -52,6 +57,7 @@ export function initializeConsent() {
 }
 
 export function setConsent(value: Exclude<Consent, null>) {
+  currentChoice = value;
   try { localStorage.setItem(STORAGE_KEY, value); } catch { /* Respeita a escolha nesta página mesmo sem armazenamento. */ }
   applyConsent(value === "accepted");
   if (value === "rejected") {
@@ -59,7 +65,7 @@ export function setConsent(value: Exclude<Consent, null>) {
     for (const entry of document.cookie.split(";")) {
       const name = entry.split("=")[0].trim();
       if (!/^(_ga|_gid|_gat|_gcl_)/.test(name)) continue;
-      for (const domain of ["", location.hostname, `.${location.hostname}`]) {
+      for (const domain of ["", location.hostname, `.${location.hostname}`, ...(location.hostname.endsWith(".tagit.com.br") ? ["tagit.com.br", ".tagit.com.br"] : [])]) {
         document.cookie = `${name}=; Max-Age=0; path=/; SameSite=Lax${domain ? `; domain=${domain}` : ""}`;
       }
     }

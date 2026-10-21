@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -8,28 +8,30 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Loader2 } from "lucide-react";
 import { companyWhatsApp, normalizeBrazilianPhone, isValidBrazilianPhone } from "@/lib/contact";
-import { usePrivacyPolicy } from "@/contexts/PrivacyPolicyContext";
+import { trackContactEvent } from "@/lib/analytics";
 
 const contactFormSchema = z.object({
   nome: z.string().trim().min(3, "Informe seu nome, com pelo menos 3 caracteres").max(100),
   email: z.string().trim().email("Informe um e-mail válido").max(254),
   telefone: z.string().transform(normalizeBrazilianPhone).refine(isValidBrazilianPhone, "Informe um telefone brasileiro válido com DDD"),
   mensagem: z.string().trim().min(10, "Escreva pelo menos 10 caracteres").max(1000, "Use no máximo 1.000 caracteres"),
+  empresa: z.string().trim().max(120, "Use no máximo 120 caracteres").optional(),
+  ativos: z.string().trim().max(40, "Use no máximo 40 caracteres").optional(),
   website: z.string().max(0).optional(),
 });
 type ContactFormData = z.infer<typeof contactFormSchema>;
-interface ContactModalProps { isOpen: boolean; onOpenChange: (open: boolean) => void; }
+interface ContactModalProps { isOpen: boolean; onOpenChange: (open: boolean) => void; interest?: string; business?: boolean; }
 
-export const ContactModal = ({ isOpen, onOpenChange }: ContactModalProps) => {
+export const ContactModal = ({ isOpen, onOpenChange, interest = "Contato geral", business = false }: ContactModalProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const attempt = useRef<{ payload: string; id: string } | null>(null);
   const sending = useRef(false);
-  const { openPrivacyPolicy } = usePrivacyPolicy();
+  useEffect(() => { if (isOpen) trackContactEvent("contact_open", interest); }, [isOpen, interest]);
   const { register, handleSubmit, formState: { errors }, reset, setValue, setError, watch } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
-    defaultValues: { nome: "", email: "", telefone: "", mensagem: "", website: "" },
+    defaultValues: { nome: "", email: "", telefone: "", mensagem: "", empresa: "", ativos: "", website: "" },
   });
   const phone = watch("telefone");
 
@@ -38,7 +40,8 @@ export const ContactModal = ({ isOpen, onOpenChange }: ContactModalProps) => {
     sending.current = true;
     setIsSubmitting(true);
     setSubmitError(null);
-    const payload = JSON.stringify(data);
+    const submission = { ...data, assunto: interest };
+    const payload = JSON.stringify(submission);
     if (attempt.current?.payload !== payload) attempt.current = { payload, id: crypto.randomUUID() };
     const controller = new AbortController();
     const timeout = window.setTimeout(() => controller.abort(), 30000);
@@ -47,7 +50,7 @@ export const ContactModal = ({ isOpen, onOpenChange }: ContactModalProps) => {
       const response = await fetch(`${apiUrl}/api/send-contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, requestId: attempt.current.id }),
+        body: JSON.stringify({ ...submission, requestId: attempt.current.id }),
         signal: controller.signal,
       });
       const result = await response.json().catch(() => null);
@@ -65,6 +68,7 @@ export const ContactModal = ({ isOpen, onOpenChange }: ContactModalProps) => {
             ? "Confira os campos indicados e tente novamente."
             : "Não foi possível confirmar o envio. Tente novamente ou fale conosco pelo WhatsApp.");
       }
+      trackContactEvent("generate_lead", interest, attempt.current.id);
       setSuccessMessage(result.confirmationSent === false
         ? "Nossa equipe recebeu sua solicitação. Não foi possível enviar a confirmação para seu e-mail, mas você não precisa reenviar o formulário."
         : "Nossa equipe recebeu sua solicitação. Enviamos uma confirmação para seu e-mail; confira também a pasta de spam.");
@@ -90,8 +94,8 @@ export const ContactModal = ({ isOpen, onOpenChange }: ContactModalProps) => {
     <Dialog open={isOpen} onOpenChange={close}>
       <DialogContent className="w-[95vw] sm:max-w-[500px] max-h-[90vh] overflow-y-auto px-4 sm:px-6">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold">Solicitar Contato</DialogTitle>
-          <DialogDescription>Conte o que você precisa. Nossa equipe entrará em contato.</DialogDescription>
+          <DialogTitle className="text-2xl font-bold">Solicitar contato</DialogTitle>
+          <DialogDescription>Assunto: {interest}. Conte o que você precisa para nossa equipe orientar o próximo passo.</DialogDescription>
         </DialogHeader>
         {successMessage ? (
           <div className="space-y-5 py-6" role="status">
@@ -118,13 +122,17 @@ export const ContactModal = ({ isOpen, onOpenChange }: ContactModalProps) => {
                 {errors.telefone?.message || (phone && isValidBrazilianPhone(phone) ? `Telefone válido: ${normalizeBrazilianPhone(phone)}` : "Inclua o DDD. Aceitamos números com ou sem +55.")}
               </p>
             </div>
+            {business && <div className="grid sm:grid-cols-2 gap-4">
+              <div className="space-y-2"><label htmlFor="empresa" className="text-sm font-semibold">Empresa (opcional)</label><Input id="empresa" autoComplete="organization" maxLength={120} {...register("empresa")} disabled={isSubmitting} /></div>
+              <div className="space-y-2"><label htmlFor="ativos" className="text-sm font-semibold">Quantidade de ativos (opcional)</label><Input id="ativos" placeholder="Ex.: 50 a 100" maxLength={40} {...register("ativos")} disabled={isSubmitting} /></div>
+            </div>}
             <div className="space-y-2">
               <label htmlFor="mensagem" className="text-sm font-semibold">Mensagem *</label>
-              <Textarea id="mensagem" placeholder="Descreva sua necessidade ou dúvida..." rows={4} {...register("mensagem")} disabled={isSubmitting} aria-invalid={!!errors.mensagem} aria-describedby={errors.mensagem ? "mensagem-error" : undefined} />
+              <Textarea id="mensagem" placeholder="Descreva sua necessidade ou dúvida..." rows={4} maxLength={1000} {...register("mensagem")} disabled={isSubmitting} aria-invalid={!!errors.mensagem} aria-describedby={errors.mensagem ? "mensagem-error" : undefined} />
               {errors.mensagem && <p id="mensagem-error" role="alert" className="text-sm text-destructive">{errors.mensagem.message}</p>}
             </div>
             <div hidden aria-hidden="true"><label>Website<Input {...register("website")} tabIndex={-1} autoComplete="off" /></label></div>
-            <p className="text-xs text-muted-foreground">Usaremos seus dados para responder a esta solicitação. <button type="button" className="underline" onClick={() => { close(false); openPrivacyPolicy(); }}>Política de Privacidade</button>.</p>
+            <p className="text-xs text-muted-foreground">Usaremos seus dados para responder a esta solicitação. <a className="underline" href="/privacidade" target="_blank" rel="noopener noreferrer">Política de Privacidade (nova aba)</a>.</p>
             {submitError && <div role="alert" className="p-3 bg-destructive/10 border border-destructive/20 rounded-md space-y-2"><p className="text-sm text-destructive">{submitError}</p><a className="text-sm underline" href={companyWhatsApp()} target="_blank" rel="noopener noreferrer">Falar pelo WhatsApp</a></div>}
             <div className="flex flex-col-reverse sm:flex-row gap-3 pt-2">
               <Button type="button" variant="outline" onClick={() => close(false)} disabled={isSubmitting} className="flex-1">Cancelar</Button>

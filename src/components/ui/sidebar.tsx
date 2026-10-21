@@ -110,7 +110,6 @@ const SidebarProvider = React.forwardRef<
       // Ignore in environments where document is not available.
     }
     // We only want to run this once on mount.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // We add a state so that we can do data-state="expanded" or "collapsed".
