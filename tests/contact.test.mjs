@@ -30,7 +30,7 @@ test('todos os campos de texto são escapados no HTML',()=>{
  }
  assert.ok(getAdminEmailTemplate(input).includes('&lt;b&gt;Texto &amp; outro&lt;/b&gt;'));
  assert.equal(escapeHtml('"\'&<>'),'&quot;&#39;&amp;&lt;&gt;');
- assert.match(companyWhatsApp(),/wa.me\/5516997493996/);
+ assert.match(companyWhatsApp(),/wa.me\/5516997021741/);
 });
 
 test('falha na confirmação não transforma contato recebido em falha total',async()=>{

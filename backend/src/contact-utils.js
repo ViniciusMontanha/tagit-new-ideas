@@ -2,8 +2,8 @@
 export const COMPANY = Object.freeze({
   name: "Tag It",
   legalName: "Tag IT Tecnologia em Localização LTDA",
-  phone: "+5516997493996",
-  phoneDisplay: "(16)99749-3996",
+  phone: "+5516997021741",
+  phoneDisplay: "(16) 99702-1741",
   email: "contato@tagit.com.br",
   website: "https://tagit.com.br",
   street: "Rua Doutor Paulo Tinoco Cabral 155",

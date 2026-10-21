@@ -8,7 +8,7 @@ export function normalizeCompanyLink(href: string): string {
     const url = new URL(href, "https://tagit.com.br");
     if (["wa.me", "api.whatsapp.com", "web.whatsapp.com"].includes(url.hostname)) {
       const number = (url.searchParams.get("phone") || url.pathname.slice(1)).replace(/\D/g, "");
-      if (["5516991295203", "5516996403745"].includes(number)) {
+      if (["5516991295203", "5516996403745", "5516997493996"].includes(number)) {
         return companyWhatsApp(url.searchParams.get("text") || undefined);
       }
     }
