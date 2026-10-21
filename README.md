@@ -26,7 +26,7 @@ As variáveis VITE são públicas. Nunca inserir chaves privadas nelas. Os event
 
 ## Publicação e recuperação
 
-O commit ea24f15af0dde410dcfca397a8bb8c4db8071f23 é a referência anterior a esta revisão, já com o telefone atual. Os status do GitHub apresentam dois projetos Vercel: `website-revamp-pro` e `tagit-new-ideas`. O frontend chama a API pública `https://tagit-new-ideas-vincius-medeiros-s-projects.vercel.app`. Confirme no painel de Domains/Root Directory o vínculo de cada projeto antes de desativar ou excluir qualquer implantação.
+O commit ea24f15af0dde410dcfca397a8bb8c4db8071f23 é a referência anterior a esta revisão, já com o telefone atual. A integração Vercel no PR #17 identifica `website-revamp-pro` com a raiz do repositório (frontend) e `tagit-new-ideas` com a pasta `backend` (API). O frontend chama a API pública `https://tagit-new-ideas-vincius-medeiros-s-projects.vercel.app`. São implantações de componentes diferentes; confirme Domains no painel antes de desativar ou excluir qualquer uma.
 
 O frontend usa `vercel.json` da raiz; o backend Express tem configuração própria em `backend/vercel.json`. Ambos devem passar após alterações compartilhadas. O domínio sem www é canônico e o www redireciona permanentemente. Não configurar um redirecionamento inverso no painel.
 

@@ -13,7 +13,7 @@ export const WhatsAppWidget = () => {
       target="_blank"
       rel="noopener noreferrer"
       data-contact-source="Botão flutuante"
-      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-all hover:scale-110 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-[#25D366]/50"
+      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-[#128C4A] text-white shadow-lg transition-all hover:scale-110 hover:shadow-xl focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-foreground"
       aria-label="Enviar mensagem via WhatsApp - Clique para abrir chat"
       title="Fale conosco no WhatsApp"
     >
