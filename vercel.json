@@ -3,6 +3,17 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.tagit.com.br"
+        }
+      ],
+      "destination": "https://tagit.com.br/:path*",
+      "permanent": true
+    },
+    {
       "source": "/seguimento",
       "destination": "/segmento",
       "permanent": true

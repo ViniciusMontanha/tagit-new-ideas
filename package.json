@@ -5,11 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/generate-pages.mjs",
+    "build": "node scripts/prepare-hero.mjs && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/generate-pages.mjs",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "node --test tests/*.test.mjs"
+    "test": "node --test tests/*.test.mjs",
+    "typecheck": "tsc --noEmit -p tsconfig.app.json",
+    "check": "npm run build && npm run typecheck && npm run lint && npm test"
   },
   "dependencies": {
     "@getbrevo/brevo": "^3.0.1",
@@ -64,6 +66,7 @@
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.9.9",
+    "web-vitals": "5.3.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {

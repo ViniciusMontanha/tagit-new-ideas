@@ -5,6 +5,9 @@ export const pageMetadata = {
   "/para-empresas": { title: "Localização de ativos para empresas | Tag It", description: "Conheça a solução Tag It para localizar equipamentos, ferramentas e ativos da empresa. Converse com nossa equipe sobre sua operação." },
   "/para-voce": { title: "Localização de objetos e uso pessoal | Tag It", description: "Conheça a Mini Tag para objetos do dia a dia. Confira compatibilidade, autonomia e condições de localização antes de escolher seu dispositivo." },
   "/quem-somos": { title: "Quem somos | Tag It", description: "Conheça a equipe e a história da Tag It, empresa de localização inteligente de ativos em Ribeirão Preto, São Paulo." },
+  "/dispositivos": { title: "Mini Tag e Ultra Tag 30: especificações | Tag It", description: "Compare bateria, alcance Bluetooth, dimensões e condições de uso dos dispositivos Tag It. Consulte fichas técnicas e orientações de ativação." },
+  "/privacidade": { title: "Política de Privacidade | Tag It", description: "Saiba como a Tag It utiliza dados de contato, cookies e serviços de atendimento e como solicitar informações sobre seus dados." },
+  "/area-do-cliente": { title: "Área do cliente e aplicativo próprio | Tag It", description: "Acesse as plataformas da Tag It e receba orientações para ativação e acesso ao aplicativo próprio." },
   "/segmento": { title: "Soluções por segmento | Tag It", description: "Veja aplicações da Tag It em logística, construção, pets e uso pessoal. Encontre a solução adequada ao seu cenário." },
 };
 for (const [slug, label] of Object.entries({ logistica: "Logística", construcao: "Construção", pet: "Pets", "uso-pessoal": "Uso pessoal" })) {

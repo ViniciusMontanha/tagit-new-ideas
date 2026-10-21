@@ -21,6 +21,9 @@ export const contactFormSchema = z.object({
     .trim()
     .min(10, "Mensagem deve ter no mínimo 10 caracteres")
     .max(1000, "Mensagem não pode exceder 1000 caracteres"),
+  assunto: z.string().trim().max(100).optional(),
+  empresa: z.string().trim().max(120).optional(),
+  ativos: z.string().trim().max(40).optional(),
   requestId: z.string().uuid().optional(),
   website: z.string().max(0).optional(),
 });
@@ -46,6 +49,7 @@ if (apiKey) {
  */
 export function getAdminEmailTemplate(input) {
   const data = Object.fromEntries(Object.entries(input).map(([key, value]) => [key, escapeHtml(value)]));
+  data.mensagem = [data.assunto && `Assunto: ${data.assunto}`, data.empresa && `Empresa: ${data.empresa}`, data.ativos && `Quantidade de ativos: ${data.ativos}`, data.mensagem].filter(Boolean).join("\n\n");
   const whatsappNumber = data.telefone.replace(/\D/g, "");
   const whatsappUrl = `https://wa.me/${whatsappNumber}`;
 
@@ -372,7 +376,7 @@ export async function sendContactEmailBrevo(data) {
 
     // Email para a empresa
     const adminEmailData = new brevo.SendSmtpEmail();
-    adminEmailData.subject = `[NOVO CONTATO] ${data.nome} - Solicitação de Demo`;
+    adminEmailData.subject = `[NOVO CONTATO] ${data.nome} - ${data.assunto || "Contato pelo site"}`;
     adminEmailData.htmlContent = getAdminEmailTemplate(data);
     adminEmailData.sender = {
       name: "Tag It - Contato",
@@ -409,13 +413,13 @@ export async function sendContactEmailBrevo(data) {
     ];
 
     const requestId = data.requestId || randomUUID();
-    const { nome, email, telefone, mensagem } = data;
+    const { nome, email, telefone, mensagem, assunto, empresa, ativos } = data;
     const result = await deliverContactEmails({
       send: (message) => apiInstance.sendTransacEmail(message),
       admin: adminEmailData,
       client: clientEmailData,
       requestId,
-      data: { nome, email, telefone, mensagem },
+      data: { nome, email, telefone, mensagem, assunto, empresa, ativos },
     });
     console.info(JSON.stringify({ event: "contact_delivery", requestId, ...result }));
     return { ...result, requestId };

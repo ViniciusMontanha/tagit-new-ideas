@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -12,11 +11,7 @@ export const EducationalTips = () => {
   return (
     <section className="py-14 sm:py-16 lg:py-20 bg-gradient-to-b from-background to-secondary/5" role="region" aria-labelledby="erros-heading">
       <div className="container mx-auto px-4 sm:px-6 lg:px-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
+        <div
           className="text-center mb-10 sm:mb-12"
         >
           <h2 id="erros-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 tracking-tight">
@@ -25,7 +20,7 @@ export const EducationalTips = () => {
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
             Evite os gargalos mais frequentes e aumente a eficiência da operação.
           </p>
-        </motion.div>
+        </div>
 
         <div className="max-w-4xl mx-auto mb-8 sm:mb-10">
           <Card className="p-5 sm:p-6 md:p-8 border hover:border-primary/20 transition-all duration-300">

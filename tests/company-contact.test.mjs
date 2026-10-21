@@ -7,7 +7,7 @@ test('contato comercial e banners legados apontam para o contato oficial sem per
   assert.equal(COMPANY.phone, '+5516997021741');
   assert.equal(COMPANY.phoneDisplay, '(16) 99702-1741');
   assert.equal(new URL(companyWhatsApp()).pathname, '/5516997021741');
-  const server = await createServer({ server: { middlewareMode: true }, appType: 'custom' });
+  const server = await createServer({ server: { middlewareMode: true, hmr: false }, appType: 'custom' });
   try {
     const { normalizeCompanyLink } = await server.ssrLoadModule('/src/lib/contact.ts');
     for (const old of ['5516996403745', '5516991295203', '5516997493996']) {

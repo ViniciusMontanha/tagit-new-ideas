@@ -10,8 +10,8 @@ import type { DeviceTechnicalSheetData } from "@/components/DeviceTechnicalSheet
 export const deviceTechnicalSheets: DeviceTechnicalSheetData[] = [
   {
     id: "ficha-mini-tag",
-    title: "Especificações Técnicas do Dispositivo",
-    badge: "Mini Tag - Bateria de 12 meses",
+    title: "Mini Tag — ficha técnica",
+    badge: "Até 12 meses em standby",
     sections: [
       {
         icon: Cpu,
@@ -38,8 +38,7 @@ export const deviceTechnicalSheets: DeviceTechnicalSheetData[] = [
           { label: "Intervalo de emissão Bluetooth", value: "A cada 2 segundos (não equivale à atualização remota)" },
           { label: "Protocolo de Comunicação", value: "Bluetooth + Transmissão" },
           { label: "Sistema Suportado", value: "iOS / Android" },
-          { label: "", value: "" },
-          { label: "Desempenho e Operação", value: "", icon: Thermometer },
+              { label: "Desempenho e Operação", value: "", icon: Thermometer },
           { label: "Alcance em ambientes internos", value: "15 a 25 m" },
           { label: "Alcance ao ar livre", value: "50 a 70 m" },
           { label: "Temperatura de Trabalho", value: "-20°C a +60°C", icon: Thermometer },

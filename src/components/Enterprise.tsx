@@ -1,5 +1,5 @@
+import { ContactActions } from "@/components/ContactActions";
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ContactModal } from "@/components/ContactModal";
@@ -48,11 +48,7 @@ export const Enterprise = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-10 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
+        <div
           className="text-center mb-12 sm:mb-16 lg:mb-20"
         >
           <h1
@@ -69,53 +65,42 @@ export const Enterprise = () => {
             Transforme a forma como sua empresa gerencia ativos com tecnologia de localização inteligente.
           </p>
 
+          <div className="flex justify-center mt-6"><ContactActions interest="Solução empresarial" label="Solicitar proposta comercial" business /></div>
           <div className="max-w-4xl mx-auto mt-6 text-left space-y-4 text-base md:text-lg text-muted-foreground leading-relaxed">
-            <p>Localize ferramentas, equipamentos e outros ativos móveis em uma plataforma de consulta. A Tag It ajuda sua equipe a organizar informações e agir quando um item precisa ser encontrado.</p>
-            <p>Aplicações incluem operações logísticas, construção e equipamentos técnicos. A equipe avalia com você o modelo, a compatibilidade e as condições de cobertura do local.</p>
+            <p>Consulte a localização disponível de ferramentas, equipamentos e outros ativos no aplicativo próprio da Tag It. A Tag It ajuda sua equipe a organizar informações e agir quando um item precisa ser encontrado.</p>
+            <p>Aplicações incluem operações logísticas, construção e equipamentos técnicos. Antes da contratação, converse com a equipe sobre modelo, quantidade, condições comerciais, ativação, suporte e cobertura do local.</p>
             <p>A localização remota utiliza uma rede de dispositivos compatíveis. A disponibilidade e o intervalo entre atualizações variam conforme o ambiente.</p>
           </div>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-12 sm:mb-16 items-center max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+          <div
             className="order-2 lg:order-1 space-y-8"
           >
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-accent opacity-10 blur-[100px] rounded-full"></div>
-              <motion.img
+              <img
                 src={professionalTool}
                 alt="Mini Tag ao lado de uma régua, para referência de tamanho"
                 className="relative w-full max-w-lg mx-auto drop-shadow-2xl rounded-2xl"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
                 loading="lazy"
                 width={400}
                 height={400}
               />
             </div>
             <div className="relative">
-              <motion.img
+              <img
                 src={tagPossibilities}
                 alt="Possibilidades de localização Tag It - equipamentos, veículos, ferramentas e ativos empresariais"
                 className="relative w-full rounded-2xl shadow-strong"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
                 loading="lazy"
                 width={400}
                 height={400}
               />
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+          <div
             className="order-1 lg:order-2"
           >
             {/* Lista de benefícios com microdata */}
@@ -124,12 +109,8 @@ export const Enterprise = () => {
               role="list"
             >
               {benefits.map((benefit, index) => (
-                <motion.div
+                <div
                   key={benefit.title}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
                   role="listitem"
                   itemScope
                   itemType="https://schema.org/Thing"
@@ -158,17 +139,13 @@ export const Enterprise = () => {
                       </div>
                     </div>
                   </Card>
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
+        <div
           className="text-center"
         >
           <Button
@@ -178,7 +155,7 @@ export const Enterprise = () => {
           >
             Solicitar Proposta Comercial
           </Button>
-        </motion.div>
+        </div>
       </div>
     </section>
 

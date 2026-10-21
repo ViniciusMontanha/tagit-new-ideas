@@ -6,10 +6,10 @@
 All colors MUST be HSL.
 
 New Palette:
-- Azul Ciano Claro: #00B4FF -> hsl(198 100% 50%)
-- Azul Médio: #0078FF -> hsl(212 100% 50%)
-- Roxo Médio: #7B3EFF -> hsl(254 100% 62%)
-- Roxo Magenta: #A243EF -> hsl(275 85% 60%)
+- Azul Ciano: hsl(204 88% 34%)
+- Azul Médio: hsl(216 86% 38%)
+- Roxo Médio: hsl(254 72% 43%)
+- Roxo Magenta: hsl(275 70% 40%)
 - Azul Escuro: #1c2431 -> hsl(217 29% 15%)
 */
 
@@ -24,16 +24,16 @@ New Palette:
     --popover: 0 0% 100%;
     --popover-foreground: 217 29% 15%;
 
-    --primary: 198 100% 50%;
+    --primary: 204 88% 34%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 254 100% 62%;
+    --secondary: 254 72% 43%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 210 40% 96%;
     --muted-foreground: 217 20% 45%;
 
-    --accent: 275 85% 60%;
+    --accent: 275 70% 40%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -41,38 +41,38 @@ New Palette:
 
     --border: 214 32% 91%;
     --input: 214 32% 91%;
-    --ring: 198 100% 50%;
+    --ring: 204 88% 34%;
 
     --radius: 0.75rem;
 
     /* Brand colors */
-    --cyan-light: 198 100% 50%;
-    --blue-medium: 212 100% 50%;
-    --purple-medium: 254 100% 62%;
-    --purple-magenta: 275 85% 60%;
+    --cyan-light: 204 88% 34%;
+    --blue-medium: 216 86% 38%;
+    --purple-medium: 254 72% 43%;
+    --purple-magenta: 275 70% 40%;
     --blue-dark: 217 29% 15%;
 
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(198 100% 50%), hsl(254 100% 62%));
+    --gradient-hero: linear-gradient(135deg, hsl(204 88% 34%), hsl(254 72% 43%));
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 40% 98%));
-    --gradient-accent: linear-gradient(135deg, hsl(198 100% 50%), hsl(212 100% 50%));
-    --gradient-purple: linear-gradient(135deg, hsl(254 100% 62%), hsl(275 85% 60%));
-    --gradient-brand: linear-gradient(135deg, hsl(198 100% 50%), hsl(254 100% 62%), hsl(275 85% 60%));
+    --gradient-accent: linear-gradient(135deg, hsl(204 88% 34%), hsl(216 86% 38%));
+    --gradient-purple: linear-gradient(135deg, hsl(254 72% 43%), hsl(275 70% 40%));
+    --gradient-brand: linear-gradient(135deg, hsl(204 88% 34%), hsl(254 72% 43%), hsl(275 70% 40%));
     
     /* Shadows */
     --shadow-soft: 0 2px 16px -4px hsl(217 29% 15% / 0.08);
     --shadow-strong: 0 8px 32px -8px hsl(217 29% 15% / 0.15);
-    --shadow-blue: 0 0 24px hsl(198 100% 50% / 0.2);
-    --shadow-purple: 0 0 24px hsl(254 100% 62% / 0.2);
+    --shadow-blue: 0 0 24px hsl(204 88% 34% / 0.2);
+    --shadow-purple: 0 0 24px hsl(254 72% 43% / 0.2);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 217 29% 15%;
-    --sidebar-primary: 198 100% 50%;
+    --sidebar-primary: 204 88% 34%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 210 40% 96%;
     --sidebar-accent-foreground: 217 29% 15%;
     --sidebar-border: 214 32% 91%;
-    --sidebar-ring: 198 100% 50%;
+    --sidebar-ring: 204 88% 34%;
   }
 
   .dark {
@@ -85,16 +85,16 @@ New Palette:
     --popover: 217 29% 13%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 198 100% 50%;
+    --primary: 204 88% 34%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 254 100% 62%;
+    --secondary: 254 72% 43%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 217 25% 20%;
     --muted-foreground: 210 20% 65%;
 
-    --accent: 275 85% 60%;
+    --accent: 275 70% 40%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -102,36 +102,36 @@ New Palette:
 
     --border: 217 25% 22%;
     --input: 217 25% 22%;
-    --ring: 198 100% 50%;
+    --ring: 204 88% 34%;
 
     /* Brand colors */
-    --cyan-light: 198 100% 50%;
-    --blue-medium: 212 100% 50%;
-    --purple-medium: 254 100% 62%;
-    --purple-magenta: 275 85% 60%;
+    --cyan-light: 204 88% 34%;
+    --blue-medium: 216 86% 38%;
+    --purple-medium: 254 72% 43%;
+    --purple-magenta: 275 70% 40%;
     --blue-dark: 217 29% 15%;
 
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(198 100% 50%), hsl(254 100% 62%));
+    --gradient-hero: linear-gradient(135deg, hsl(204 88% 34%), hsl(254 72% 43%));
     --gradient-card: linear-gradient(145deg, hsl(217 29% 13%), hsl(217 25% 20%));
-    --gradient-accent: linear-gradient(135deg, hsl(198 100% 50%), hsl(212 100% 50%));
-    --gradient-purple: linear-gradient(135deg, hsl(254 100% 62%), hsl(275 85% 60%));
-    --gradient-brand: linear-gradient(135deg, hsl(198 100% 50%), hsl(254 100% 62%), hsl(275 85% 60%));
+    --gradient-accent: linear-gradient(135deg, hsl(204 88% 34%), hsl(216 86% 38%));
+    --gradient-purple: linear-gradient(135deg, hsl(254 72% 43%), hsl(275 70% 40%));
+    --gradient-brand: linear-gradient(135deg, hsl(204 88% 34%), hsl(254 72% 43%), hsl(275 70% 40%));
     
     /* Shadows */
     --shadow-soft: 0 2px 16px -4px hsl(0 0% 0% / 0.2);
     --shadow-strong: 0 8px 32px -8px hsl(0 0% 0% / 0.4);
-    --shadow-blue: 0 0 24px hsl(198 100% 50% / 0.25);
-    --shadow-purple: 0 0 24px hsl(254 100% 62% / 0.25);
+    --shadow-blue: 0 0 24px hsl(204 88% 34% / 0.25);
+    --shadow-purple: 0 0 24px hsl(254 72% 43% / 0.25);
 
     --sidebar-background: 217 29% 8%;
     --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 198 100% 50%;
+    --sidebar-primary: 204 88% 34%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 217 25% 18%;
     --sidebar-accent-foreground: 210 40% 98%;
     --sidebar-border: 217 25% 20%;
-    --sidebar-ring: 198 100% 50%;
+    --sidebar-ring: 204 88% 34%;
   }
 }
 
@@ -159,5 +159,15 @@ New Palette:
 @media (max-width: 420px) and (max-height: 700px) {
   .hero-ticker {
     display: none;
+  }
+}
+
+@layer base {
+  [hidden] { display: none !important; }
+  :focus-visible { outline: 3px solid hsl(var(--primary)); outline-offset: 4px; }
+  [id] { scroll-margin-top: 7rem; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   }
 }

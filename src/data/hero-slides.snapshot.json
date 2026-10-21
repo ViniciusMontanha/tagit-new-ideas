@@ -1,0 +1,90 @@
+[
+  {
+    "id": "slide-1",
+    "title": "Mais visibilidade sobre seus ativos",
+    "description": "Mais controle, menos perdas e decisões mais rápidas para empresas e para você com tecnologia de localização inteligente.",
+    "image": "https://tagit-new-ideas-vincius-medeiros-s-projects.vercel.app/api/github-image?path=public%2Fcarousel%2Fslide-1-1775002282608-black-tag-sfundo.webp&v=1778283061674-slide-1",
+    "imageAlt": "Mais visibilidade sobre seus ativos",
+    "primaryCtaLabel": "PARA EMPRESAS",
+    "primaryCtaHref": "/para-empresas",
+    "secondaryCtaLabel": "PARA VOCÊ",
+    "secondaryCtaHref": "/para-voce"
+  },
+  {
+    "id": "slide-2",
+    "title": "Consulte a localização dos seus ativos",
+    "description": "Acompanhe movimentações, receba alertas e aja rápido para reduzir perdas e atrasos na operação.",
+    "image": "https://tagit-new-ideas-vincius-medeiros-s-projects.vercel.app/api/github-image?path=public%2Fcarousel%2Fslide-2-1773792644027-carrosel1.webp&v=1778283061674-slide-2",
+    "imageAlt": "Plataforma Tag It para localização inteligente de ativos",
+    "primaryCtaLabel": "Falar pelo WhatsApp",
+    "primaryCtaHref": "https://wa.me/5516997021741?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20Tag%20It.",
+    "secondaryCtaLabel": "VER PARA VOCÊ",
+    "secondaryCtaHref": "/para-voce"
+  },
+  {
+    "id": "slide-1773783212801",
+    "title": "Localização com instalação simples",
+    "description": "Fixe a tag, ative o dispositivo e consulte a localização disponível. A equipe orienta a configuração e avalia com você as condições de uso.",
+    "image": "https://tagit-new-ideas-vincius-medeiros-s-projects.vercel.app/api/github-image?path=public%2Fcarousel%2Fslide-1773783212801-1778283080738-tagit_agro.webp&v=1778283089487",
+    "imageAlt": "Controle seus ativos sem instalação!",
+    "primaryCtaLabel": "Falar pelo WhatsApp",
+    "primaryCtaHref": "https://wa.me/5516997021741?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20Tag%20It.",
+    "secondaryCtaLabel": "VER PARA SUA EMPRESA",
+    "secondaryCtaHref": "/para-empresas"
+  },
+  {
+    "id": "slide-1775007500261",
+    "title": "Localização inteligente para ativos em campo",
+    "description": "Reduza perdas, aumente a visibilidade e proteja equipamentos essenciais em qualquer etapa da operação.",
+    "image": "https://tagit-new-ideas-vincius-medeiros-s-projects.vercel.app/api/github-image?path=public%2Fcarousel%2Fslide-1775007500261-1775007844449-ad02--construo-civil-tagit-5.webp&v=1778283061674-slide-1775007500261",
+    "imageAlt": "Localização inteligente para ativos em campo",
+    "primaryCtaLabel": "VER PARA SUA EMPRESA",
+    "primaryCtaHref": "/para-empresas",
+    "secondaryCtaLabel": "Falar pelo WhatsApp",
+    "secondaryCtaHref": "https://wa.me/5516997021741?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20Tag%20It."
+  },
+  {
+    "id": "slide-1775008049163",
+    "title": "Menos perdas. Mais controle operacional.",
+    "description": "Localize, proteja e monitore geradores e equipamentos com mais segurança, visibilidade e agilidade na operação.",
+    "image": "https://tagit-new-ideas-vincius-medeiros-s-projects.vercel.app/api/github-image?path=public%2Fcarousel%2Fslide-1775008049163-1775008542939-ad03--construo-civil-tagit.webp&v=1778283061674-slide-1775008049163",
+    "imageAlt": "Menos perdas. Mais controle operacional.",
+    "primaryCtaLabel": "VER PARA SUA EMPRESA",
+    "primaryCtaHref": "/para-empresas",
+    "secondaryCtaLabel": "Falar pelo WhatsApp",
+    "secondaryCtaHref": "https://wa.me/5516997021741?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20Tag%20It."
+  },
+  {
+    "id": "slide-1775931760620",
+    "title": "Nossas tags têm bateria de alta durabilidade",
+    "description": "Bateria que dura até 12 meses sem precisar recarregar (Standby).",
+    "image": "https://tagit-new-ideas-vincius-medeiros-s-projects.vercel.app/api/github-image?path=public%2Fcarousel%2Fslide-1775931760620-1775932758632-novatag.webp&v=1778283061674-slide-1775931760620",
+    "imageAlt": "Tag It",
+    "primaryCtaLabel": "Falar pelo WhatsApp",
+    "primaryCtaHref": "https://wa.me/5516997021741?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20Tag%20It.",
+    "secondaryCtaLabel": "Falar pelo WhatsApp",
+    "secondaryCtaHref": "https://wa.me/5516997021741?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20Tag%20It."
+  },
+  {
+    "id": "slide-1775932979552",
+    "title": "Você já pensou em localizar seus equipamentos com uma tag?",
+    "description": "Tag de apenas 3cm! Tecnologia de localização inteligente, para monitorar máquinas e equipamentos com precisão e baixo custo.",
+    "image": "https://tagit-new-ideas-vincius-medeiros-s-projects.vercel.app/api/github-image?path=public%2Fcarousel%2Fslide-1775932979552-1778283460816-publico-b2b---clnicos.webp&v=1778283469477",
+    "imageAlt": "Você já pensou em localizar seus equipamentos com uma tag?",
+    "primaryCtaLabel": "VER PARA SUA EMPRESA",
+    "primaryCtaHref": "/para-empresas",
+    "secondaryCtaLabel": "Falar pelo WhatsApp",
+    "secondaryCtaHref": "https://wa.me/5516997021741?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20Tag%20It."
+  },
+  {
+    "id": "slide-1775933556038",
+    "title": "Grandes eventos não permitem erros operacionais",
+    "description": "Controle seus equipamentos e evite falhas críticas. Mais Visibilidade e eficiência na operação.",
+    "image": "https://tagit-new-ideas-vincius-medeiros-s-projects.vercel.app/api/github-image?path=public%2Fcarousel%2Fslide-1775933556038-1775933735894-ad02-2.webp&v=1778283061674-slide-1775933556038",
+    "imageAlt": "Grandes eventos não permitem erros operacionais",
+    "primaryCtaLabel": "VER PARA SUA EMPRESA",
+    "primaryCtaHref": "/para-empresas",
+    "secondaryCtaLabel": "Falar pelo WhatsApp",
+    "secondaryCtaHref": "https://wa.me/5516997021741?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20Tag%20It."
+  }
+]

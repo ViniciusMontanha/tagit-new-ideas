@@ -20,7 +20,7 @@ test('dados estruturados usam contato e endereço oficiais, sem avaliações nã
 });
 
 test('HTML publicado contém metadados por página e sitemap XML',async()=>{
- const home=await readFile('dist/index.html','utf8');const empresas=await readFile('dist/para-empresas/index.html','utf8');
+ const home=await readFile('dist/index.html','utf8');const empresas=await readFile('dist/para-empresas.html','utf8');
  assert.ok(home.includes('<title>Tag It |'));assert.ok(empresas.includes('href="https://tagit.com.br/para-empresas"'));
  assert.ok(empresas.includes('<title>Localização de ativos para empresas | Tag It</title>'));
  assert.ok((await readFile('dist/sitemap.xml','utf8')).includes('<loc>https://tagit.com.br/para-voce</loc>'));

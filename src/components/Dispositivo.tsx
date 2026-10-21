@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { DeviceTechnicalSheet } from "@/components/DeviceTechnicalSheet";
 import { deviceTechnicalSheets } from "@/data/deviceTechnicalSheets";
@@ -91,11 +90,7 @@ export const Dispositivo = () => {
       itemType="https://schema.org/Service"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
+        <div
           className="text-center mb-10 sm:mb-12"
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-medium text-primary mb-4">
@@ -114,16 +109,12 @@ export const Dispositivo = () => {
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto" itemProp="description">
             Compare as especificações da Mini Tag e da Ultra Tag 30 para escolher o modelo adequado ao seu uso.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-6xl mx-auto">
           {dispositivoHighlights.map((item, index) => (
-            <motion.div
+            <div
               key={item.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-              viewport={{ once: true }}
             >
               <Card className="h-full p-5 sm:p-6 md:p-7 border-border/80 bg-card/85 backdrop-blur-sm hover:border-primary/30 hover:shadow-soft transition-all duration-300">
                 <div className="flex items-start gap-4">
@@ -137,18 +128,14 @@ export const Dispositivo = () => {
                   </div>
                 </div>
               </Card>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto mt-10 sm:mt-14">
           {deviceSpecs.map((spec, index) => (
-            <motion.div
+            <div
               key={spec.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: index * 0.06 }}
-              viewport={{ once: true }}
             >
               <div className="flex items-start gap-4">
                 <div className="rounded-xl bg-gradient-to-br from-primary to-secondary p-3 shadow-soft shrink-0">
@@ -160,7 +147,7 @@ export const Dispositivo = () => {
                   <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">{spec.description}</p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 

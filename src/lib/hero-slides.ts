@@ -1,4 +1,4 @@
-import { normalizeCompanyLink } from "@/lib/contact";
+import { normalizePublicSlide } from "@/lib/hero-content.js";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 
 export type HeroSlide = {
@@ -41,14 +41,7 @@ const appendCacheBuster = (url: string, token: string): string => {
   catch { return url; }
 };
 
-const normalizeSlide = (slide: HeroSlide): HeroSlide => ({
-  ...slide,
-  title: slide.title.replace("Nossas tags tem", "Nossas tags têm"),
-  primaryCtaHref: normalizeCompanyLink(slide.primaryCtaHref),
-  secondaryCtaHref: normalizeCompanyLink(slide.secondaryCtaHref),
-  image: stableImageUrl(slide.image),
-  imageAlt: /GPS|banheiros químico/i.test(slide.imageAlt) ? slide.title : slide.imageAlt,
-});
+const normalizeSlide = (slide: HeroSlide): HeroSlide => normalizePublicSlide(slide);
 
 // Conserva somente a versão mais recente já salva. Não muda a URL a cada visita.
 function stableImageUrl(value: string): string {

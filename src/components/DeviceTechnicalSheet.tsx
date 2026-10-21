@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Image as ImageIcon, type LucideIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
@@ -17,14 +16,10 @@ export type DeviceTechnicalSheetData = {
 };
 
 export const DeviceTechnicalSheet = ({ sheet }: { sheet: DeviceTechnicalSheetData }) => (
-  <motion.div
+  <div
     id={sheet.id}
     role="region"
     aria-labelledby={`${sheet.id}-heading`}
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6 }}
-    viewport={{ once: true }}
     className="max-w-6xl mx-auto mt-12 sm:mt-16 scroll-mt-28"
   >
     <Card className="p-6 md:p-8 border-border/80 bg-card/90 backdrop-blur-sm">
@@ -39,12 +34,8 @@ export const DeviceTechnicalSheet = ({ sheet }: { sheet: DeviceTechnicalSheetDat
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         {sheet.sections.map((section, sectionIndex) => (
-          <motion.div
+          <div
             key={`${sheet.id}-${sectionIndex}`}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: sectionIndex * 0.08 }}
-            viewport={{ once: true }}
           >
             <Card className="h-full p-5 border-border/70 bg-background/85">
               <div className="flex items-center gap-2 mb-4">
@@ -65,15 +56,11 @@ export const DeviceTechnicalSheet = ({ sheet }: { sheet: DeviceTechnicalSheetDat
                 ))}
               </div>
             </Card>
-          </motion.div>
+          </div>
         ))}
 
         {sheet.images.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.2 }}
-            viewport={{ once: true }}
+          <div
           >
             <Card className="h-full p-5 border-border/70 bg-background/85">
               <div className="flex items-center gap-2 mb-4">
@@ -96,7 +83,7 @@ export const DeviceTechnicalSheet = ({ sheet }: { sheet: DeviceTechnicalSheetDat
                 ))}
               </div>
             </Card>
-          </motion.div>
+          </div>
         )}
       </div>
       {sheet.notes && sheet.notes.length > 0 && (
@@ -105,5 +92,5 @@ export const DeviceTechnicalSheet = ({ sheet }: { sheet: DeviceTechnicalSheetDat
         </div>
       )}
     </Card>
-  </motion.div>
+  </div>
 );
